@@ -37,9 +37,9 @@ void setup()
 void loop()
 {
   //Only for testing the HardwareControl class
-  mControl = new HardwareControl();
-  mControl->GetCoin10Button();
-  mControl->SetCoin10(101);
-  delete mControl;
+//  mControl = new HardwareControl();
+//  mControl->GetCoin10Button();
+//  mControl->SetCoin10(101);
+//  delete mControl;
 }
 
