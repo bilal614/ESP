@@ -15,6 +15,11 @@ public:
   virtual void SetCoin10(int leds) = 0;
   virtual void SetCoin50(int leds) = 0;
   virtual void SetCoin200(int leds) = 0;
+
+  virtual void ClearCoin10(int leds) = 0;
+  virtual void ClearCoin50(int leds) = 0;
+  virtual void ClearCoin200(int leds) = 0;
+  virtual boolean GetClearButton() = 0;
 };
 
 #endif

@@ -20,6 +20,7 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     boolean GetCoin10Button();
     boolean GetCoin50Button();
     boolean GetCoin200Button();
+    boolean GetClearButton();
     boolean GetStartButton();
     int GetTemperature();
 
@@ -32,6 +33,9 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     void SetCoin50(int leds);
     void SetCoin10(int leds);
     void SetCoin200(int leds);
+    void ClearCoin10(int leds);
+    void ClearCoin50(int leds);
+    void ClearCoin200(int leds);
   private:
     Centipede centipede;
     void SetKeySelect(int value);

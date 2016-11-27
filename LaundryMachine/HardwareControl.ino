@@ -61,26 +61,25 @@ boolean HardwareControl::GetCoin10Button()
     return false;
 }
 
+/*
+   Set the nr of leds on based on the nr of coins
+*/
 void HardwareControl::SetCoin10(int leds)
 {
+  centipede.digitalWrite(OUT_GROUP2, LOW);
+  centipede.digitalWrite(OUT_GROUP1, LOW);
   switch ( leds ) {
     case 1:
-      centipede.digitalWrite(OUT_GROUP2, LOW);
-      centipede.digitalWrite(OUT_GROUP1, LOW);
       centipede.digitalWrite(OUT_DATAC, LOW);
       centipede.digitalWrite(OUT_DATAB, LOW);
       centipede.digitalWrite(OUT_DATAA, HIGH);
       break;
     case 2:
-      centipede.digitalWrite(OUT_GROUP2, LOW);
-      centipede.digitalWrite(OUT_GROUP1, LOW);
       centipede.digitalWrite(OUT_DATAC, LOW);
       centipede.digitalWrite(OUT_DATAB, HIGH);
       centipede.digitalWrite(OUT_DATAA, LOW);
       break;
     case 3:
-      centipede.digitalWrite(OUT_GROUP2, LOW);
-      centipede.digitalWrite(OUT_GROUP1, LOW);
       centipede.digitalWrite(OUT_DATAC, HIGH);
       centipede.digitalWrite(OUT_DATAB, LOW);
       centipede.digitalWrite(OUT_DATAA, LOW);
@@ -91,23 +90,86 @@ void HardwareControl::SetCoin10(int leds)
 
 boolean HardwareControl::GetCoin50Button()
 {
-
+  if (centipede.digitalRead(IN_IN2))
+  {
+    return true;
+  }
+  else
+    return false;
 }
 
 void HardwareControl::SetCoin50(int leds)
 {
-
+  centipede.digitalWrite(OUT_GROUP2, LOW);
+  centipede.digitalWrite(OUT_GROUP1, HIGH);
+  switch ( leds ) {
+    case 1:
+      centipede.digitalWrite(OUT_DATAC, LOW);
+      centipede.digitalWrite(OUT_DATAB, LOW);
+      centipede.digitalWrite(OUT_DATAA, HIGH);
+      break;
+    case 2:
+      centipede.digitalWrite(OUT_DATAC, LOW);
+      centipede.digitalWrite(OUT_DATAB, HIGH);
+      centipede.digitalWrite(OUT_DATAA, LOW);
+      break;
+    case 3:
+      centipede.digitalWrite(OUT_DATAC, HIGH);
+      centipede.digitalWrite(OUT_DATAB, LOW);
+      centipede.digitalWrite(OUT_DATAA, LOW);
+    default:
+      break;
+  }
 }
 
 boolean HardwareControl::GetCoin200Button()
 {
-
+  if (centipede.digitalRead(IN_IN1))
+  {
+    return true;
+  }
+  else
+    return false;
 }
 
 void HardwareControl::SetCoin200(int leds)
 {
-
+  centipede.digitalWrite(OUT_GROUP2, HIGH);
+  centipede.digitalWrite(OUT_GROUP1, LOW);
+  switch ( leds ) {
+    case 1:
+      centipede.digitalWrite(OUT_DATAC, LOW);
+      centipede.digitalWrite(OUT_DATAB, LOW);
+      centipede.digitalWrite(OUT_DATAA, HIGH);
+      break;
+    case 2:
+      centipede.digitalWrite(OUT_DATAC, LOW);
+      centipede.digitalWrite(OUT_DATAB, HIGH);
+      centipede.digitalWrite(OUT_DATAA, LOW);
+      break;
+    default:
+      break;
+  }
 }
+
+boolean HardwareControl::GetClearButton()
+{
+  if (centipede.digitalRead(IN_IN3) && centipede.digitalRead(IN_IN2) && centipede.digitalRead(IN_IN3))
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+void HardwareControl:: ClearCoin10(int leds)
+{}
+void HardwareControl:: ClearCoin50(int leds)
+{}
+void HardwareControl:: ClearCoin200(int leds)
+{}
 
 boolean HardwareControl::GetStartButton()
 {
