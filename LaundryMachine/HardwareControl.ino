@@ -31,6 +31,7 @@ HardwareControl::HardwareControl()
   {
     centipede.pinMode(i, OUTPUT);
   }
+  
   centipede.digitalWrite(OUT_GROUP2, LOW);
   centipede.digitalWrite(OUT_GROUP1, LOW);
   centipede.digitalWrite(OUT_STROBE, LOW);
@@ -47,6 +48,7 @@ HardwareControl::HardwareControl()
   centipede.digitalWrite(OUT_SINK, LOW);
   centipede.digitalWrite(OUT_DRAIN, LOW);
   centipede.digitalWrite(OUT_LOCK, LOW);
+  
 }
 
 ///***IPROGRAM & ICOIN **///

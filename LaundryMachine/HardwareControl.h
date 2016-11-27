@@ -22,6 +22,8 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     boolean GetCoin200Button();
     boolean GetStartButton();
     int GetTemperature();
+    boolean GetLockStatus(); 
+    boolean GetSoapCptStatus();
 
     // Outputs
     void SetBuzzer(int level);
@@ -32,6 +34,11 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     void SetCoin50(int leds);
     void SetCoin10(int leds);
     void SetCoin200(int leds);
+    boolean LockDoor(boolean &lockStatus);
+    boolean UnlockDoor(boolean &lockStatus);
+    boolean LockSoapCpt();
+    boolean UnlockSoapCpt();
+    
   private:
     Centipede centipede;
     void SetKeySelect(int value);
