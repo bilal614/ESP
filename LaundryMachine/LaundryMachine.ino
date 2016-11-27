@@ -32,14 +32,18 @@ static ProgramExecutor * mProgramExecutor;
 
 void setup()
 {
+  Serial.begin(9600);
+  mControl = new HardwareControl();
 }
 
 void loop()
 {
   //Only for testing the HardwareControl class
-//  mControl = new HardwareControl();
-//  mControl->GetCoin10Button();
-//  mControl->SetCoin10(101);
-//  delete mControl;
+  if (mControl->GetCoin10Button())
+  {
+    Serial.println("Button coin 10 is pressed");
+    mControl->SetCoin10(0);
+  }
+  //delete mControl;
 }
 

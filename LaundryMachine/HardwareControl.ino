@@ -27,7 +27,7 @@ HardwareControl::HardwareControl()
 {
   Wire.begin(); // start I2C
   centipede.initialize(); // set all registers to default
-  for (int i = 0; i <= 15; i++) 
+  for (int i = 0; i <= 15; i++)
   {
     centipede.pinMode(i, OUTPUT);
   }
@@ -47,61 +47,66 @@ HardwareControl::HardwareControl()
   centipede.digitalWrite(OUT_SINK, LOW);
   centipede.digitalWrite(OUT_DRAIN, LOW);
   centipede.digitalWrite(OUT_LOCK, LOW);
+  Serial.println("Construtor is called");
 }
 
 ///***IPROGRAM & ICOIN **///
 boolean HardwareControl::GetCoin10Button()
 {
-  int dataA = centipede.digitalRead(OUT_DATAA);
-  int dataB = centipede.digitalRead(OUT_DATAB);
-  int dataC = centipede.digitalRead(OUT_DATAC);
-  int group1 = centipede.digitalRead(OUT_GROUP1);
-  int group2 = centipede.digitalRead(OUT_GROUP2);
-  
-  if(dataA == 0 && dataB == 0 && dataC == 1 && group1 == 0 && group2 == 0)
+  if (centipede.digitalRead(IN_IN3))
   {
     return true;
   }
-  return false;
+  else
+    return false;
 }
 
 void HardwareControl::SetCoin10(int leds)
 {
-  centipede.digitalWrite(leds, HIGH);
+  switch ( leds ) {
+    case 1:
+      centipede.digitalWrite(OUT_GROUP2, LOW);
+      centipede.digitalWrite(OUT_GROUP1, LOW);
+      centipede.digitalWrite(OUT_DATAC, LOW);
+      centipede.digitalWrite(OUT_DATAB, LOW);
+      centipede.digitalWrite(OUT_DATAA, HIGH);
+      break;
+    case 2:
+      centipede.digitalWrite(OUT_GROUP2, LOW);
+      centipede.digitalWrite(OUT_GROUP1, LOW);
+      centipede.digitalWrite(OUT_DATAC, LOW);
+      centipede.digitalWrite(OUT_DATAB, HIGH);
+      centipede.digitalWrite(OUT_DATAA, LOW);
+      break;
+    case 3:
+      centipede.digitalWrite(OUT_GROUP2, LOW);
+      centipede.digitalWrite(OUT_GROUP1, LOW);
+      centipede.digitalWrite(OUT_DATAC, HIGH);
+      centipede.digitalWrite(OUT_DATAB, LOW);
+      centipede.digitalWrite(OUT_DATAA, LOW);
+    default:
+      break;
+  }
 }
 
 boolean HardwareControl::GetCoin50Button()
 {
-  int dataA = centipede.digitalRead(OUT_DATAA);
-  int dataB = centipede.digitalRead(OUT_DATAB);
-  int dataC = centipede.digitalRead(OUT_DATAC);
-  if(dataA == 0 && dataB == 0 && dataC == 1)
-  {
-    return true;
-  }
-  return false;
+
 }
 
 void HardwareControl::SetCoin50(int leds)
 {
-  
+
 }
 
 boolean HardwareControl::GetCoin200Button()
 {
-  int dataA = centipede.digitalRead(OUT_DATAA);
-  int dataB = centipede.digitalRead(OUT_DATAB);
-  int dataC = centipede.digitalRead(OUT_DATAC);
-  if(dataA == 0 && dataB == 0 && dataC == 1)
-  {
-    return true;
-  }
-  return false;
+
 }
 
 void HardwareControl::SetCoin200(int leds)
 {
-  
+
 }
 
 boolean HardwareControl::GetStartButton()
