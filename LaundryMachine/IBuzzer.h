@@ -4,7 +4,11 @@
 class IBuzzer
 {
 public:
-  virtual void SetBuzzer(int level) = 0;
+  //input
+  virtual void SetBuzzer() = 0;
+  
+  //output  
+  virtual boolean buzzerOn() = 0;
 };
 
 #endif
