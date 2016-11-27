@@ -32,14 +32,54 @@ static ProgramExecutor * mProgramExecutor;
 
 void setup()
 {
+  Serial.begin(9600);
+  mControl = new HardwareControl();
 }
 
 void loop()
 {
   //Only for testing the HardwareControl class
-  mControl = new HardwareControl();
-  mControl->GetCoin10Button();
-  mControl->SetCoin10(101);
-  delete mControl;
+  //  if (mControl->GetCoin10Button())
+  //  {
+  //    Serial.println("Button coin 10 is pressed");
+  //    mControl->SetCoin10(1);
+  //  }
+  //  if (mControl->GetCoin10Button())
+  //  {
+  //    Serial.println("Button coin 10 is pressed");
+  //    mControl->SetCoin10(2);
+  //  }
+  //  if (mControl->GetCoin10Button())
+  //  {
+  //    Serial.println("Button coin 10 is pressed");
+  //    mControl->SetCoin10(3);
+  //  }
+  //  if (mControl->GetCoin50Button())
+  //  {
+  //    Serial.println("Button coin 50 is pressed");
+  //    mControl->SetCoin50(1);
+  //  }
+  //  if (mControl->GetCoin50Button())
+  //  {
+  //    Serial.println("Button coin 50 is pressed");
+  //    mControl->SetCoin50(2);
+  //  }
+  //  if (mControl->GetCoin50Button())
+  //  {
+  //    Serial.println("Button coin 50 is pressed");
+  //    mControl->SetCoin50(3);
+  //  }
+//  if (mControl->GetCoin200Button())
+//  {
+//    Serial.println("Button coin 200 is pressed");
+//    mControl->SetCoin200(1);
+//  }
+    if (mControl->GetCoin200Button())
+    {
+      Serial.println("Button coin 200 is pressed");
+      mControl->SetCoin200(2);
+    }
+  //delete mControl;
 }
+
 
