@@ -16,42 +16,66 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
 {
   public:
     HardwareControl();
-    // Inputs
+    /* ICoin */
+    //inputs 
     boolean GetCoin10Button();
     boolean GetCoin50Button();
     boolean GetCoin200Button();
     boolean GetClearButton();
-    boolean GetStartButton();
-    int GetTemperature();
-    boolean GetLockStatus();
-    boolean GetSoapCptStatus();
-    // Outputs
-    void SetBuzzer();
-    boolean buzzerOn();
-    void SetSoap2(int level);
-    void SetDrain(int level);
-    void SetDirection(int dir);
-    void SetProgramIndicator(int program);
+    //outputs
     void SetCoin50(int leds);
     void SetCoin10(int leds);
     void SetCoin200(int leds);
-    boolean LockDoor(boolean &lockStatus);
-    boolean UnlockDoor(boolean &lockStatus);
-    boolean LockSoapCpt();
-    boolean UnlockSoapCpt();
     void ClearCoin10(int leds);
     void ClearCoin50(int leds);
     void ClearCoin200(int leds);
+
+    /* ITemperature */
+    //inputs
+    int GetTemperature();
+    //outputs
+    void IncreaseTemperature();
+    void DecreaseTemperature();
+
+    /* ILock */
+    //inputs
+    boolean GetLockStatus();
+    //output
+    boolean LockDoor(boolean &lockStatus);
+    boolean UnlockDoor(boolean &lockStatus);
+
+    /* IBuzzer */
+    //inputs 
+    boolean buzzerOn();
+    //outputs
+    void SetBuzzer();
+    
+    /* IMotor */
     void SetSpeed(char mode);
     void SetAndTrackTime();
+    void SetDirection(int dir);
     void CheckLoadingLevel(int level);
     void StartMotor();
     void StopMotor();
-    void IncreaseTemperature();
-    void DecreaseTemperature();
+        
+    /* IProgram */
+    boolean GetStartButton();
+    void SetProgramIndicator(int program);
+    
+    /* IWater */
     void SetWaterLevel(int level);
     bool CheckWaterLevel();
     void SinkWater();
+    void SetDrain(int level);
+        
+    /* ISoap */
+    //inputs
+    boolean GetSoap1();
+    boolean GetSoap2();
+    //output
+    void SetSoap1(boolean On);
+    void SetSoap2(boolean On);
+
   private:
     Centipede centipede;
     void SetKeySelect(int value);

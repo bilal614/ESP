@@ -54,13 +54,16 @@ HardwareControl::HardwareControl()
 ///***IPROGRAM & ICOIN **///
 boolean HardwareControl::GetCoin10Button()
 {
-
+  boolean value = false;
   if (centipede.digitalRead(IN_IN3))
   {
-    return true;
+    delay(200);
+    if(!centipede.digitalRead(IN_IN3))
+    {
+      value = true;
+    }
   }
-  else
-    return false;
+  return value;
 }
 
 /*
@@ -92,12 +95,16 @@ void HardwareControl::SetCoin10(int leds)
 
 boolean HardwareControl::GetCoin50Button()
 {
+    boolean value = false;
   if (centipede.digitalRead(IN_IN2))
   {
-    return true;
+    delay(200);
+    if(!centipede.digitalRead(IN_IN2))
+    {
+      value = true;
+    }
   }
-  else
-    return false;
+  return value;
 }
 
 void HardwareControl::SetCoin50(int leds)
@@ -126,12 +133,16 @@ void HardwareControl::SetCoin50(int leds)
 
 boolean HardwareControl::GetCoin200Button()
 {
+  boolean value = false;
   if (centipede.digitalRead(IN_IN1))
   {
-    return true;
+    delay(200);
+    if(!centipede.digitalRead(IN_IN1))
+    {
+      value = true;
+    }
   }
-  else
-    return false;
+  return value;
 }
 
 void HardwareControl::SetCoin200(int leds)
@@ -156,14 +167,16 @@ void HardwareControl::SetCoin200(int leds)
 
 boolean HardwareControl::GetClearButton()
 {
+  boolean value = false;
   if (centipede.digitalRead(IN_IN3) && centipede.digitalRead(IN_IN2) && centipede.digitalRead(IN_IN3))
   {
-    return true;
+    delay(200);
+    if (!centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN3))
+    {
+      value = true;
+    }
   }
-  else
-  {
-    return false;
-  }
+  return value;
 }
 
 void HardwareControl:: ClearCoin10(int leds)
@@ -184,9 +197,19 @@ int HardwareControl::GetTemperature()
 }
 
 
+void HardwareControl::SetSoap1(boolean On)
+{
+  if(On)
+  {
+    centipede.digitalWrite(OUT_SOAP1, HIGH);
+  }
+  if(!On)
+  {
+    centipede.digitalWrite(OUT_SOAP1, LOW);
+  }
+}
 
-
-void HardwareControl::SetSoap2(int level)
+void HardwareControl::SetSoap2(boolean On)
 {
 }
 
@@ -231,17 +254,52 @@ boolean HardwareControl:: LockDoor(boolean &lockStatus)
 boolean HardwareControl:: UnlockDoor(boolean &lockStatus)
 {
 }
-boolean HardwareControl::LockSoapCpt()
-{
-}
-boolean HardwareControl::UnlockSoapCpt()
-{
-}
 void HardwareControl::SetSpeed(char mode)
 {
 }
-boolean HardwareControl::GetLockStatus(){}
-boolean HardwareControl::GetSoapCptStatus(){}
+boolean HardwareControl::GetLockStatus()
+{
+  if(centipede.digitalRead(OUT_KEYSELECT) == LOW)//key select must be low in order to interpret inputs from the switches 
+  {
+    if(centipede.digitalRead(IN_IN3))
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }  
+}
+
+boolean HardwareControl::GetSoap1()
+{
+  if(centipede.digitalRead(OUT_KEYSELECT) == LOW)//key select must be low in order to interpret inputs from the switches 
+  {
+    if(centipede.digitalRead(IN_IN1))
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+}
+boolean HardwareControl::GetSoap2()
+{
+  if(centipede.digitalRead(OUT_KEYSELECT) == LOW)//key select must be low in order to interpret inputs from the switches 
+  {
+    if(centipede.digitalRead(IN_IN2))
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }  
+}
 void HardwareControl::SetAndTrackTime() {}
 void HardwareControl::CheckLoadingLevel(int level) {}
 void HardwareControl::StartMotor() {}
