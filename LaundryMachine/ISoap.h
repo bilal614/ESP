@@ -5,11 +5,11 @@ class ISoap
 {
 public:
   // Inputs
-  virtual boolean GetSoapCptStatus() = 0;
+  virtual boolean GetSoap1() = 0;
+  virtual boolean GetSoap2() = 0;
   // Outputs
-  virtual void SetSoap2(int level) = 0;
-  virtual boolean LockSoapCpt() = 0;
-  virtual boolean UnlockSoapCpt() = 0;
+  virtual void SetSoap1(boolean On) = 0;
+  virtual void SetSoap2(boolean On) = 0;
 };
 
 #endif
