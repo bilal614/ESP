@@ -67,7 +67,7 @@ boolean HardwareControl::GetCoin10Button()
 }
 
 /*
-   Set the nr of leds on based on the nr of coins
+   Set the n-th led on base on the indicatior
 */
 void HardwareControl::SetCoin10(int leds)
 {
