@@ -196,7 +196,6 @@ int HardwareControl::GetTemperature()
   return (0);
 }
 
-
 void HardwareControl::SetSoap1(boolean On)
 {
   if(On)
@@ -211,6 +210,14 @@ void HardwareControl::SetSoap1(boolean On)
 
 void HardwareControl::SetSoap2(boolean On)
 {
+  if(On)
+  {
+    centipede.digitalWrite(OUT_GROUP2,HIGH); centipede.digitalWrite(OUT_DATAC,HIGH);
+  }
+  if(!On)
+  {
+    centipede.digitalWrite(OUT_GROUP2,LOW); centipede.digitalWrite(OUT_DATAC,LOW);
+  }
 }
 
 void HardwareControl::SetDrain(int level)
@@ -248,11 +255,6 @@ void HardwareControl::Strobe()
 {
 }
 
-boolean HardwareControl:: LockDoor(boolean &lockStatus)
-{
-}
-boolean HardwareControl:: UnlockDoor(boolean &lockStatus)
-{
 }
 void HardwareControl::SetSpeed(char mode)
 {
@@ -299,6 +301,45 @@ boolean HardwareControl::GetSoap2()
       return false;
     }
   }  
+}
+void HardwareControl::SetGroup(int group)
+{
+  if(group == 0)
+  {
+    digitalWrite(OUT_GROUP1, LOW);
+    digitalWrite(OUT_GROUP2, LOW);
+  }
+  if(group == 1)
+  {
+    digitalWrite(OUT_GROUP1, HIGH);
+    digitalWrite(OUT_GROUP2, LOW);    
+  }
+  if(group == 2)
+  {
+    digitalWrite(OUT_GROUP1, LOW);
+    digitalWrite(OUT_GROUP2, HIGH);    
+  }
+}
+void HardwareControl::SetData(int data)
+{
+  if(data == 0)
+  {
+    digitalWrite(OUT_DATAA, HIGH);
+    digitalWrite(OUT_DATAB, LOW);
+    digitalWrite(OUT_DATAC, LOW);
+  }
+  if(data == 1)
+  {
+    digitalWrite(OUT_DATAA, LOW);
+    digitalWrite(OUT_DATAB, HIGH);
+    digitalWrite(OUT_DATAC, LOW);
+  }
+  if(data == 2)
+  {
+    digitalWrite(OUT_DATAA, LOW);
+    digitalWrite(OUT_DATAB, LOW);
+    digitalWrite(OUT_DATAC, HIGH);    
+  }
 }
 void HardwareControl::SetAndTrackTime() {}
 void HardwareControl::CheckLoadingLevel(int level) {}
