@@ -23,8 +23,8 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     boolean GetCoin200Button();
     boolean GetClearButton();
     //outputs
+    void SetCoin10(byte firstCoin, byte secondCoin, byte thirdCoin);
     void SetCoin50(int leds);
-    void SetCoin10(int leds);
     void SetCoin200(int leds);
     void ClearCoin10(int leds);
     void ClearCoin50(int leds);

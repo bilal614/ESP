@@ -52,6 +52,13 @@ HardwareControl::HardwareControl()
 }
 
 ///***IPROGRAM & ICOIN **///
+void HardwareControl::Strobe()
+{
+  centipede.digitalWrite(OUT_STROBE, LOW);
+  delay(100);
+  centipede.digitalWrite(OUT_STROBE, HIGH);
+  delay(10);
+}
 boolean HardwareControl::GetCoin10Button()
 {
   boolean value = false;
@@ -69,27 +76,21 @@ boolean HardwareControl::GetCoin10Button()
 /*
    Set the n-th led on base on the indicatior
 */
-void HardwareControl::SetCoin10(int leds)
+void HardwareControl::SetCoin10(byte firstCoin, byte secondCoin, byte thirdCoin)
 {
-  centipede.digitalWrite(OUT_GROUP2, LOW);
-  centipede.digitalWrite(OUT_GROUP1, LOW);
-  switch ( leds ) {
-    case 1:
-      centipede.digitalWrite(OUT_DATAC, LOW);
-      centipede.digitalWrite(OUT_DATAB, LOW);
-      centipede.digitalWrite(OUT_DATAA, HIGH);
-      break;
-    case 2:
-      centipede.digitalWrite(OUT_DATAC, LOW);
-      centipede.digitalWrite(OUT_DATAB, HIGH);
-      centipede.digitalWrite(OUT_DATAA, LOW);
-      break;
-    case 3:
-      centipede.digitalWrite(OUT_DATAC, HIGH);
-      centipede.digitalWrite(OUT_DATAB, LOW);
-      centipede.digitalWrite(OUT_DATAA, LOW);
-    default:
-      break;
+  Strobe();
+  SetGroup(0);
+  if(firstCoin)
+  {
+    SetData(0);
+  }
+  if(secondCoin)
+  {
+    SetData(2);
+  }
+  if(thirdCoin)
+  {
+    SetData(3);
   }
 }
 
@@ -109,6 +110,7 @@ boolean HardwareControl::GetCoin50Button()
 
 void HardwareControl::SetCoin50(int leds)
 {
+  Strobe();
   centipede.digitalWrite(OUT_GROUP2, LOW);
   centipede.digitalWrite(OUT_GROUP1, HIGH);
   switch ( leds ) {
@@ -243,9 +245,7 @@ void HardwareControl::SetKeySelect(int value)
 {
 }
 
-void HardwareControl::Strobe()
-{
-}
+
 void HardwareControl::SetSpeed(char mode)
 {
 }
