@@ -61,8 +61,6 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     /* IProgram */
     boolean GetStartButton();
     void SetProgramIndicator(int program);
-    void SetGroup(int group);
-    void SetData(int data);
     
     /* IWater */
     void SetWaterLevel(int level);

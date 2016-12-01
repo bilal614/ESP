@@ -58,7 +58,7 @@ boolean HardwareControl::GetCoin10Button()
   if (centipede.digitalRead(IN_IN3))
   {
     delay(200);
-    if(!centipede.digitalRead(IN_IN3))
+    if (!centipede.digitalRead(IN_IN3))
     {
       value = true;
     }
@@ -95,11 +95,11 @@ void HardwareControl::SetCoin10(int leds)
 
 boolean HardwareControl::GetCoin50Button()
 {
-    boolean value = false;
+  boolean value = false;
   if (centipede.digitalRead(IN_IN2))
   {
     delay(200);
-    if(!centipede.digitalRead(IN_IN2))
+    if (!centipede.digitalRead(IN_IN2))
     {
       value = true;
     }
@@ -137,7 +137,7 @@ boolean HardwareControl::GetCoin200Button()
   if (centipede.digitalRead(IN_IN1))
   {
     delay(200);
-    if(!centipede.digitalRead(IN_IN1))
+    if (!centipede.digitalRead(IN_IN1))
     {
       value = true;
     }
@@ -198,11 +198,11 @@ int HardwareControl::GetTemperature()
 
 void HardwareControl::SetSoap1(boolean On)
 {
-  if(On)
+  if (On)
   {
     centipede.digitalWrite(OUT_SOAP1, HIGH);
   }
-  if(!On)
+  if (!On)
   {
     centipede.digitalWrite(OUT_SOAP1, LOW);
   }
@@ -210,13 +210,13 @@ void HardwareControl::SetSoap1(boolean On)
 
 void HardwareControl::SetSoap2(boolean On)
 {
-  if(On)
+  if (On)
   {
-    centipede.digitalWrite(OUT_GROUP2,HIGH); centipede.digitalWrite(OUT_DATAC,HIGH);
+    centipede.digitalWrite(OUT_GROUP2, HIGH); centipede.digitalWrite(OUT_DATAC, HIGH);
   }
-  if(!On)
+  if (!On)
   {
-    centipede.digitalWrite(OUT_GROUP2,LOW); centipede.digitalWrite(OUT_DATAC,LOW);
+    centipede.digitalWrite(OUT_GROUP2, LOW); centipede.digitalWrite(OUT_DATAC, LOW);
   }
 }
 
@@ -243,27 +243,17 @@ void HardwareControl::SetKeySelect(int value)
 {
 }
 
-void HardwareControl::SetGroup(int group)
-{
-}
-
-void HardwareControl::SetData(int data)
-{
-}
-
 void HardwareControl::Strobe()
 {
-}
-
 }
 void HardwareControl::SetSpeed(char mode)
 {
 }
 boolean HardwareControl::GetLockStatus()
 {
-  if(centipede.digitalRead(OUT_KEYSELECT) == LOW)//key select must be low in order to interpret inputs from the switches 
+  if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
   {
-    if(centipede.digitalRead(IN_IN3))
+    if (centipede.digitalRead(IN_IN3))
     {
       return true;
     }
@@ -271,14 +261,17 @@ boolean HardwareControl::GetLockStatus()
     {
       return false;
     }
-  }  
+  }
 }
 
+/*Added LockDoor & UnlockDoor for removing "undifined reference" errors*/
+boolean HardwareControl::LockDoor(boolean &lockStatus) {}
+boolean HardwareControl::UnlockDoor(boolean &lockStatus) {}
 boolean HardwareControl::GetSoap1()
 {
-  if(centipede.digitalRead(OUT_KEYSELECT) == LOW)//key select must be low in order to interpret inputs from the switches 
+  if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
   {
-    if(centipede.digitalRead(IN_IN1))
+    if (centipede.digitalRead(IN_IN1))
     {
       return true;
     }
@@ -290,9 +283,9 @@ boolean HardwareControl::GetSoap1()
 }
 boolean HardwareControl::GetSoap2()
 {
-  if(centipede.digitalRead(OUT_KEYSELECT) == LOW)//key select must be low in order to interpret inputs from the switches 
+  if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
   {
-    if(centipede.digitalRead(IN_IN2))
+    if (centipede.digitalRead(IN_IN2))
     {
       return true;
     }
@@ -300,45 +293,45 @@ boolean HardwareControl::GetSoap2()
     {
       return false;
     }
-  }  
+  }
 }
 void HardwareControl::SetGroup(int group)
 {
-  if(group == 0)
+  if (group == 0)
   {
     digitalWrite(OUT_GROUP1, LOW);
     digitalWrite(OUT_GROUP2, LOW);
   }
-  if(group == 1)
+  if (group == 1)
   {
     digitalWrite(OUT_GROUP1, HIGH);
-    digitalWrite(OUT_GROUP2, LOW);    
+    digitalWrite(OUT_GROUP2, LOW);
   }
-  if(group == 2)
+  if (group == 2)
   {
     digitalWrite(OUT_GROUP1, LOW);
-    digitalWrite(OUT_GROUP2, HIGH);    
+    digitalWrite(OUT_GROUP2, HIGH);
   }
 }
 void HardwareControl::SetData(int data)
 {
-  if(data == 0)
+  if (data == 0)
   {
     digitalWrite(OUT_DATAA, HIGH);
     digitalWrite(OUT_DATAB, LOW);
     digitalWrite(OUT_DATAC, LOW);
   }
-  if(data == 1)
+  if (data == 1)
   {
     digitalWrite(OUT_DATAA, LOW);
     digitalWrite(OUT_DATAB, HIGH);
     digitalWrite(OUT_DATAC, LOW);
   }
-  if(data == 2)
+  if (data == 2)
   {
     digitalWrite(OUT_DATAA, LOW);
     digitalWrite(OUT_DATAB, LOW);
-    digitalWrite(OUT_DATAC, HIGH);    
+    digitalWrite(OUT_DATAC, HIGH);
   }
 }
 void HardwareControl::SetAndTrackTime() {}
