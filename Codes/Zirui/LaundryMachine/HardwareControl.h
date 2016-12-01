@@ -22,7 +22,6 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     boolean GetCoin200Button();
     boolean GetClearButton();
     boolean GetStartButton();
-    int GetTemperature();
     boolean GetLockStatus();
     boolean GetSoapCptStatus();
     // Outputs
@@ -47,8 +46,7 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     void CheckLoadingLevel(int level);
     void StartMotor();
     void StopMotor();
-    void IncreaseTemperature();
-    void DecreaseTemperature();
+    void SetTemperature(int level);
     void SetWaterLevel(int level);
     bool CheckWaterLevel();
     void SinkWater();

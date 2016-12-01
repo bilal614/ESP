@@ -178,14 +178,6 @@ boolean HardwareControl::GetStartButton()
   return (false);
 }
 
-int HardwareControl::GetTemperature()
-{
-  return (0);
-}
-
-
-
-
 void HardwareControl::SetSoap2(int level)
 {
 }
@@ -246,8 +238,13 @@ void HardwareControl::SetAndTrackTime() {}
 void HardwareControl::CheckLoadingLevel(int level) {}
 void HardwareControl::StartMotor() {}
 void HardwareControl::StopMotor() {}
-void HardwareControl::IncreaseTemperature() {}
-void HardwareControl::DecreaseTemperature() {}
+
+void HardwareControl::SetTemperature(int level) 
+{
+  centipede.digitalWrite(IN_T1, (level & 0x01));
+  centipede.digitalWrite(IN_T2, (level & 0x02));
+}
+
 void HardwareControl::SetWaterLevel(int level) {}
 bool HardwareControl::CheckWaterLevel() {}
 void HardwareControl::SinkWater() {}
