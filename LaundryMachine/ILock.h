@@ -1,15 +1,14 @@
-#ifndef ISOAP_H
-#define ISOAP_H
+#ifndef ILOCK_H
+#define ILOCK_H
 
-class ISoap
+class ILock
 {
 public:
   // Inputs
-  virtual boolean GetSoap1() = 0;
-  virtual boolean GetSoap2() = 0;
+  virtual boolean GetLockStatus() = 0;
   // Outputs
-  virtual void SetSoap1(boolean On) = 0;
-  virtual void SetSoap2(boolean On) = 0;
+  virtual boolean LockDoor(boolean &lockStatus) = 0;
+  virtual boolean UnlockDoor(boolean &lockStatus) = 0;
 };
 
 #endif
