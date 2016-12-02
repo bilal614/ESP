@@ -39,17 +39,22 @@ void setup()
 void loop()
 {
   //Only for testing the HardwareControl class
-//  if (mControl->GetCoin10Button())
-//  {
-//    Serial.println("Button coin 10 is pressed");
-//    mControl->SetCoin10(1,0,0);
-//  }
-      if (mControl->GetCoin50Button())
+  //  if (mControl->GetCoin10Button())
+  //  {
+  //    Serial.println("Button coin 10 is pressed");
+  //    mControl->SetCoin10(1,0,0);
+  //  }
+  //  if (mControl->GetCoin50Button())
+  //  {
+  //    Serial.println("Button coin 50 is pressed");
+  //    mControl->SetCoin50(1);
+  //  }
+  if (mControl->GetCoin50Button())
   {
     Serial.println("Button coin 50 is pressed");
-    mControl->SetCoin50(1);
+    mControl->SetCoin50(2);
   }
-
+//   
   //delete mControl;
 }
 

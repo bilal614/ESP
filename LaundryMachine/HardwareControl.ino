@@ -115,23 +115,16 @@ boolean HardwareControl::GetCoin50Button()
 void HardwareControl::SetCoin50(int leds)
 {
   Strobe();
-  //  centipede.digitalWrite(OUT_GROUP2, LOW);
-  //  centipede.digitalWrite(OUT_GROUP1, HIGH);
+  SetGroup(1);
   switch ( leds ) {
     case 1:
-      //      centipede.digitalWrite(OUT_DATAC, LOW);
-      //      centipede.digitalWrite(OUT_DATAB, LOW);
-      //      centipede.digitalWrite(OUT_DATAA, HIGH);
+      SetData(0);
       break;
     case 2:
-//      centipede.digitalWrite(OUT_DATAC, LOW);
-//      centipede.digitalWrite(OUT_DATAB, HIGH);
-//      centipede.digitalWrite(OUT_DATAA, LOW);
+      SetData(1);
       break;
     case 3:
-//      centipede.digitalWrite(OUT_DATAC, HIGH);
-//      centipede.digitalWrite(OUT_DATAB, LOW);
-//      centipede.digitalWrite(OUT_DATAA, LOW);
+      SetData(2);
     default:
       break;
   }
