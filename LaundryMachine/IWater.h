@@ -9,7 +9,7 @@ public:
   // Outputs
   virtual void SetDrain(int level) = 0;
   virtual void SetWaterLevel(int level) = 0;
-  virtual bool CheckWaterLevel() = 0;
+  virtual boolean CheckWaterLevel() = 0;
   virtual void SinkWater() = 0;
   
 };
