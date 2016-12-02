@@ -89,7 +89,7 @@ void HardwareControl::SetCoin10(byte leds)
 boolean HardwareControl::GetCoin50Button()
 {
   boolean value = false;
-  centipede.digitalWrite(OUT_KEYSELECT, HIGH);
+ SetKeySelect(1);
   if (centipede.digitalRead(IN_IN2))
   {
     delay(100);
@@ -111,7 +111,7 @@ void HardwareControl::SetCoin50(byte led)
 boolean HardwareControl::GetCoin200Button()
 {
   boolean value = false;
-  centipede.digitalWrite(OUT_KEYSELECT, HIGH);
+  SetKeySelect(1);
   if (centipede.digitalRead(IN_IN1))
   {
     delay(200);
@@ -133,6 +133,7 @@ void HardwareControl::SetCoin200(byte led)
 boolean HardwareControl::GetClearButton()
 {
   boolean value = false;
+  SetKeySelect(1);
   //keep pressing until all LED is clear
   if (centipede.digitalRead(IN_IN3) && centipede.digitalRead(IN_IN2) && centipede.digitalRead(IN_IN3))
   {
@@ -145,7 +146,7 @@ boolean HardwareControl::GetClearButton()
 boolean HardwareControl::GetStartButton()
 {
   boolean value = false;
-  centipede.digitalWrite(OUT_KEYSELECT, HIGH);
+  SetKeySelect(1);
   if (centipede.digitalRead(IN_IN0))
   {
     delay(200);
@@ -160,7 +161,7 @@ boolean HardwareControl::GetStartButton()
 boolean HardwareControl::GetProgramButton()
 {
   boolean value = false;
-  centipede.digitalWrite(OUT_KEYSELECT, HIGH);
+  SetKeySelect(1);
   if (centipede.digitalRead(IN_IN0) | centipede.digitalRead(IN_IN3))
   {
     delay(200);
@@ -225,9 +226,7 @@ void HardwareControl::SetBuzzer()
 boolean HardwareControl::buzzerOn()
 {}
 
-void HardwareControl::SetKeySelect(int value)
-{
-}
+
 
 
 void HardwareControl::SetSpeed(char mode)
@@ -235,52 +234,49 @@ void HardwareControl::SetSpeed(char mode)
 }
 boolean HardwareControl::GetLockStatus()
 {
-  boolean lockStatus = false;
-  if(centipede.digitalRead(OUT_KEYSELECT) == LOW)//key select must be low in order to interpret inputs from the switches 
+  if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
   {
-    if(centipede.digitalRead(IN_IN3))
+    if (centipede.digitalRead(IN_IN3))
     {
-      lockStatus = true;
+      return true;
     }
     else
     {
-      lockStatus = false;
+      return false;
     }
   }
-  return lockStatus;
 }
 
+/*Added LockDoor & UnlockDoor for removing "undifined reference" errors*/
+boolean HardwareControl::LockDoor(boolean &lockStatus) {}
+boolean HardwareControl::UnlockDoor(boolean &lockStatus) {}
 boolean HardwareControl::GetSoap1()
 {
-  boolean soap1 = false;
-  if(centipede.digitalRead(OUT_KEYSELECT) == LOW)//key select must be low in order to interpret inputs from the switches 
+  if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
   {
-    if(centipede.digitalRead(IN_IN1))
+    if (centipede.digitalRead(IN_IN1))
     {
-      soap1 = true;
+      return true;
     }
     else
     {
-      soap1 = false;
+      return false;
     }
   }
-  return soap1;
 }
 boolean HardwareControl::GetSoap2()
 {
-  boolean soap2 = false;
-  if(centipede.digitalRead(OUT_KEYSELECT) == LOW)//key select must be low in order to interpret inputs from the switches 
+  if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
   {
-    if(centipede.digitalRead(IN_IN2))
+    if (centipede.digitalRead(IN_IN2))
     {
-      soap2 = true;
+      return true;
     }
     else
     {
-      soap2 = false;
+      return false;
     }
-  }  
-  return soap2;
+  }
 }
 void HardwareControl::SetGroup(int group)
 {
@@ -351,6 +347,17 @@ void HardwareControl::SetData(int data)
       break;
     default:
       break;
+  }
+}
+void HardwareControl::SetKeySelect(int value)
+{
+  if(value == 1)
+  {
+    centipede.digitalWrite(OUT_KEYSELECT, HIGH);
+  }
+  else
+  {
+    centipede.digitalWrite(OUT_KEYSELECT, LOW);
   }
 }
 void HardwareControl::SetAndTrackTime() {}
