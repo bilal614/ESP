@@ -5,10 +5,7 @@ class IBuzzer
 {
 public:
   //input
-  virtual void SetBuzzer() = 0;
-  
-  //output  
-  virtual boolean buzzerOn() = 0;
+  virtual void SetBuzzer(int ms) = 0;
 };
 
 #endif

@@ -89,7 +89,7 @@ void HardwareControl::SetCoin10(byte leds)
 boolean HardwareControl::GetCoin50Button()
 {
   boolean value = false;
- SetKeySelect(1);
+  SetKeySelect(1);
   if (centipede.digitalRead(IN_IN2))
   {
     delay(100);
@@ -181,10 +181,12 @@ void HardwareControl::SetProgramIndicator(int program)
 }
 
 
-int HardwareControl::GetTemperature()
+void HardwareControl::SetTemperature(int level)
 {
-  return (0);
+  centipede.digitalWrite(IN_T1, (level & 0x01));
+  centipede.digitalWrite(IN_T2, (level & 0x02));
 }
+
 
 void HardwareControl::SetSoap1(boolean On)
 {
@@ -210,73 +212,98 @@ void HardwareControl::SetSoap2(boolean On)
   }
 }
 
-void HardwareControl::SetDrain(int level)
+void HardwareControl::SetDirection(char dir)
+{
+  switch (dir)
+  {
+    case 'L':
+      // L for left
+      centipede.digitalWrite(OUT_MOTOR_RL, LOW);
+      break;
+    case 'R':
+      // R for right
+      centipede.digitalWrite(OUT_MOTOR_RL, HIGH);
+      break;
+    default:
+      break;
+  }
+}
+
+
+void HardwareControl::SetBuzzer(int ms)
 {
 }
 
-void HardwareControl::SetDirection(int dir)
+void HardwareControl::SetSpeed(int level)
 {
-}
-
-
-void HardwareControl::SetBuzzer()
-{
-}
-
-boolean HardwareControl::buzzerOn()
-{}
-
-
-
-
-void HardwareControl::SetSpeed(char mode)
-{
+  switch (level)
+  {
+    case 1:
+      // level = 1 is for low
+      centipede.digitalWrite(OUT_SPEED2, HIGH);
+      centipede.digitalWrite(OUT_SPEED1, LOW);
+      break;
+    case 2:
+      // level = 2 is for medium
+      centipede.digitalWrite(OUT_SPEED2, LOW);
+      centipede.digitalWrite(OUT_SPEED1, HIGH);
+      break;
+    case 3:
+      // level = 3 is for high
+      centipede.digitalWrite(OUT_SPEED2, LOW);
+      centipede.digitalWrite(OUT_SPEED1, LOW);
+      break;
+    default:
+      break;
+  }
 }
 boolean HardwareControl::GetLockStatus()
 {
+  boolean lockStatus = false;
   if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
   {
     if (centipede.digitalRead(IN_IN3))
     {
-      return true;
+      lockStatus = true;
     }
     else
     {
-      return false;
+      lockStatus = false;
     }
   }
 }
 
-/*Added LockDoor & UnlockDoor for removing "undifined reference" errors*/
-boolean HardwareControl::LockDoor(boolean &lockStatus) {}
-boolean HardwareControl::UnlockDoor(boolean &lockStatus) {}
 boolean HardwareControl::GetSoap1()
 {
+  boolean soap1 = false;
   if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
   {
     if (centipede.digitalRead(IN_IN1))
     {
-      return true;
+      soap1 = true;
     }
     else
     {
-      return false;
+      soap1 = false;
     }
   }
+  return soap1;
 }
 boolean HardwareControl::GetSoap2()
 {
+  boolean soap2 = false;
   if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
   {
     if (centipede.digitalRead(IN_IN2))
     {
-      return true;
+      soap2 = true;
     }
     else
     {
-      return false;
+      soap2 = false;
     }
   }
+  return soap2;
 }
 void HardwareControl::SetGroup(int group)
 {
@@ -351,7 +378,7 @@ void HardwareControl::SetData(int data)
 }
 void HardwareControl::SetKeySelect(int value)
 {
-  if(value == 1)
+  if (value == 1)
   {
     centipede.digitalWrite(OUT_KEYSELECT, HIGH);
   }
@@ -360,12 +387,141 @@ void HardwareControl::SetKeySelect(int value)
     centipede.digitalWrite(OUT_KEYSELECT, LOW);
   }
 }
-void HardwareControl::SetAndTrackTime() {}
-void HardwareControl::CheckLoadingLevel(int level) {}
-void HardwareControl::StartMotor() {}
-void HardwareControl::StopMotor() {}
-void HardwareControl::IncreaseTemperature() {}
-void HardwareControl::DecreaseTemperature() {}
-void HardwareControl::SetWaterLevel(int level) {}
-bool HardwareControl::CheckWaterLevel() {}
-void HardwareControl::SinkWater() {}
+void HardwareControl::CheckLoadingLevel(int level)
+{
+  switch (level)
+  {
+    case 1:
+      // level = 1 is for 33%
+      if (centipede.digitalRead(IN_W2) == LOW && centipede.digitalRead(IN_W1) == HIGH)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+      break;
+    case 2:
+      // level = 2 is for 66%
+      if (centipede.digitalRead(IN_W2) == HIGH && centipede.digitalRead(IN_W1) == LOW)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+      break;
+    case 3:
+      // level = 3 is for 100%
+      if (centipede.digitalRead(IN_W2) == HIGH && centipede.digitalRead(IN_W1) == HIGH)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+      break;
+    default:
+      // No water in the machine
+      return false;
+      break;
+  }
+}
+void HardwareControl::StartMotor()
+{
+  HardwareControl::SetSpeed(1);
+}
+
+void HardwareControl::StopMotor()
+{
+  // Turn motor OFF
+  centipede.digitalWrite(OUT_SPEED2, HIGH);
+  centipede.digitalWrite(OUT_SPEED1, HIGH);
+}
+
+void HardwareControl::SetWaterLevel(int level)
+{
+  if (level == 1)                       //Filled at 33%
+  {
+    while (centipede.digitalRead(IN_W2) != LOW && centipede.digitalRead(IN_W1) != HIGH)
+    {
+      centipede.digitalWrite(OUT_SINK, LOW);
+      centipede.digitalWrite(OUT_DRAIN, HIGH);
+    }
+  }
+  else if (level == 2)                  //Filled at 66%
+  {
+    while (centipede.digitalRead(IN_W2) != HIGH && centipede.digitalRead(IN_W1) != LOW)
+    {
+      centipede.digitalWrite(OUT_SINK, LOW);
+      centipede.digitalWrite(OUT_DRAIN, HIGH);
+    }
+  }
+  else if (level == 3)                  //Filled at 100%
+  {
+    while (centipede.digitalRead(IN_W2) != HIGH && centipede.digitalRead(IN_W1) != HIGH)
+    {
+      centipede.digitalWrite(OUT_SINK, LOW);
+      centipede.digitalWrite(OUT_DRAIN, HIGH);
+    }
+  }
+  else                                 // Fixed Level
+  {
+    centipede.digitalWrite(OUT_SINK, HIGH);
+    centipede.digitalWrite(OUT_DRAIN, HIGH);
+  }
+}
+bool HardwareControl::CheckWaterLevel(int level)
+{
+  switch (level)
+  {
+    case 1:
+      // level = 1 is for 33%
+      if (centipede.digitalRead(IN_W2) == LOW && centipede.digitalRead(IN_W1) == HIGH)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+      break;
+    case 2:
+      // level = 2 is for 66%
+      if (centipede.digitalRead(IN_W2) == HIGH && centipede.digitalRead(IN_W1) == LOW)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+      break;
+    case 3:
+      // level = 3 is for 100%
+      if (centipede.digitalRead(IN_W2) == HIGH && centipede.digitalRead(IN_W1) == HIGH)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+      break;
+    default:
+      // No water in the machine
+      return false;
+      break;
+  }
+}
+void HardwareControl::SinkWater()
+{
+  while (centipede.digitalRead(IN_W2) != LOW || centipede.digitalRead(IN_W1) != LOW)
+  {
+    centipede.digitalWrite(OUT_SINK, HIGH);
+    centipede.digitalWrite(OUT_DRAIN, LOW);
+  }
+}

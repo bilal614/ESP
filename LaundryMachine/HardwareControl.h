@@ -1,4 +1,4 @@
- #ifndef HARDWARECONTROL_H
+#ifndef HARDWARECONTROL_H
 #define HARDWARECONTROL_H
 
 #include "Centipede.h"
@@ -17,7 +17,7 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
   public:
     HardwareControl();
     /* ICoin */
-    //inputs 
+    //inputs
     boolean GetCoin10Button();
     boolean GetCoin50Button();
     boolean GetCoin200Button();
@@ -29,43 +29,35 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
 
     /* ITemperature */
     //inputs
-    int GetTemperature();
+    void SetTemperature(int level);
     //outputs
-    void IncreaseTemperature();
-    void DecreaseTemperature();
 
     /* ILock */
     //inputs
     boolean GetLockStatus();
-    //output
-    boolean LockDoor(boolean &lockStatus);
-    boolean UnlockDoor(boolean &lockStatus);
 
     /* IBuzzer */
-    //inputs 
-    boolean buzzerOn();
+    //inputs
     //outputs
-    void SetBuzzer();
-    
+    void SetBuzzer(int ms);
+
     /* IMotor */
-    void SetSpeed(char mode);
-    void SetAndTrackTime();
-    void SetDirection(int dir);
+    void SetSpeed(int level);
+    void SetDirection(char dir);
     void CheckLoadingLevel(int level);
     void StartMotor();
     void StopMotor();
-        
+
     /* IProgram */
     boolean GetStartButton();
     void SetProgramIndicator(int program);
     boolean GetProgramButton();
-    
+
     /* IWater */
     void SetWaterLevel(int level);
-    bool CheckWaterLevel();
+    bool CheckWaterLevel(int level);
     void SinkWater();
-    void SetDrain(int level);
-        
+
     /* ISoap */
     //inputs
     boolean GetSoap1();

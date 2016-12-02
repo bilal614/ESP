@@ -11,7 +11,6 @@ public:
   // Outputs
   /*Based on the programIndicator parrametter, the coresponding LED will be turn on*/
   virtual void SetProgramIndicator(int programIndicator) = 0;
- 
 };
 
 #endif
