@@ -248,49 +248,52 @@ void HardwareControl::SetSpeed(char mode)
 }
 boolean HardwareControl::GetLockStatus()
 {
-  if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
+  boolean lockStatus = false;
+  if(centipede.digitalRead(OUT_KEYSELECT) == LOW)//key select must be low in order to interpret inputs from the switches 
   {
-    if (centipede.digitalRead(IN_IN3))
+    if(centipede.digitalRead(IN_IN3))
     {
-      return true;
+      lockStatus = true;
     }
     else
     {
-      return false;
+      lockStatus = false;
     }
   }
+  return lockStatus;
 }
 
-/*Added LockDoor & UnlockDoor for removing "undifined reference" errors*/
-boolean HardwareControl::LockDoor(boolean &lockStatus) {}
-boolean HardwareControl::UnlockDoor(boolean &lockStatus) {}
 boolean HardwareControl::GetSoap1()
 {
-  if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
+  boolean soap1 = false;
+  if(centipede.digitalRead(OUT_KEYSELECT) == LOW)//key select must be low in order to interpret inputs from the switches 
   {
-    if (centipede.digitalRead(IN_IN1))
+    if(centipede.digitalRead(IN_IN1))
     {
-      return true;
+      soap1 = true;
     }
     else
     {
-      return false;
+      soap1 = false;
     }
   }
+  return soap1;
 }
 boolean HardwareControl::GetSoap2()
 {
-  if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
+  boolean soap2 = false;
+  if(centipede.digitalRead(OUT_KEYSELECT) == LOW)//key select must be low in order to interpret inputs from the switches 
   {
-    if (centipede.digitalRead(IN_IN2))
+    if(centipede.digitalRead(IN_IN2))
     {
-      return true;
+      soap2 = true;
     }
     else
     {
-      return false;
+      soap2 = false;
     }
-  }
+  }  
+  return soap2;
 }
 void HardwareControl::SetGroup(int group)
 {
