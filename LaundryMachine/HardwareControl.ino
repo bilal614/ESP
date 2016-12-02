@@ -63,9 +63,10 @@ void HardwareControl::Strobe()
 boolean HardwareControl::GetCoin10Button()
 {
   boolean value = false;
+  centipede.digitalWrite(OUT_KEYSELECT, HIGH);
   if (centipede.digitalRead(IN_IN3))
   {
-    //delay(100);
+    delay(100);
     if (!centipede.digitalRead(IN_IN3))
     {
       value = true;
@@ -75,32 +76,20 @@ boolean HardwareControl::GetCoin10Button()
 }
 
 /*
-   Set the n-th led on base on the indicatior
+   leds is indicator which LED will be turn on
+   eg. Call SetCoin10(B00000111) means 3 coins 10 is added
 */
-void HardwareControl::SetCoin10(byte firstCoin, byte secondCoin, byte thirdCoin)
+void HardwareControl::SetCoin10(byte leds)
 {
   Strobe();
   SetGroup(0);
-  if (firstCoin)
-  {
-    Serial.println("First coin is pressed");
-    SetData(0);
-  }
-  if (secondCoin)
-  {
-    Serial.println("First coin is pressed");
-    SetData(2);
-  }
-  if (thirdCoin)
-  {
-    Serial.println("First coin is pressed");
-    SetData(3);
-  }
+  SetData(leds);
 }
 
 boolean HardwareControl::GetCoin50Button()
 {
   boolean value = false;
+  centipede.digitalWrite(OUT_KEYSELECT, HIGH);
   if (centipede.digitalRead(IN_IN2))
   {
     delay(100);
@@ -112,27 +101,17 @@ boolean HardwareControl::GetCoin50Button()
   return value;
 }
 
-void HardwareControl::SetCoin50(int leds)
+void HardwareControl::SetCoin50(byte led)
 {
   Strobe();
   SetGroup(1);
-  switch ( leds ) {
-    case 1:
-      SetData(0);
-      break;
-    case 2:
-      SetData(1);
-      break;
-    case 3:
-      SetData(2);
-    default:
-      break;
-  }
+  SetData(led);
 }
 
 boolean HardwareControl::GetCoin200Button()
 {
   boolean value = false;
+  centipede.digitalWrite(OUT_KEYSELECT, HIGH);
   if (centipede.digitalRead(IN_IN1))
   {
     delay(200);
@@ -144,33 +123,33 @@ boolean HardwareControl::GetCoin200Button()
   return value;
 }
 
-void HardwareControl::SetCoin200(int leds)
+void HardwareControl::SetCoin200(byte led)
 {
-  centipede.digitalWrite(OUT_GROUP2, HIGH);
-  centipede.digitalWrite(OUT_GROUP1, LOW);
-  switch ( leds ) {
-    case 1:
-      centipede.digitalWrite(OUT_DATAC, LOW);
-      centipede.digitalWrite(OUT_DATAB, LOW);
-      centipede.digitalWrite(OUT_DATAA, HIGH);
-      break;
-    case 2:
-      centipede.digitalWrite(OUT_DATAC, LOW);
-      centipede.digitalWrite(OUT_DATAB, HIGH);
-      centipede.digitalWrite(OUT_DATAA, LOW);
-      break;
-    default:
-      break;
-  }
+  Strobe();
+  SetGroup(2);
+  SetData(led);
 }
 
 boolean HardwareControl::GetClearButton()
 {
   boolean value = false;
+  //keep pressing until all LED is clear
   if (centipede.digitalRead(IN_IN3) && centipede.digitalRead(IN_IN2) && centipede.digitalRead(IN_IN3))
   {
+    value = true;
+  }
+  return value;
+}
+
+
+boolean HardwareControl::GetStartButton()
+{
+  boolean value = false;
+  centipede.digitalWrite(OUT_KEYSELECT, HIGH);
+  if (centipede.digitalRead(IN_IN0))
+  {
     delay(200);
-    if (!centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN3))
+    if (!centipede.digitalRead(IN_IN0))
     {
       value = true;
     }
@@ -178,17 +157,28 @@ boolean HardwareControl::GetClearButton()
   return value;
 }
 
-void HardwareControl:: ClearCoin10(int leds)
-{}
-void HardwareControl:: ClearCoin50(int leds)
-{}
-void HardwareControl:: ClearCoin200(int leds)
-{}
-
-boolean HardwareControl::GetStartButton()
+boolean HardwareControl::GetProgramButton()
 {
-  return (false);
+  boolean value = false;
+  centipede.digitalWrite(OUT_KEYSELECT, HIGH);
+  if (centipede.digitalRead(IN_IN0) | centipede.digitalRead(IN_IN3))
+  {
+    delay(200);
+    if (!centipede.digitalRead(IN_IN0) | !centipede.digitalRead(IN_IN3))
+    {
+      value = true;
+    }
+  }
+  return value;
 }
+
+void HardwareControl::SetProgramIndicator(int program)
+{
+  Strobe();
+  SetGroup(3);
+  SetData(program);
+}
+
 
 int HardwareControl::GetTemperature()
 {
@@ -227,9 +217,6 @@ void HardwareControl::SetDirection(int dir)
 {
 }
 
-void HardwareControl::SetProgramIndicator(int program)
-{
-}
 
 void HardwareControl::SetBuzzer()
 {
@@ -309,26 +296,58 @@ void HardwareControl::SetGroup(int group)
     centipede.digitalWrite(OUT_GROUP1, LOW);
     centipede.digitalWrite(OUT_GROUP2, HIGH);
   }
+  if (group == 3)
+  {
+    centipede.digitalWrite(OUT_GROUP1, HIGH);
+    centipede.digitalWrite(OUT_GROUP2, HIGH);
+  }
 }
 void HardwareControl::SetData(int data)
 {
-  if (data == 0)
-  {
-    centipede.digitalWrite(OUT_DATAA, HIGH);
-    centipede.digitalWrite(OUT_DATAB, LOW);
-    centipede.digitalWrite(OUT_DATAC, LOW);
-  }
-  if (data == 1)
-  {
-    centipede.digitalWrite(OUT_DATAA, LOW);
-    centipede.digitalWrite(OUT_DATAB, HIGH);
-    centipede.digitalWrite(OUT_DATAC, LOW);
-  }
-  if (data == 2)
-  {
-    centipede.digitalWrite(OUT_DATAA, LOW);
-    centipede.digitalWrite(OUT_DATAB, LOW);
-    centipede.digitalWrite(OUT_DATAC, HIGH);
+
+  switch (data) {
+    case B00000000:
+      centipede.digitalWrite(OUT_DATAA, LOW);
+      centipede.digitalWrite(OUT_DATAB, LOW);
+      centipede.digitalWrite(OUT_DATAC, LOW);
+      break;
+    case B00000001:
+      centipede.digitalWrite(OUT_DATAA, HIGH);
+      centipede.digitalWrite(OUT_DATAB, LOW);
+      centipede.digitalWrite(OUT_DATAC, LOW);
+      break;
+    case B00000010:
+      centipede.digitalWrite(OUT_DATAA, LOW);
+      centipede.digitalWrite(OUT_DATAB, HIGH);
+      centipede.digitalWrite(OUT_DATAC, LOW);
+      break;
+    case B00000100:
+      centipede.digitalWrite(OUT_DATAA, LOW);
+      centipede.digitalWrite(OUT_DATAB, LOW);
+      centipede.digitalWrite(OUT_DATAC, HIGH);
+      break;
+    case B00000011:
+      centipede.digitalWrite(OUT_DATAA, HIGH);
+      centipede.digitalWrite(OUT_DATAB, HIGH);
+      centipede.digitalWrite(OUT_DATAC, LOW);
+      break;
+    case B00000110:
+      centipede.digitalWrite(OUT_DATAA, LOW);
+      centipede.digitalWrite(OUT_DATAB, HIGH);
+      centipede.digitalWrite(OUT_DATAC, HIGH);
+      break;
+    case B00000101:
+      centipede.digitalWrite(OUT_DATAA, HIGH);
+      centipede.digitalWrite(OUT_DATAB, LOW);
+      centipede.digitalWrite(OUT_DATAC, HIGH);
+      break;
+    case B00000111:
+      centipede.digitalWrite(OUT_DATAA, HIGH);
+      centipede.digitalWrite(OUT_DATAB, HIGH);
+      centipede.digitalWrite(OUT_DATAC, HIGH);
+      break;
+    default:
+      break;
   }
 }
 void HardwareControl::SetAndTrackTime() {}

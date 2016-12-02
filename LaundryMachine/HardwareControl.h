@@ -23,12 +23,9 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     boolean GetCoin200Button();
     boolean GetClearButton();
     //outputs
-    void SetCoin10(byte firstCoin, byte secondCoin, byte thirdCoin);
-    void SetCoin50(int leds);
-    void SetCoin200(int leds);
-    void ClearCoin10(int leds);
-    void ClearCoin50(int leds);
-    void ClearCoin200(int leds);
+    void SetCoin10(byte led);
+    void SetCoin50(byte led);
+    void SetCoin200(byte led);
 
     /* ITemperature */
     //inputs
@@ -61,6 +58,7 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     /* IProgram */
     boolean GetStartButton();
     void SetProgramIndicator(int program);
+    boolean GetProgramButton();
     
     /* IWater */
     void SetWaterLevel(int level);
