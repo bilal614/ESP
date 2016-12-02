@@ -25,8 +25,7 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     boolean GetLockStatus();
     boolean GetSoapCptStatus();
     // Outputs
-    void SetBuzzer();
-    boolean buzzerOn();
+    void SetBuzzer(int ms);
     void SetSoap2(int level);
     void SetDrain(int level);
     void SetDirection(int dir);
