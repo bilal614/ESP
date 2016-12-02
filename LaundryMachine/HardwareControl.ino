@@ -54,17 +54,18 @@ HardwareControl::HardwareControl()
 ///***IPROGRAM & ICOIN **///
 void HardwareControl::Strobe()
 {
+  //Serial.println("Strobe is called");
   centipede.digitalWrite(OUT_STROBE, LOW);
-  delay(100);
+  delay(85);
   centipede.digitalWrite(OUT_STROBE, HIGH);
-  delay(10);
+  delay(15);
 }
 boolean HardwareControl::GetCoin10Button()
 {
   boolean value = false;
   if (centipede.digitalRead(IN_IN3))
   {
-    delay(200);
+    //delay(100);
     if (!centipede.digitalRead(IN_IN3))
     {
       value = true;
@@ -80,16 +81,19 @@ void HardwareControl::SetCoin10(byte firstCoin, byte secondCoin, byte thirdCoin)
 {
   Strobe();
   SetGroup(0);
-  if(firstCoin)
+  if (firstCoin)
   {
+    Serial.println("First coin is pressed");
     SetData(0);
   }
-  if(secondCoin)
+  if (secondCoin)
   {
+    Serial.println("First coin is pressed");
     SetData(2);
   }
-  if(thirdCoin)
+  if (thirdCoin)
   {
+    Serial.println("First coin is pressed");
     SetData(3);
   }
 }
@@ -99,7 +103,7 @@ boolean HardwareControl::GetCoin50Button()
   boolean value = false;
   if (centipede.digitalRead(IN_IN2))
   {
-    delay(200);
+    delay(100);
     if (!centipede.digitalRead(IN_IN2))
     {
       value = true;
@@ -111,23 +115,23 @@ boolean HardwareControl::GetCoin50Button()
 void HardwareControl::SetCoin50(int leds)
 {
   Strobe();
-  centipede.digitalWrite(OUT_GROUP2, LOW);
-  centipede.digitalWrite(OUT_GROUP1, HIGH);
+  //  centipede.digitalWrite(OUT_GROUP2, LOW);
+  //  centipede.digitalWrite(OUT_GROUP1, HIGH);
   switch ( leds ) {
     case 1:
-      centipede.digitalWrite(OUT_DATAC, LOW);
-      centipede.digitalWrite(OUT_DATAB, LOW);
-      centipede.digitalWrite(OUT_DATAA, HIGH);
+      //      centipede.digitalWrite(OUT_DATAC, LOW);
+      //      centipede.digitalWrite(OUT_DATAB, LOW);
+      //      centipede.digitalWrite(OUT_DATAA, HIGH);
       break;
     case 2:
-      centipede.digitalWrite(OUT_DATAC, LOW);
-      centipede.digitalWrite(OUT_DATAB, HIGH);
-      centipede.digitalWrite(OUT_DATAA, LOW);
+//      centipede.digitalWrite(OUT_DATAC, LOW);
+//      centipede.digitalWrite(OUT_DATAB, HIGH);
+//      centipede.digitalWrite(OUT_DATAA, LOW);
       break;
     case 3:
-      centipede.digitalWrite(OUT_DATAC, HIGH);
-      centipede.digitalWrite(OUT_DATAB, LOW);
-      centipede.digitalWrite(OUT_DATAA, LOW);
+//      centipede.digitalWrite(OUT_DATAC, HIGH);
+//      centipede.digitalWrite(OUT_DATAB, LOW);
+//      centipede.digitalWrite(OUT_DATAA, LOW);
     default:
       break;
   }
@@ -299,39 +303,39 @@ void HardwareControl::SetGroup(int group)
 {
   if (group == 0)
   {
-    digitalWrite(OUT_GROUP1, LOW);
-    digitalWrite(OUT_GROUP2, LOW);
+    centipede.digitalWrite(OUT_GROUP1, LOW);
+    centipede.digitalWrite(OUT_GROUP2, LOW);
   }
   if (group == 1)
   {
-    digitalWrite(OUT_GROUP1, HIGH);
-    digitalWrite(OUT_GROUP2, LOW);
+    centipede.digitalWrite(OUT_GROUP1, HIGH);
+    centipede.digitalWrite(OUT_GROUP2, LOW);
   }
   if (group == 2)
   {
-    digitalWrite(OUT_GROUP1, LOW);
-    digitalWrite(OUT_GROUP2, HIGH);
+    centipede.digitalWrite(OUT_GROUP1, LOW);
+    centipede.digitalWrite(OUT_GROUP2, HIGH);
   }
 }
 void HardwareControl::SetData(int data)
 {
   if (data == 0)
   {
-    digitalWrite(OUT_DATAA, HIGH);
-    digitalWrite(OUT_DATAB, LOW);
-    digitalWrite(OUT_DATAC, LOW);
+    centipede.digitalWrite(OUT_DATAA, HIGH);
+    centipede.digitalWrite(OUT_DATAB, LOW);
+    centipede.digitalWrite(OUT_DATAC, LOW);
   }
   if (data == 1)
   {
-    digitalWrite(OUT_DATAA, LOW);
-    digitalWrite(OUT_DATAB, HIGH);
-    digitalWrite(OUT_DATAC, LOW);
+    centipede.digitalWrite(OUT_DATAA, LOW);
+    centipede.digitalWrite(OUT_DATAB, HIGH);
+    centipede.digitalWrite(OUT_DATAC, LOW);
   }
   if (data == 2)
   {
-    digitalWrite(OUT_DATAA, LOW);
-    digitalWrite(OUT_DATAB, LOW);
-    digitalWrite(OUT_DATAC, HIGH);
+    centipede.digitalWrite(OUT_DATAA, LOW);
+    centipede.digitalWrite(OUT_DATAB, LOW);
+    centipede.digitalWrite(OUT_DATAC, HIGH);
   }
 }
 void HardwareControl::SetAndTrackTime() {}

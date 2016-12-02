@@ -1,4 +1,4 @@
-#ifndef HARDWARECONTROL_H
+ #ifndef HARDWARECONTROL_H
 #define HARDWARECONTROL_H
 
 #include "Centipede.h"
