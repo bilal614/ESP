@@ -54,7 +54,7 @@ void loop()
     Serial.println("Button coin 50 is pressed");
     mControl->SetCoin50(2);
   }
-//   
+  //
   //delete mControl;
 }
 
