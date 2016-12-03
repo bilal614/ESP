@@ -194,12 +194,12 @@ void HardwareControl::SetProgramIndicator(int program)
 {
 }
 
-void HardwareControl::SetBuzzer()
+void HardwareControl::SetBuzzer(int ms)
 {
+  centipede.digitalWrite(OUT_BUZZER, LOW);
+  delay(ms);
+  centipede.digitalWrite(OUT_BUZZER, HIGH);  
 }
-
-boolean HardwareControl::buzzerOn()
-{}
 
 void HardwareControl::SetKeySelect(int value)
 {
@@ -239,10 +239,19 @@ void HardwareControl::CheckLoadingLevel(int level) {}
 void HardwareControl::StartMotor() {}
 void HardwareControl::StopMotor() {}
 
+int HardwareControl::GetTemperature() 
+{
+  int c = 0;
+  if (digitalRead(IN_T2)) c += 2;  
+  if (digitalRead(IN_T1)) c += 1;
+  return c;
+}
+
 void HardwareControl::SetTemperature(int level) 
 {
-  centipede.digitalWrite(IN_T1, (level & 0x01));
-  centipede.digitalWrite(IN_T2, (level & 0x02));
+  int c = GetTemperature();
+  if (c > level) CS.digitalWrite(OUT_HEATER, HIGH);
+  else CS.digitalWrite(OUT_HEATER, LOW);
 }
 
 void HardwareControl::SetWaterLevel(int level) {}
