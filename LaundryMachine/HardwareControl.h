@@ -35,6 +35,7 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     /* ILock */
     //inputs
     boolean GetLockStatus();
+    void SetLockStatus(boolean lock);
 
     /* IBuzzer */
     //inputs

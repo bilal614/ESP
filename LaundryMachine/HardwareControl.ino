@@ -202,13 +202,14 @@ void HardwareControl::SetSoap1(boolean On)
 
 void HardwareControl::SetSoap2(boolean On)
 {
+  SetGroup(2);//to make group2 high and group1 low
   if (On)
   {
-    centipede.digitalWrite(OUT_GROUP2, HIGH); centipede.digitalWrite(OUT_DATAC, HIGH);
+    centipede.digitalWrite(OUT_DATAC, HIGH);
   }
   if (!On)
   {
-    centipede.digitalWrite(OUT_GROUP2, LOW); centipede.digitalWrite(OUT_DATAC, LOW);
+    centipede.digitalWrite(OUT_DATAC, LOW);
   }
 }
 
@@ -259,6 +260,7 @@ void HardwareControl::SetSpeed(int level)
 }
 boolean HardwareControl::GetLockStatus()
 {
+  centipede.digitalWrite(OUT_KEYSELECT, LOW);
   boolean lockStatus = false;
   if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
   {
@@ -272,9 +274,22 @@ boolean HardwareControl::GetLockStatus()
     }
   }
 }
+void HardwareControl::SetLockStatus(boolean lock)
+{
+  if(lock)
+  {
+    centipede.digitalWrite(OUT_LOCK, HIGH);  
+  }
+  if(!lock)
+  {
+    centipede.digitalWrite(OUT_LOCK, LOW);  
+  }
+    
+}
 
 boolean HardwareControl::GetSoap1()
 {
+  centipede.digitalWrite(OUT_KEYSELECT, LOW);
   boolean soap1 = false;
   if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
   {
@@ -291,6 +306,7 @@ boolean HardwareControl::GetSoap1()
 }
 boolean HardwareControl::GetSoap2()
 {
+  centipede.digitalWrite(OUT_KEYSELECT, LOW);
   boolean soap2 = false;
   if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
   {
@@ -322,11 +338,13 @@ void HardwareControl::SetGroup(int group)
     centipede.digitalWrite(OUT_GROUP1, LOW);
     centipede.digitalWrite(OUT_GROUP2, HIGH);
   }
+  /*group 3 not required 
   if (group == 3)
   {
     centipede.digitalWrite(OUT_GROUP1, HIGH);
     centipede.digitalWrite(OUT_GROUP2, HIGH);
   }
+  */
 }
 void HardwareControl::SetData(int data)
 {

@@ -3,12 +3,8 @@
 
 class ITemperature
 {
-public:
-  // Inputs
-  virtual int GetTemperature() = 0;
-  // Outputs
-  virtual void IncreaseTemperature() = 0;
-  virtual void DecreaseTemperature() = 0;
+  public:
+    virtual void SetTemperature(int level) = 0;
 };
 
 #endif
