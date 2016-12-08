@@ -242,16 +242,27 @@ void HardwareControl::StopMotor() {}
 int HardwareControl::GetTemperature() 
 {
   int c = 0;
-  if (digitalRead(IN_T2)) c += 2;  
-  if (digitalRead(IN_T1)) c += 1;
+  if (centipede.digitalRead(IN_T2) == HIGH) c += 2;  
+  if (centipede.digitalRead(IN_T1) == HIGH) c += 1;
   return c;
 }
 
 void HardwareControl::SetTemperature(int level) 
 {
-  int c = GetTemperature();
-  if (c > level) CS.digitalWrite(OUT_HEATER, HIGH);
-  else CS.digitalWrite(OUT_HEATER, LOW);
+  if (level == 3) CS.digitalWrite(OUT_HEATER, LOW);
+  else if (level == 0) CS.digitalWrite(OUT_HEATER, HIGH);
+  else
+  {
+    if (level > GetTemperature()) CS.digitalWrite(OUT_HEATER, LOW);
+    else if (level < GetTemperature()) CS.digitalWrite(OUT_HEATER, HIGH);
+    else
+    {
+      CS.digitalWrite(OUT_HEATER, LOW);
+      delay(100);
+      CS.digitalWrite(OUT_HEATER, HIGH);
+      delay(90);
+    }
+  }
 }
 
 void HardwareControl::SetWaterLevel(int level) {}
