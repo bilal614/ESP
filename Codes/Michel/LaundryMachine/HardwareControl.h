@@ -53,7 +53,7 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     /* IMotor */
     void SetSpeed(int level);
     void SetDirection(char dir);
-    void CheckLoadingLevel(int level);
+    bool CheckLoadingLevel(int level);
     void StartMotor();
     void StopMotor();
         

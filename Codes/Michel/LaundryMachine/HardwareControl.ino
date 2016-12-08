@@ -370,7 +370,7 @@ void HardwareControl::SetData(int data)
   }
 }
 
-void HardwareControl::CheckLoadingLevel(int level)
+bool HardwareControl::CheckLoadingLevel(int level)
 {
   switch (level)
   {
