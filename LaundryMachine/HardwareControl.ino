@@ -202,6 +202,7 @@ void HardwareControl::SetSoap1(boolean On)
 
 void HardwareControl::SetSoap2(boolean On)
 {
+  Strobe();
   SetGroup(2);//to make group2 high and group1 low
   if (On)
   {
