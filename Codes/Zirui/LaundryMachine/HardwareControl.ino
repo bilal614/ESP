@@ -247,6 +247,17 @@ int HardwareControl::GetTemperature()
   return c;
 }
 
+/**
+ * Attention! Heater turns on when switch == true
+ */
+void SetHeater(bool switch)
+{
+	centipede.digitalWrite(OUT_HEATER, !switch);
+}
+
+/**
+ * Keep these codes and use them at somewhere else
+ *
 void HardwareControl::SetTemperature(int level) 
 {
   if (level == 3) CS.digitalWrite(OUT_HEATER, LOW);
@@ -264,6 +275,8 @@ void HardwareControl::SetTemperature(int level)
     }
   }
 }
+ *
+ */
 
 void HardwareControl::SetWaterLevel(int level) {}
 bool HardwareControl::CheckWaterLevel() {}

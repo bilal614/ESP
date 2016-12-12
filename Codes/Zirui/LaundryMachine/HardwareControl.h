@@ -46,7 +46,7 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     void StartMotor();
     void StopMotor();
     int GetTemperature();
-    void SetTemperature(int level);
+    void SetHeater(bool switch)
     void SetWaterLevel(int level);
     bool CheckWaterLevel();
     void SinkWater();
