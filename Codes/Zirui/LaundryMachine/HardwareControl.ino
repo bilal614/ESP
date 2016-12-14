@@ -248,11 +248,11 @@ int HardwareControl::GetTemperature()
 }
 
 /**
- * Attention! Heater turns on when switch == true
+ * Attention! Heater turns on when sw1tch == true
  */
-void SetHeater(bool switch)
+void SetHeater(bool sw1tch)
 {
-	centipede.digitalWrite(OUT_HEATER, !switch);
+	centipede.digitalWrite(OUT_HEATER, !sw1tch);
 }
 
 /**
