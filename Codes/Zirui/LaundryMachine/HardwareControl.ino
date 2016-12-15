@@ -250,7 +250,7 @@ int HardwareControl::GetTemperature()
 /**
  * Attention! Heater turns on when sw1tch == true
  */
-void SetHeater(bool sw1tch)
+void HardwareControl::SetHeater(bool sw1tch)
 {
 	centipede.digitalWrite(OUT_HEATER, !sw1tch);
 }

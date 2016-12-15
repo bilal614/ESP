@@ -10,7 +10,7 @@ class Buzzer
 	
 	public:
 	Buzzer();
-	Buzzer(IBuzzer*);
+	Buzzer(IBuzzer* ibuz);
 	void SingleBuzzer(int duration);
 	void MultipleBuzzer(int duration, int nrTimes);
 	~Buzzer();	
