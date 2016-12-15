@@ -1,6 +1,7 @@
 #include "ProgramExecutor.h"
 
-ProgramExecutor::ProgramExecutor(IBuzzer * b, IMotor * m, ILock * l, ISoap * s, ITemperature * t, IWater * w, CoinWallet * c)
+/*
+ProgramExecutor::ProgramExecutor(Buzzer b, Motor m, Lock l, Soap s, Temperature t, Water w, CoinWallet c)
 {
   mBuzzer = b;
   mMotor = m;
@@ -10,6 +11,7 @@ ProgramExecutor::ProgramExecutor(IBuzzer * b, IMotor * m, ILock * l, ISoap * s, 
   mWater = w;
   mCoinWallet = c;
 }
+*/
 
 boolean ProgramExecutor::Start(ProgramSettings * p)
 {
