@@ -5,8 +5,8 @@ class ITemperature
 {
 public:
   // Inputs
-  // Outputsv
   virtual int GetTemperature() = 0;
+  // Outputsv
   virtual void SetTemperature(int level) = 0;
 };
 
