@@ -64,13 +64,13 @@ boolean HardwareControl::GetCoin10Button()
 {
   boolean value = false;
   centipede.digitalWrite(OUT_KEYSELECT, HIGH);
-  if (centipede.digitalRead(IN_IN3))
+  if (centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN0))
   {
-    delay(100);
-    if (!centipede.digitalRead(IN_IN3))
-    {
+    //delay(100);
+   // if (!centipede.digitalRead(IN_IN3))
+    //{
       value = true;
-    }
+    //}
   }
   return value;
 }
@@ -90,7 +90,7 @@ boolean HardwareControl::GetCoin50Button()
 {
   boolean value = false;
   SetKeySelect(1);
-  if (centipede.digitalRead(IN_IN2))
+  if (centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN0))
   {
     delay(100);
     if (!centipede.digitalRead(IN_IN2))
@@ -112,9 +112,9 @@ boolean HardwareControl::GetCoin200Button()
 {
   boolean value = false;
   SetKeySelect(1);
-  if (centipede.digitalRead(IN_IN1))
+  if (centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN0))
   {
-    delay(200);
+    delay(100);
     if (!centipede.digitalRead(IN_IN1))
     {
       value = true;
@@ -134,10 +134,15 @@ boolean HardwareControl::GetClearButton()
 {
   boolean value = false;
   SetKeySelect(1);
-  //keep pressing until all LED is clear
-  if (centipede.digitalRead(IN_IN3) && centipede.digitalRead(IN_IN2) && centipede.digitalRead(IN_IN3))
+  if (centipede.digitalRead(IN_IN3) && centipede.digitalRead(IN_IN2) && centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN0))
   {
-    value = true;
+    delay(100);
+    Serial.println("I am in clear button pressed");
+    if (!centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1))
+    {
+      Serial.println("I am in clear button releasing after pressed");
+      value = true;
+    }
   }
   return value;
 }
@@ -147,9 +152,9 @@ boolean HardwareControl::GetStartButton()
 {
   boolean value = false;
   SetKeySelect(1);
-  if (centipede.digitalRead(IN_IN0))
+  if (centipede.digitalRead(IN_IN0) && !centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) )
   {
-    delay(200);
+    delay(100);
     if (!centipede.digitalRead(IN_IN0))
     {
       value = true;
@@ -162,10 +167,10 @@ boolean HardwareControl::GetProgramButton()
 {
   boolean value = false;
   SetKeySelect(1);
-  if (centipede.digitalRead(IN_IN0) | centipede.digitalRead(IN_IN3))
+  if (centipede.digitalRead(IN_IN0) && centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN2))
   {
     delay(200);
-    if (!centipede.digitalRead(IN_IN0) | !centipede.digitalRead(IN_IN3))
+    if (!centipede.digitalRead(IN_IN0) && !centipede.digitalRead(IN_IN3))
     {
       value = true;
     }
@@ -179,7 +184,6 @@ void HardwareControl::SetProgramIndicator(int program)
   SetGroup(3);
   SetData(program);
 }
-
 
 void HardwareControl::SetTemperature(int level)
 {
@@ -277,15 +281,15 @@ boolean HardwareControl::GetLockStatus()
 }
 void HardwareControl::SetLockStatus(boolean lock)
 {
-  if(lock)
+  if (lock)
   {
-    centipede.digitalWrite(OUT_LOCK, HIGH);  
+    centipede.digitalWrite(OUT_LOCK, HIGH);
   }
-  if(!lock)
+  if (!lock)
   {
-    centipede.digitalWrite(OUT_LOCK, LOW);  
+    centipede.digitalWrite(OUT_LOCK, LOW);
   }
-    
+
 }
 
 boolean HardwareControl::GetSoap1()
@@ -339,13 +343,11 @@ void HardwareControl::SetGroup(int group)
     centipede.digitalWrite(OUT_GROUP1, LOW);
     centipede.digitalWrite(OUT_GROUP2, HIGH);
   }
-  /*group 3 not required 
   if (group == 3)
   {
     centipede.digitalWrite(OUT_GROUP1, HIGH);
     centipede.digitalWrite(OUT_GROUP2, HIGH);
   }
-  */
 }
 void HardwareControl::SetData(int data)
 {

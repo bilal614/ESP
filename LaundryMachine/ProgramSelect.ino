@@ -16,5 +16,6 @@ char ProgramSelect::GetProgramType()
 
 void ProgramSelect::InstallStartHandler(void (* handler)())
 {
+  
 }
 

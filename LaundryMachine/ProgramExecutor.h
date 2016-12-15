@@ -1,7 +1,7 @@
 #ifndef PROGRAMEXECUTOR_H
 #define PROGRAMEXECUTOR_H
 
-#include "IBuzzer.h"
+/*#include "IBuzzer.h"
 #include "Lock.h"
 #include "Motor.h"
 #include "Program.h"
@@ -9,7 +9,7 @@
 #include "Temperature.h"
 #include "Water.h"
 #include "CoinWallet.h"
-#include "ProgramSettings.h"
+#include "ProgramSettings.h"*/
 
 class ProgramExecutor
 {
@@ -19,14 +19,14 @@ public:
   boolean Step();
   boolean IsReady();
 private:
-  Buzzer  mBuzzer;
+  /*Buzzer  mBuzzer;
   Motor  mMotor;
   Lock  mLock;
   Soap  mSoap;
   Temperature  mTemperature;
   Water  mWater;
   CoinWallet  mCoinWallet;
-  ProgramSettings* mProgramSettings;
+  ProgramSettings* mProgramSettings;*/
 };
 
 #endif
