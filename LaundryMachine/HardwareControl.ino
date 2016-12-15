@@ -66,11 +66,11 @@ boolean HardwareControl::GetCoin10Button()
   centipede.digitalWrite(OUT_KEYSELECT, HIGH);
   if (centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN0))
   {
-    //delay(100);
-   // if (!centipede.digitalRead(IN_IN3))
-    //{
+    delay(200);
+    if (!centipede.digitalRead(IN_IN3))
+    {
       value = true;
-    //}
+    }
   }
   return value;
 }
@@ -92,11 +92,7 @@ boolean HardwareControl::GetCoin50Button()
   SetKeySelect(1);
   if (centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN0))
   {
-    delay(100);
-    if (!centipede.digitalRead(IN_IN2))
-    {
-      value = true;
-    }
+    value = true;
   }
   return value;
 }
@@ -114,11 +110,7 @@ boolean HardwareControl::GetCoin200Button()
   SetKeySelect(1);
   if (centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN0))
   {
-    delay(100);
-    if (!centipede.digitalRead(IN_IN1))
-    {
-      value = true;
-    }
+    value = true;
   }
   return value;
 }
@@ -136,13 +128,7 @@ boolean HardwareControl::GetClearButton()
   SetKeySelect(1);
   if (centipede.digitalRead(IN_IN3) && centipede.digitalRead(IN_IN2) && centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN0))
   {
-    delay(100);
-    Serial.println("I am in clear button pressed");
-    if (!centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1))
-    {
-      Serial.println("I am in clear button releasing after pressed");
-      value = true;
-    }
+    value = true;
   }
   return value;
 }
@@ -154,11 +140,7 @@ boolean HardwareControl::GetStartButton()
   SetKeySelect(1);
   if (centipede.digitalRead(IN_IN0) && !centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) )
   {
-    delay(100);
-    if (!centipede.digitalRead(IN_IN0))
-    {
-      value = true;
-    }
+    value = true;
   }
   return value;
 }
@@ -169,11 +151,7 @@ boolean HardwareControl::GetProgramButton()
   SetKeySelect(1);
   if (centipede.digitalRead(IN_IN0) && centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN2))
   {
-    delay(200);
-    if (!centipede.digitalRead(IN_IN0) && !centipede.digitalRead(IN_IN3))
-    {
       value = true;
-    }
   }
   return value;
 }

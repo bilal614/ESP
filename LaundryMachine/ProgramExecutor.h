@@ -25,7 +25,7 @@ private:
   Soap  mSoap;
   //Temperature * mTemperature;
   //Water  mWater;
-  //CoinWallet  mCoinWallet;
+  CoinWallet  mCoinWallet;
   ProgramSettings* mProgramSettings;
 };
 

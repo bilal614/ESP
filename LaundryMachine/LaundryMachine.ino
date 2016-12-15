@@ -30,37 +30,18 @@ static ProgramSelect * mProgramSelect;
 static ProgramSettings * mProgramSettings;
 static ProgramExecutor * mProgramExecutor;
 
+//only for testing at this moment
+
 void setup()
 {
   Serial.begin(9600);
   mControl = new HardwareControl();
+  mCoinWallet = new CoinWallet(mControl);
 }
 
 void loop()
 {
-  //Only for testing the HardwareControl class
-  if (mControl->GetCoin10Button())
-  {
-    Serial.println("GetCoin10 button is pressed");
-    mControl->SetCoin10(B00000101);
-    mControl->SetCoin50(B00000111);
-  }
-  else if (mControl->GetClearButton())
-  {
-    Serial.println("Clear button is pressed");
-    mControl->SetCoin10(0x00);
-    mControl->SetCoin50(0x00);
-  }
-  else if (mControl->GetProgramButton())
-  {
-    Serial.println("Program button is pressed");
-    mControl->SetProgramIndicator(B00000100);
-  }
-  else if (mControl->GetStartButton())
-  {
-    Serial.println("Start button is pressed");
-  }
-  //delete mControl;
+   mCoinWallet->Poll();
 }
 
 

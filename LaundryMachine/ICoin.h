@@ -4,8 +4,6 @@
 class ICoin
 {
 public:
-  //Constants
-  #define Coin10_#1 = 0x01
   // Inputs
   virtual boolean GetCoin10Button() = 0;
   virtual boolean GetCoin50Button() = 0;
