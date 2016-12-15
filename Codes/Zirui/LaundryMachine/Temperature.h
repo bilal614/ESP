@@ -11,11 +11,10 @@ class Temperature
 	int desiredTemperature;
 	
 	public:
-	Temperature();
-	Temperature(ITemperature*);
+	Temperature(ITemperature* itemp);
 	int GetDesired();
 	int CheckTemperature();
-	void SetTemperature();
+	void SetTemperature(int value);
 	void Poll();
 	~Temperature();	
 }
