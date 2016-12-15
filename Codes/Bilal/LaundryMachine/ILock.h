@@ -4,9 +4,8 @@
 class ILock
 {
   public:
-    virtual boolean GetLockStatus() = 0;
-    virtual void SetLockStatus(boolean lock) = 0;
-
+    virtual boolean GetLockStatus();
+    virtual void SetLockStatus(boolean lock)=0;
 };
 
 #endif

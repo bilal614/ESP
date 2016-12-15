@@ -1,11 +1,8 @@
 #include "Temperature.h"
 
-Temperature::Temperature()
-{
-}
-
 Temperature::Temperature(ITemperature* itemp)
 {
+	temp = itemp;
 }
 
 int Temperature::GetDesired()
@@ -25,18 +22,18 @@ void Temperature::SetTemperature(int value)
 
 void Temperature::Poll()
 {
-  currentTemperature = itemp.GetTemperature();
-  if (desiredTemperature == 3) itemp.SetHeater(true);
-  else if (desiredTemperature == 0) itemp.SetHeater(false);
+  currentTemperature = temp.GetTemperature();
+  if (desiredTemperature == 3) temp.SetHeater(true);
+  else if (desiredTemperature == 0) temp.SetHeater(false);
   else
   {
-    if (desiredTemperature > currentTemperature) itemp.SetHeater(true);
-    else if (desiredTemperature < currentTemperature) itemp.SetHeater(false);
+    if (desiredTemperature > currentTemperature) temp.SetHeater(true);
+    else if (desiredTemperature < currentTemperature) temp.SetHeater(false);
     else
     {
-      itemp.SetHeater(true);
+      temp.SetHeater(true);
       delay(100);
-      itemp.SetHeater(false);
+      temp.SetHeater(false);
       delay(90);
     }
   }
