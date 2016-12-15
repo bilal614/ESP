@@ -11,7 +11,6 @@ class Temperature
 	int desiredTemperature;
 	
 	public:
-	Temperature();
 	Temperature(ITemperature* itemp);
 	int GetDesired();
 	int CheckTemperature();
