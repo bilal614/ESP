@@ -38,10 +38,10 @@ void setup()
   mControl = new HardwareControl();
   mCoinWallet = new CoinWallet(mControl);
 }
-
+int count = 0;
 void loop()
 {
-   mCoinWallet->Poll();
+  mCoinWallet->Poll();
 }
 
 
