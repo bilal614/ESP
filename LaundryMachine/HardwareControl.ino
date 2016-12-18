@@ -56,9 +56,9 @@ void HardwareControl::Strobe()
 {
   //Serial.println("Strobe is called");
   centipede.digitalWrite(OUT_STROBE, LOW);
-  delay(85);
+  delay(80);
   centipede.digitalWrite(OUT_STROBE, HIGH);
-  delay(15);
+  delay(10);
 }
 boolean HardwareControl::GetCoin10Button()
 {
@@ -66,7 +66,7 @@ boolean HardwareControl::GetCoin10Button()
   centipede.digitalWrite(OUT_KEYSELECT, HIGH);
   if (centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN0))
   {
-    delay(50);
+    delay(200);
     if (!centipede.digitalRead(IN_IN3))
     {
       value = true;
