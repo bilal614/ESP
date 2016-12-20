@@ -1,17 +1,17 @@
 #include "ProgramExecutor.h"
 
-/*
+
 ProgramExecutor::ProgramExecutor(IBuzzer * b, IMotor * m, ILock * l, ISoap * s, ITemperature * t, IWater * w, CoinWallet * c)
 {
-  mBuzzer = b;
-  mMotor = m;
-  mLock = l;
-  mSoap = s;
-  mTemperature = t;
-  mWater = w;
-  mCoinWallet = c;
+  mBuzzer.setInterface(b);
+  mMotor.setInterface(m);
+  mLock.setInterface(l);
+  mSoap.setInterface(s);
+  mTemperature.setInterface(t);
+  mWater.setInterface(w);
+  mCoinWallet.setInterface(c);
 }
-*/
+
 boolean ProgramExecutor::Start(ProgramSettings * p)
 {
   mProgramSettings = p;

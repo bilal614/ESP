@@ -1,6 +1,14 @@
+Soap::Soap()
+{
+  Soap::checkCpt1(); 
+  Soap::checkCpt2();
+}
+
 Soap::Soap(ISoap * s)
 {
   iSoap = s;
+  Soap::checkCpt1(); 
+  Soap::checkCpt2(); 
 }
 boolean Soap::checkCpt1()
 {
@@ -63,4 +71,10 @@ Soap::~Soap()
 {
   //delete iSoap;  
 }
+
+void Soap::setInterface(ISoap* s)
+{
+    iSoap = s;   
+}
+
 

@@ -1,7 +1,13 @@
 
+Lock::Lock()
+{
+  lock = Lock::checkLock();   
+}
+
 Lock::Lock(ILock * l)
 {
-  iLock = l;  
+  iLock = l; 
+  lock = Lock::checkLock(); 
 }
 
 Lock::~Lock()
@@ -31,3 +37,9 @@ void Lock::setLock(boolean l)
 {
   lock = l;  
 }
+
+void Lock::setInterface(ILock* lck)
+{
+  iLock = lck;  
+}
+
