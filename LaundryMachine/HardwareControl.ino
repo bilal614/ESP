@@ -279,7 +279,7 @@ boolean HardwareControl::GetSoap1()
   {
     if (centipede.digitalRead(IN_IN1))
     {
-      HardwareControl::SetSoap1(true);
+      //HardwareControl::SetSoap1(true);
       soap1 = true;
     }
     else
@@ -297,7 +297,6 @@ boolean HardwareControl::GetSoap2()
   {
     if (centipede.digitalRead(IN_IN2))
     {
-      HardwareControl::SetSoap2(true);
       soap2 = true;
     }
     else

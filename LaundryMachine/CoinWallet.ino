@@ -20,10 +20,12 @@ void CoinWallet::Poll()
   AddCoin50();
   AddCoin200();
   WithdrawAll();
+  Serial.print("amount in wallet: ");Serial.println(CoinWallet::GetAmount());
 }
 
 int CoinWallet::GetAmount()
 {
+  balance = 10*nrOfCoin10 + 50*nrOfCoin50 + 200*nrOfCoin200;
   return balance;
 }
 

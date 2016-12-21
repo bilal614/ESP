@@ -20,11 +20,11 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
 boolean ProgramExecutor::Step()
 {
   mLock.lockMachine();
-  delay(1000);
+  //delay(1000);
   mSoap.checkCpt1();
-  delay(1000);
+  //delay(1000);
   mSoap.checkCpt2();
-  delay(1000);
+  //delay(1000);
   //mCoinWallet->Poll();
   //mTemperature.Poll();
   return (true);
@@ -35,3 +35,12 @@ boolean ProgramExecutor::IsReady()
   return (false);
 }
 
+void ProgramExecutor::setCoinWallet(CoinWallet* c)
+{
+  mCoinWallet = c;  
+}
+
+boolean ProgramExecutor::StepCoinWallet()
+{
+  mCoinWallet->Poll();
+}

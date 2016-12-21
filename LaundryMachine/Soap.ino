@@ -16,7 +16,7 @@ boolean Soap::checkCpt1()
   }
   else
   {
-    iSoap->SetSoap1(true);
+    iSoap->SetSoap1(false);
   }
   soapCpt1 = soap1Status;
   return soap1Status;
@@ -33,7 +33,7 @@ boolean Soap::checkCpt2()
   }
   else
   {
-    iSoap->SetSoap2(true);
+    iSoap->SetSoap2(false);
   }
   soapCpt2 = soap2Status;
   return soap2Status;
