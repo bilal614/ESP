@@ -163,12 +163,13 @@ void HardwareControl::SetProgramIndicator(int program)
   SetData(program);
 }
 
+/*
 void HardwareControl::SetTemperature(int level)
 {
   centipede.digitalWrite(IN_T1, (level & 0x01));
   centipede.digitalWrite(IN_T2, (level & 0x02));
 }
-
+*/
 
 void HardwareControl::SetSoap1(boolean On)
 {
@@ -524,3 +525,17 @@ void HardwareControl::SinkWater()
     centipede.digitalWrite(OUT_DRAIN, LOW);
   }
 }
+
+void HardwareControl::SetHeater(bool sw1tch)
+{
+  centipede.digitalWrite(OUT_HEATER, !sw1tch);
+}
+
+int HardwareControl::GetTemperature() 
+{
+  int c = 0;
+  if (centipede.digitalRead(IN_T2) == HIGH) c += 2;  
+  if (centipede.digitalRead(IN_T1) == HIGH) c += 1;
+  return c;
+}
+

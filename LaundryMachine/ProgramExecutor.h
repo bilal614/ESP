@@ -1,12 +1,12 @@
 #ifndef PROGRAMEXECUTOR_H
 #define PROGRAMEXECUTOR_H
 
-//#include "Buzzer.h"
+#include "Buzzer.h"
 #include "Lock.h"
 //#include "Motor.h"
 //#include "Program.h"
 #include "Soap.h"
-//#include "Temperature.h"
+#include "Temperature.h"
 //#include "Water.h"
 //#include "CoinWallet.h"
 #include "ProgramSettings.h"
@@ -19,11 +19,11 @@ public:
   boolean Step();
   boolean IsReady();
 private:
-  //Buzzer  mBuzzer;
+  Buzzer  mBuzzer;
   //Motor  mMotor;
   Lock  mLock;
   Soap  mSoap;
-  //Temperature * mTemperature;
+  Temperature mTemperature;
   //Water  mWater;
   //CoinWallet  mCoinWallet;
   ProgramSettings* mProgramSettings;
