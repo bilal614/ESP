@@ -14,7 +14,7 @@
 class ProgramExecutor
 {
 public:
-  ProgramExecutor(IBuzzer* b, IMotor* m, ILock* l, ISoap* s, ITemperature* t, IWater* w, CoinWallet* c);  
+  ProgramExecutor(IBuzzer* b, IMotor* m, ILock* l, ISoap* s, ITemperature* t, IWater* w);
   boolean Start(ProgramSettings *);
   boolean Step();
   boolean IsReady();
@@ -25,7 +25,7 @@ private:
   Soap  mSoap;
   Temperature mTemperature;
   //Water  mWater;
-  //CoinWallet  mCoinWallet;
+  CoinWallet * mCoinWallet;
   ProgramSettings* mProgramSettings;
 };
 

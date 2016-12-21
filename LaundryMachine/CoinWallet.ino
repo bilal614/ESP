@@ -1,4 +1,10 @@
 #include "CoinWallet.h"
+CoinWallet::CoinWallet()
+{
+  nrOfCoin10 = 0;
+  nrOfCoin50 = 0;
+  nrOfCoin200 = 0;
+}
 
 CoinWallet::CoinWallet(ICoin * c)
 {
@@ -112,4 +118,9 @@ char CoinWallet::mappingCoin(char nrofCoin)
 }
 CoinWallet::~CoinWallet()
 {}
+
+void CoinWallet::setInterface(ICoin* c)
+{
+  mCoin = c;
+}
 

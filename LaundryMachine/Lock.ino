@@ -1,13 +1,11 @@
 
 Lock::Lock()
-{
-  lock = Lock::checkLock();   
+{ 
 }
 
 Lock::Lock(ILock * l)
 {
   iLock = l; 
-  lock = Lock::checkLock(); 
 }
 
 Lock::~Lock()
@@ -26,10 +24,11 @@ void Lock::lockMachine()
     if(Lock::checkLock())
     {
       lock = locked;
+      Serial.print("lock switch is: ");Serial.println(lock);
     }
     else
     {
-      lock = unlocked;  
+      lock = unlocked;
     }
 }
 

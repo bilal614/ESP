@@ -6,6 +6,7 @@
 class CoinWallet
 {
   public:
+    CoinWallet();
     CoinWallet(ICoin *);
     boolean Withdraw(int amount);
     void AddCoin10();
@@ -23,6 +24,7 @@ class CoinWallet
     int balance;
     //private methods
     char mappingCoin(char nrofCoin);
+    void setInterface(ICoin* c);
 };
 
 #endif

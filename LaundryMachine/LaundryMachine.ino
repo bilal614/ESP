@@ -37,11 +37,16 @@ void setup()
   Serial.begin(9600);
   mControl = new HardwareControl();
   mCoinWallet = new CoinWallet(mControl);
+  mProgramExecutor = new ProgramExecutor(mControl, mControl, mControl, mControl, mControl, mControl);
+  //mLock = new HardwareControl();
 }
 int count = 0;
 void loop()
 {
-  mCoinWallet->Poll();
+  mProgramExecutor->Step(); 
+  //boolean b = mLock->GetLockStatus();
+  //Serial.print("lock status: ");Serial.println(b);
+  //mProgramExecutor->Step();
   /*if (mControl->GetCoin10Button())
   {
     count++;

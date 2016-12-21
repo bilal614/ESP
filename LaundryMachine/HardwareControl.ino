@@ -48,7 +48,7 @@ HardwareControl::HardwareControl()
   centipede.digitalWrite(OUT_SINK, LOW);
   centipede.digitalWrite(OUT_DRAIN, LOW);
   centipede.digitalWrite(OUT_LOCK, LOW);
-  Serial.println("Construtor is called");
+  //Serial.println("Construtor is called");
 }
 
 ///***IPROGRAM & ICOIN **///
@@ -279,6 +279,7 @@ boolean HardwareControl::GetSoap1()
   {
     if (centipede.digitalRead(IN_IN1))
     {
+      HardwareControl::SetSoap1(true);
       soap1 = true;
     }
     else
@@ -296,6 +297,7 @@ boolean HardwareControl::GetSoap2()
   {
     if (centipede.digitalRead(IN_IN2))
     {
+      HardwareControl::SetSoap2(true);
       soap2 = true;
     }
     else
