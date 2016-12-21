@@ -1,4 +1,4 @@
-#ifndef HARDWARECONTROL_H
+ #ifndef HARDWARECONTROL_H
 #define HARDWARECONTROL_H
 
 #include "Centipede.h"
@@ -17,57 +17,55 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
   public:
     HardwareControl();
     /* ICoin */
-    //inputs
+    //inputs 
     boolean GetCoin10Button();
     boolean GetCoin50Button();
     boolean GetCoin200Button();
     boolean GetClearButton();
     //outputs
-    void SetCoin10(byte led);
-    void SetCoin50(byte led);
-    void SetCoin200(byte led);
+    void SetCoin10(byte firstCoin, byte secondCoin, byte thirdCoin);
+    void SetCoin50(int leds);
+    void SetCoin200(int leds);
+    void ClearCoin10(int leds);
+    void ClearCoin50(int leds);
+    void ClearCoin200(int leds);
 
     /* ITemperature */
     //inputs
     int GetTemperature();
     //outputs
-    void SetHeater(bool sw1tch);
+    void IncreaseTemperature();
+    void DecreaseTemperature();
 
     /* ILock */
     //inputs
     boolean GetLockStatus();
-    void SetLockStatus(boolean lock);
+    //output
+    boolean LockDoor(boolean &lockStatus);
+    boolean UnlockDoor(boolean &lockStatus);
 
     /* IBuzzer */
-    //inputs
+    //inputs 
+    boolean buzzerOn();
     //outputs
-    void SetBuzzer(int ms);
-
+    void SetBuzzer();
+    
     /* IMotor */
-    // Inputs
-    // Outputs
-    virtual void TurnLeft();
-    virtual void TurnRight();
-    virtual void StartSpeed1();
-    virtual void StartSpeed2();  
-    virtual void StopSpeed1();
-    virtual void StopSpeed2();
-
-    /* IWater */
-    // Inputs
-    virtual boolean GetWater1();
-    virtual boolean GetWater2();
-    // Outputs
-    virtual void OpenSink();
-    virtual void CloseSink();
-    virtual void OpenDrain();
-    virtual void CloseDrain();
-
+    void SetSpeed(int level);
+    void SetDirection(char dir);
+    bool CheckLoadingLevel(int level);
+    void StartMotor();
+    void StopMotor();
+        
     /* IProgram */
     boolean GetStartButton();
     void SetProgramIndicator(int program);
-    boolean GetProgramButton();
-
+    
+    /* IWater */
+    void SetWaterLevel(int level);
+    bool CheckWaterLevel(int level);
+    void SinkWater();
+        
     /* ISoap */
     //inputs
     boolean GetSoap1();

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdint.h>
-//#include <string>
+#include <string>
 using namespace std;
 
 typedef bool    boolean;

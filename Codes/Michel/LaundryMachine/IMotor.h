@@ -3,14 +3,14 @@
 
 class IMotor
 {
-public:
-  // Outputs
-  virtual void SetDirection(char dir) = 0;
-  virtual void SetSpeed(int level) = 0;
-  virtual boolean CheckLoadingLevel(int level) = 0;
-  
-  virtual void StartMotor() = 0;  
-  virtual void StopMotor() = 0;
+    public:
+    // Outputs
+      virtual void TurnLeft() = 0;
+      virtual void TurnRight() = 0;
+      virtual void StartSpeed1() = 0;
+      virtual void StartSpeed2() = 0; 
+      virtual void StopSpeed1() = 0;
+      virtual void StopSpeed2() = 0;
 };
 
 #endif

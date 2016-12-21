@@ -6,6 +6,8 @@ class ProgramSettings
   public:
     ProgramSettings(char);
     String ToString();
+    char GetProgramType();
+    int GetProgramCost();
   private:
     char type; /* 'A', 'B' or 'C' */
     int cost;

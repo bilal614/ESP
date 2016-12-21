@@ -3,12 +3,10 @@
 
 class ILock
 {
-public:
-  // Inputs
-  virtual boolean GetLockStatus() = 0;
-  // Outputs
-  virtual boolean LockDoor(boolean &lockStatus) = 0;
-  virtual boolean UnlockDoor(boolean &lockStatus) = 0;
+  public:
+    virtual boolean GetLockStatus() = 0;
+    virtual void SetLockStatus(boolean lock) = 0;
+
 };
 
 #endif

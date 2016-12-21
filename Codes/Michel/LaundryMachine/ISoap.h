@@ -4,7 +4,7 @@
 class ISoap
 {
 public:
-  // Inputs
+   // Inputs
   virtual boolean GetSoap1() = 0;
   virtual boolean GetSoap2() = 0;
   // Outputs

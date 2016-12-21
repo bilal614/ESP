@@ -30,27 +30,41 @@ static ProgramSelect * mProgramSelect;
 static ProgramSettings * mProgramSettings;
 static ProgramExecutor * mProgramExecutor;
 
+//only for testing at this moment
+
 void setup()
 {
   Serial.begin(9600);
   mControl = new HardwareControl();
+  mCoinWallet = new CoinWallet(mControl);
 }
-
+int count = 0;
 void loop()
 {
-  //Only for testing the HardwareControl class
-//  if (mControl->GetCoin10Button())
-//  {
-//    Serial.println("Button coin 10 is pressed");
-//    mControl->SetCoin10(1,0,0);
-//  }
-      if (mControl->GetCoin50Button())
+  mCoinWallet->Poll();
+  /*if (mControl->GetCoin10Button())
   {
-    Serial.println("Button coin 50 is pressed");
-    mControl->SetCoin50(1);
+    count++;
   }
-
-  //delete mControl;
+  if (count == 1)
+  {
+    //Serial.println("First press");
+    mControl->SetCoin10(0x01);
+  }
+  else if (count == 2)
+  {
+    //Serial.println("Second press");
+    mControl->SetCoin10(0x02);
+  }
+  else if (count == 3)
+  {
+    //Serial.println("Third press");
+    mControl->SetCoin10(0x04);
+  }
+  else
+  {
+    count = 0;
+  }*/
 }
 
 
