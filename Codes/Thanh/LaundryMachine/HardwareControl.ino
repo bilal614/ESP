@@ -66,7 +66,11 @@ boolean HardwareControl::GetCoin10Button()
   centipede.digitalWrite(OUT_KEYSELECT, HIGH);
   if (centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN0))
   {
-    value = true;
+    delay(200);
+    if(!centipede.digitalRead(IN_IN3))
+    {
+      value = true;
+    }
   }
   return value;
 }
@@ -182,14 +186,18 @@ void HardwareControl::SetSoap1(boolean On)
 void HardwareControl::SetSoap2(boolean On)
 {
   Strobe();
-  SetGroup(2);//to make group2 high and group1 low
+
   if (On)
   {
     centipede.digitalWrite(OUT_DATAC, HIGH);
+    //SetGroup(2);//to make group2 high and group1 low
+    //SetData(B00000100);
   }
   if (!On)
   {
     centipede.digitalWrite(OUT_DATAC, LOW);
+    //SetGroup(2);//to make group2 high and group1 low
+    //SetData(0);
   }
 }
 
@@ -291,13 +299,10 @@ boolean HardwareControl::GetSoap2()
   boolean soap2 = false;
   if (centipede.digitalRead(OUT_KEYSELECT) == LOW) //key select must be low in order to interpret inputs from the switches
   {
-    if (centipede.digitalRead(IN_IN2))
+    //edited by Thanh
+    if (centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN0))
     {
       soap2 = true;
-    }
-    else
-    {
-      soap2 = false;
     }
   }
   return soap2;
