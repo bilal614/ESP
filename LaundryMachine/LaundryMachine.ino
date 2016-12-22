@@ -39,12 +39,14 @@ void setup()
   mCoinWallet = new CoinWallet(mControl);
   mProgramExecutor = new ProgramExecutor(mControl, mControl, mControl, mControl, mControl, mControl);
   mProgramExecutor->setCoinWallet(mCoinWallet);
+  mProgramSelect = new ProgramSelect(mControl);
 }
 int count = 0;
 void loop()
 {
   mProgramExecutor->Step();
   mProgramExecutor->StepCoinWallet(); 
+  mProgramSelect->Poll();
   /*if (mControl->GetCoin10Button())
   {
     count++;
