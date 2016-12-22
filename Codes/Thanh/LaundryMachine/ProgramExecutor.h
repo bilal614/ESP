@@ -17,7 +17,9 @@ public:
   ProgramExecutor(IBuzzer* b, IMotor* m, ILock* l, ISoap* s, ITemperature* t, IWater* w);
   boolean Start(ProgramSettings *);
   boolean Step();
+  boolean StepCoinWallet();
   boolean IsReady();
+  void setCoinWallet(CoinWallet* c);
 private:
   Buzzer  mBuzzer;
   //Motor  mMotor;

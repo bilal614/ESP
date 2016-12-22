@@ -66,11 +66,7 @@ boolean HardwareControl::GetCoin10Button()
   centipede.digitalWrite(OUT_KEYSELECT, HIGH);
   if (centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN0))
   {
-    delay(200);
-    if (!centipede.digitalRead(IN_IN3))
-    {
-      value = true;
-    }
+    value = true;
   }
   return value;
 }
@@ -151,7 +147,7 @@ boolean HardwareControl::GetProgramButton()
   SetKeySelect(1);
   if (centipede.digitalRead(IN_IN0) && centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN2))
   {
-      value = true;
+    value = true;
   }
   return value;
 }
@@ -164,11 +160,11 @@ void HardwareControl::SetProgramIndicator(int program)
 }
 
 /*
-void HardwareControl::SetTemperature(int level)
-{
+  void HardwareControl::SetTemperature(int level)
+  {
   centipede.digitalWrite(IN_T1, (level & 0x01));
   centipede.digitalWrite(IN_T2, (level & 0x02));
-}
+  }
 */
 
 void HardwareControl::SetSoap1(boolean On)
@@ -279,7 +275,7 @@ boolean HardwareControl::GetSoap1()
   {
     if (centipede.digitalRead(IN_IN1))
     {
-      HardwareControl::SetSoap1(true);
+      //HardwareControl::SetSoap1(true);
       soap1 = true;
     }
     else
@@ -297,7 +293,6 @@ boolean HardwareControl::GetSoap2()
   {
     if (centipede.digitalRead(IN_IN2))
     {
-      HardwareControl::SetSoap2(true);
       soap2 = true;
     }
     else
@@ -533,10 +528,10 @@ void HardwareControl::SetHeater(bool sw1tch)
   centipede.digitalWrite(OUT_HEATER, !sw1tch);
 }
 
-int HardwareControl::GetTemperature() 
+int HardwareControl::GetTemperature()
 {
   int c = 0;
-  if (centipede.digitalRead(IN_T2) == HIGH) c += 2;  
+  if (centipede.digitalRead(IN_T2) == HIGH) c += 2;
   if (centipede.digitalRead(IN_T1) == HIGH) c += 1;
   return c;
 }
