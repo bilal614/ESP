@@ -5,13 +5,26 @@
 
 class CoinWallet
 {
-public:
-  CoinWallet(ICoin *);
-  void Poll();
-  int Balance();
-  boolean Withdraw(int amount);
-private:
-  ICoin * mCoin;
+  public:
+    CoinWallet();
+    CoinWallet(ICoin *);
+    boolean Withdraw(int amount);
+    void AddCoin10();
+    void AddCoin50();
+    void AddCoin200();
+    int GetAmount();
+    void Poll();
+    void WithdrawAll();
+    ~CoinWallet();
+  private:
+    ICoin * mCoin;
+    char nrOfCoin10;
+    char nrOfCoin50;
+    char nrOfCoin200;
+    int balance;
+    //private methods
+    char mappingCoin(char nrofCoin);
+    void setInterface(ICoin* c);
 };
 
 #endif

@@ -7,14 +7,16 @@ ProgramSelect::ProgramSelect(IProgram * p)
 
 void ProgramSelect::Poll()
 {
+  
 }
 
 char ProgramSelect::GetProgramType()
 {
-  return ('\0');
+  return ('A');
 }
 
 void ProgramSelect::InstallStartHandler(void (* handler)())
 {
+  
 }
 

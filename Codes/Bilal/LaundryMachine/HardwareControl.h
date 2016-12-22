@@ -29,8 +29,9 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
 
     /* ITemperature */
     //inputs
-    void SetTemperature(int level);
+    int GetTemperature();
     //outputs
+    void SetHeater(bool sw1tch);
 
     /* ILock */
     //inputs
