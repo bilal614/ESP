@@ -8,7 +8,6 @@ ProgramExecutor::ProgramExecutor(IBuzzer * b, IMotor * m, ILock * l, ISoap * s, 
   mSoap.setInterface(s);
   //mTemperature.setInterface(t);
   //mWater.setInterface(w);
-  //mCoinWallet = c;
 }
 
 boolean ProgramExecutor::Start(ProgramSettings * p)

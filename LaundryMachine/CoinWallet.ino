@@ -72,7 +72,7 @@ void CoinWallet::AddCoin200()
 {
    if (mCoin->GetCoin200Button())
   {
-    if (nrOfCoin200 <= 2)
+    if (nrOfCoin200 < 2)
     {
       nrOfCoin200++;
     }

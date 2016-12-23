@@ -66,11 +66,7 @@ boolean HardwareControl::GetCoin10Button()
   centipede.digitalWrite(OUT_KEYSELECT, HIGH);
   if (centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN0))
   {
-    delay(200);
-    if (!centipede.digitalRead(IN_IN3))
-    {
-      value = true;
-    }
+    value = true;
   }
   return value;
 }
