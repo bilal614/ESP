@@ -49,7 +49,7 @@ char ProgramSelect::GetProgramType()
 
 void ProgramSelect::InstallStartHandler(void (* handler)())
 {
-
+  
 }
 
 void ProgramSelect::setProgramInterface(IProgram* p)

@@ -19,7 +19,15 @@ void ProgramSelect::Poll()
   Serial.println(progamType);
   if (currentProgram >= 4)
   {
-    currentProgram = 0;
+    currentProgram = 1;
+  }
+  if (mProgram->GetStartButton())
+  {
+    Serial.println("Start is pressed");
+//    if (mStartHandler != NULL)
+//    {
+//      mStartHandler();
+//    }
   }
 }
 
@@ -38,7 +46,7 @@ char ProgramSelect::GetProgramType()
   if (currentProgram == 2)
   {
     mProgram->SetProgramIndicator(0x01 << 1);
-    return ('B');  
+    return ('B');
   }
   if (currentProgram == 3)
   {
@@ -49,7 +57,7 @@ char ProgramSelect::GetProgramType()
 
 void ProgramSelect::InstallStartHandler(void (* handler)())
 {
-
+  mStartHandler = handler;
 }
 
 void ProgramSelect::setProgramInterface(IProgram* p)
