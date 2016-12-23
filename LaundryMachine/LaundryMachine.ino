@@ -46,7 +46,7 @@ bool Ready = false;
 int count = 0;
 void loop()
 {
-  //mProgramExecutor->Step();
+  //mProgramExecutor->StepSwitches();
   mProgramExecutor->StepCoinWallet(); 
   mProgramSelect->Poll();
   Ready = mProgramExecutor->IsReady(mProgramSelect->GetProgramType());

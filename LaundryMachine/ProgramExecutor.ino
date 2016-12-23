@@ -16,7 +16,7 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
   return (true);
 }
 
-boolean ProgramExecutor::Step()
+boolean ProgramExecutor::StepSwitches()
 {
   mLock.lockMachine();
   //delay(1000);

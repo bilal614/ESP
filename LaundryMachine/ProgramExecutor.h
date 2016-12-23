@@ -16,7 +16,7 @@ class ProgramExecutor
 public:
   ProgramExecutor(IBuzzer* b, IMotor* m, ILock* l, ISoap* s, ITemperature* t, IWater* w);
   boolean Start(ProgramSettings *);
-  boolean Step();
+  boolean StepSwitches();
   boolean StepCoinWallet();
   boolean IsReady(char prog);
   void setCoinWallet(CoinWallet* c);
