@@ -44,7 +44,7 @@ void setup()
 int count = 0;
 void loop()
 {
-  mProgramExecutor->Step();
+  //mProgramExecutor->Step();
   mProgramExecutor->StepCoinWallet(); 
   mProgramSelect->Poll();
   /*if (mControl->GetCoin10Button())

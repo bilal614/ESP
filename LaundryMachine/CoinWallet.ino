@@ -77,7 +77,6 @@ void CoinWallet::AddCoin200()
     int coinIndicator200 = mappingCoin(nrOfCoin200);
     mCoin->SetCoin200(coinIndicator200);
   }
-
 }
 
 void CoinWallet::WithdrawAll()
