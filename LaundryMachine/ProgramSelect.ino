@@ -3,13 +3,13 @@
 
 ProgramSelect::ProgramSelect()
 {
-  currentProgram = 0;
+  currentProgram = 1;
 }
 
 ProgramSelect::ProgramSelect(IProgram * p)
 {
   mProgram = p;
-  currentProgram = 0;
+  currentProgram = 1;
 }
 
 void ProgramSelect::Poll()
@@ -19,7 +19,7 @@ void ProgramSelect::Poll()
   Serial.println(progamType);
   if (currentProgram >= 4)
   {
-    currentProgram = 1;
+    currentProgram = 0;
   }
   if (mProgram->GetStartButton())
   {
