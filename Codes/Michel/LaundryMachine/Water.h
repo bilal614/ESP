@@ -11,20 +11,16 @@ const int Empty = 0;
 class Water
 {
   private:
-    IWater* iWater;
+    IWater* oWater;
     int CurrentLevel;
     int DesiredLevel;
 
   public:
-    Water(IWater *w);
-    int CheckLevel();		                //will check if
+    Water(IWater *);
+    int CheckLevel();
     void SetLevel(int level);
-    void Poll();		                    //will check if
     void SetSink(boolean state);
     void SetDrain(boolean state);
-    boolean CheckSink();
-    boolean CheckDrain();
-    
     ~Water();
 };
 

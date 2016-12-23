@@ -3,20 +3,20 @@
 
 Water::Water(IWater * w)
 {
-  iWater = w;
+  oWater = w;
 }
 
 int Water::CheckLevel()
 {
-  if (!iWater->GetWater1() && !iWater->GetWater2())
+  if (!oWater->GetWater1() && !oWater->GetWater2())
   {
     return Full;
   }
-  else if (iWater->GetWater1() && !iWater->GetWater2())
+  else if (oWater->GetWater1() && !oWater->GetWater2())
   {
-    return Medium;
+    return Medium_water;
   }
-  else if (!iWater->GetWater1() && iWater->GetWater2())
+  else if (!oWater->GetWater1() && oWater->GetWater2())
   {
     return Low_water;
   }
@@ -50,12 +50,12 @@ void Water::SetLevel(int level)
       Water::SetDrain(1);
     }
   }
-  else if (level == Medium)             //Filled at 66%
+  else if (level == Medium_water)             //Filled at 66%
   {
     Water::SetSink(0);                  //1 for ON and 0 for OFF
     Water::SetDrain(1);
 
-    if (Water::CheckLevel() == Medium)
+    if (Water::CheckLevel() == Medium_water)
     {
       //Stay at fixed level
       Water::SetSink(1);                  //1 for ON and 0 for OFF
@@ -75,7 +75,7 @@ void Water::SetLevel(int level)
       Water::SetDrain(1);
     }
   }
-  else                                 // Fixed Level
+  else                                 // Stay at Fixed Level
   {
     Water::SetSink(1);                  //1 for ON and 0 for OFF
     Water::SetDrain(1);
@@ -86,11 +86,11 @@ void Water::SetSink(boolean state)
 {
   if (state)
   {
-    iWater->OpenSink();
+    oWater->OpenSink();
   }
   else
   {
-    iWater->CloseSink(); ;
+    oWater->CloseSink(); ;
   }
 }
 
@@ -98,17 +98,16 @@ void Water::SetDrain(boolean state)
 {
   if (state)
   {
-    iWater->OpenDrain();
+    oWater->OpenDrain();
   }
   else
   {
-    iWater->CloseDrain();
+    oWater->CloseDrain();
   }
 }
 
-
 Water::~Water()
 {
-  //delete iWater;
+  //delete oWater;
 }
 

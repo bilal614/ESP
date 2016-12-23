@@ -11,16 +11,15 @@ const int OFF = 0;
 class Motor
 {
   private:
-    IMotor* iMotor;
+    IMotor* oMotor;
     boolean Direction;
     int Speed;
 
   public:
-    Motor();
     Motor(IMotor *);
     void Start(int s);
-    void Stop();                                    //will check if
-    void SetDirection(boolean dir);                 //will check if
+    void Stop();
+    void SetDirection(boolean dir);
     ~Motor();
 };
 
