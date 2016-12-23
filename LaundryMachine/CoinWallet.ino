@@ -20,12 +20,12 @@ void CoinWallet::Poll()
   AddCoin50();
   AddCoin200();
   WithdrawAll();
-  Serial.print("amount in wallet: ");Serial.println(CoinWallet::GetAmount());
+  Serial.print("amount in wallet: "); Serial.println(CoinWallet::GetAmount());
 }
 
 int CoinWallet::GetAmount()
 {
-  balance = 10*nrOfCoin10 + 50*nrOfCoin50 + 200*nrOfCoin200;
+  balance = 10 * nrOfCoin10 + 50 * nrOfCoin50 + 200 * nrOfCoin200;
   return balance;
 }
 
@@ -44,41 +44,40 @@ boolean CoinWallet::Withdraw(int amount)
 
 void CoinWallet:: AddCoin10()
 {
-  if (mCoin->GetCoin10Button())
+  if (nrOfCoin10 < 3)
   {
-    if (nrOfCoin10 <= 3)
+    if (mCoin->GetCoin10Button())
     {
       nrOfCoin10++;
+      int coinIndicator10 = mappingCoin(nrOfCoin10);
+      mCoin->SetCoin10(coinIndicator10);
     }
   }
-  int coinIndicator = mappingCoin(nrOfCoin10);
-  mCoin->SetCoin10(coinIndicator);
+
 }
 
 void CoinWallet::AddCoin50()
 {
-  if (mCoin->GetCoin50Button())
+  if ( nrOfCoin50 < 3 && mCoin->GetCoin50Button())
   {
-    if (nrOfCoin50 <= 3)
-    {
-      nrOfCoin50++;
-    }
+    nrOfCoin50++;
+    int coinIndicator50 = mappingCoin(nrOfCoin50);
+    mCoin->SetCoin50(coinIndicator50);
+
   }
-  int coinIndicator = mappingCoin(nrOfCoin50);
-  mCoin->SetCoin50(coinIndicator);
+
+
 }
 
 void CoinWallet::AddCoin200()
 {
-   if (mCoin->GetCoin200Button())
+  if (nrOfCoin200 < 2 && mCoin->GetCoin200Button())
   {
-    if (nrOfCoin200 <= 2)
-    {
-      nrOfCoin200++;
-    }
+    nrOfCoin200++;
+    int coinIndicator200 = mappingCoin(nrOfCoin200);
+    mCoin->SetCoin200(coinIndicator200);
   }
-  int coinIndicator = mappingCoin(nrOfCoin200);
-  mCoin->SetCoin200(coinIndicator);
+
 }
 
 void CoinWallet::WithdrawAll()
@@ -108,13 +107,9 @@ char CoinWallet::mappingCoin(char nrofCoin)
   {
     return B00000111;
   }
-  else if (nrofCoin <= 0)
+  else if (nrofCoin == 0)
   {
     return B00000000;
-  }
-  else if (nrofCoin > 3)
-  {
-    return B00000111;
   }
 
 }
@@ -125,4 +120,3 @@ void CoinWallet::setInterface(ICoin* c)
 {
   mCoin = c;
 }
-

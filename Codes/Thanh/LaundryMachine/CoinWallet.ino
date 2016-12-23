@@ -4,7 +4,6 @@ CoinWallet::CoinWallet()
   nrOfCoin10 = 0;
   nrOfCoin50 = 0;
   nrOfCoin200 = 0;
-
 }
 
 CoinWallet::CoinWallet(ICoin * c)
@@ -13,7 +12,6 @@ CoinWallet::CoinWallet(ICoin * c)
   nrOfCoin10 = 0;
   nrOfCoin50 = 0;
   nrOfCoin200 = 0;
-
 }
 
 void CoinWallet::Poll()
@@ -23,14 +21,6 @@ void CoinWallet::Poll()
   AddCoin200();
   WithdrawAll();
   Serial.print("amount in wallet: "); Serial.println(CoinWallet::GetAmount());
-
-  int coinIndicator10 = mappingCoin(nrOfCoin10);
-  mCoin->SetCoin10(coinIndicator10);
-  int coinIndicator50 = mappingCoin(nrOfCoin50);
-  mCoin->SetCoin50(coinIndicator50);
-  int coinIndicator200 = mappingCoin(nrOfCoin200);
-  mCoin->SetCoin200(coinIndicator200);
-  
 }
 
 int CoinWallet::GetAmount()
@@ -59,6 +49,8 @@ void CoinWallet:: AddCoin10()
     if (mCoin->GetCoin10Button())
     {
       nrOfCoin10++;
+      int coinIndicator10 = mappingCoin(nrOfCoin10);
+      mCoin->SetCoin10(coinIndicator10);
     }
   }
 
@@ -69,6 +61,9 @@ void CoinWallet::AddCoin50()
   if ( nrOfCoin50 < 3 && mCoin->GetCoin50Button())
   {
     nrOfCoin50++;
+    int coinIndicator50 = mappingCoin(nrOfCoin50);
+    mCoin->SetCoin50(coinIndicator50);
+
   }
 
 
@@ -79,7 +74,8 @@ void CoinWallet::AddCoin200()
   if (nrOfCoin200 < 2 && mCoin->GetCoin200Button())
   {
     nrOfCoin200++;
-
+    int coinIndicator200 = mappingCoin(nrOfCoin200);
+    mCoin->SetCoin200(coinIndicator200);
   }
 
 }

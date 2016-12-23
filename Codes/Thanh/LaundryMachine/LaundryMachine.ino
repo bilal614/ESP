@@ -44,32 +44,32 @@ void setup()
 int count = 0;
 void loop()
 {
-  mProgramExecutor->Step();
-  mProgramExecutor->StepCoinWallet(); 
+  //mProgramExecutor->Step();
+  mProgramExecutor->StepCoinWallet();
   mProgramSelect->Poll();
   /*if (mControl->GetCoin10Button())
-  {
+    {
     count++;
-  }
-  if (count == 1)
-  {
+    }
+    if (count == 1)
+    {
     //Serial.println("First press");
     mControl->SetCoin10(0x01);
-  }
-  else if (count == 2)
-  {
+    }
+    else if (count == 2)
+    {
     //Serial.println("Second press");
     mControl->SetCoin10(0x02);
-  }
-  else if (count == 3)
-  {
+    }
+    else if (count == 3)
+    {
     //Serial.println("Third press");
     mControl->SetCoin10(0x04);
-  }
-  else
-  {
+    }
+    else
+    {
     count = 0;
-  }*/
+    }*/
 }
 
 
