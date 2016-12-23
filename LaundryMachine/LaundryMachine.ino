@@ -51,30 +51,6 @@ void loop()
   mProgramSelect->Poll();
   Ready = mProgramExecutor->IsReady(mProgramSelect->GetProgramType());
   Serial.print("machine is ready for wash: ");Serial.println(Ready); 
-  
-  /*if (mControl->GetCoin10Button())
-  {
-    count++;
-  }
-  if (count == 1)
-  {
-    //Serial.println("First press");
-    mControl->SetCoin10(0x01);
-  }
-  else if (count == 2)
-  {
-    //Serial.println("Second press");
-    mControl->SetCoin10(0x02);
-  }
-  else if (count == 3)
-  {
-    //Serial.println("Third press");
-    mControl->SetCoin10(0x04);
-  }
-  else
-  {
-    count = 0;
-  }*/
 }
 
 
