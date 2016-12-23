@@ -40,13 +40,18 @@ void setup()
   mProgramExecutor = new ProgramExecutor(mControl, mControl, mControl, mControl, mControl, mControl);
   mProgramExecutor->setCoinWallet(mCoinWallet);
   mProgramSelect = new ProgramSelect(mControl);
+  mProgramSettings = new ProgramSettings();
 }
+bool Ready = false;
 int count = 0;
 void loop()
 {
   //mProgramExecutor->Step();
   mProgramExecutor->StepCoinWallet(); 
   mProgramSelect->Poll();
+  Ready = mProgramExecutor->IsReady(mProgramSelect->GetProgramType());
+  Serial.print("machine is ready for wash: ");Serial.println(Ready); 
+  
   /*if (mControl->GetCoin10Button())
   {
     count++;

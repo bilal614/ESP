@@ -18,7 +18,7 @@ public:
   boolean Start(ProgramSettings *);
   boolean Step();
   boolean StepCoinWallet();
-  boolean IsReady();
+  boolean IsReady(char prog);
   void setCoinWallet(CoinWallet* c);
 private:
   Buzzer  mBuzzer;

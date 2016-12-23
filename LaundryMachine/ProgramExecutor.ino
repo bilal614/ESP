@@ -29,9 +29,22 @@ boolean ProgramExecutor::Step()
   return (true);
 }
 
-boolean ProgramExecutor::IsReady()
+boolean ProgramExecutor::IsReady(char prog)
 {
-  return (false);
+  mProgramSettings->setProgramAndCost(prog);
+  
+  int walletMoney = mCoinWallet->GetAmount();
+
+  int progCost = mProgramSettings->GetProgramCost();
+  
+  if(walletMoney >= progCost)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
 
 void ProgramExecutor::setCoinWallet(CoinWallet* c)
