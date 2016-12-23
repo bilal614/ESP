@@ -352,22 +352,22 @@ void HardwareControl::SetKeySelect(int value)
    Thank you!
 
 ******/
-void OpenSink()
+void HardwareControl::OpenSink()
 {
   centipede.digitalWrite(OUT_SINK, HIGH);
 }
 
-void CloseSink()
+void HardwareControl::CloseSink()
 {
   centipede.digitalWrite(OUT_SINK, LOW);
 }
 
-void OpenDrain()
+void HardwareControl::OpenDrain()
 {
   centipede.digitalWrite(OUT_DRAIN, HIGH);
 }
 
-void CloseDrain()
+void HardwareControl::CloseDrain()
 {
   centipede.digitalWrite(OUT_DRAIN, LOW);
 }

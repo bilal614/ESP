@@ -3,10 +3,10 @@
 
 #include "IMotor.h"
 
-const int High = 0;
-const int Medium = 1;
-const int Low = 2;
-const int OFF = 2;
+const int High = 3;
+const int Medium = 2;
+const int Low = 1;
+const int OFF = 0;
 
 class Motor
 {
@@ -14,15 +14,13 @@ class Motor
     IMotor* iMotor;
     boolean Direction;
     int Speed;
-	
+
   public:
-    Motor(IMotor *m);
+    Motor();
+    Motor(IMotor *);
     void Start(int s);
-    void Stop();
-    int GetSpeed();
-    boolean GetDirection();                         //will check if 
+    void Stop();                                    //will check if
     void SetDirection(boolean dir);                 //will check if
-    
     ~Motor();
 };
 

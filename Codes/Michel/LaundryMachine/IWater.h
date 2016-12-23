@@ -1,6 +1,8 @@
 #ifndef IWATER_H
 #define IWATER_H
 
+#include "IWater.h"
+
 class IWater
 {
 public:
