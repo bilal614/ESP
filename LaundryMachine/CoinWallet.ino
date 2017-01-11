@@ -65,8 +65,6 @@ void CoinWallet::AddCoin50()
     mCoin->SetCoin50(coinIndicator50);
 
   }
-
-
 }
 
 void CoinWallet::AddCoin200()

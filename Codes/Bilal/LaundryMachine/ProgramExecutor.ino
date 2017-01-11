@@ -8,7 +8,6 @@ ProgramExecutor::ProgramExecutor(IBuzzer * b, IMotor * m, ILock * l, ISoap * s, 
   mSoap.setInterface(s);
   //mTemperature.setInterface(t);
   //mWater.setInterface(w);
-  //mCoinWallet = c;
 }
 
 boolean ProgramExecutor::Start(ProgramSettings * p)
@@ -17,7 +16,7 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
   return (true);
 }
 
-boolean ProgramExecutor::Step()
+boolean ProgramExecutor::StepSwitches()
 {
   mLock.lockMachine();
   //delay(1000);
@@ -30,9 +29,22 @@ boolean ProgramExecutor::Step()
   return (true);
 }
 
-boolean ProgramExecutor::IsReady()
+boolean ProgramExecutor::IsReady(char prog)
 {
-  return (false);
+  mProgramSettings->setProgramAndCost(prog);
+  
+  int walletMoney = mCoinWallet->GetAmount();
+
+  int progCost = mProgramSettings->GetProgramCost();
+  
+  if(walletMoney >= progCost)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
 
 void ProgramExecutor::setCoinWallet(CoinWallet* c)

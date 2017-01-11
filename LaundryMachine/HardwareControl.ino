@@ -122,13 +122,24 @@ void HardwareControl::SetCoin50(byte led)
   SetData(led);
 }
 
-
+static byte Leds200 = 0;
+static boolean soap2on = false;
 
 void HardwareControl::SetCoin200(byte led)
 {
   Strobe();
   SetGroup(2);
+  byte byteMask = 0x04;
+  if(soap2on)
+  {
+    led |= byteMask;
+  }
   SetData(led);
+  Leds200++;
+  if(Leds200 > 2)
+  {
+    Leds200 = 0;
+  }
 }
 
 boolean HardwareControl::GetClearButton()
@@ -195,11 +206,33 @@ void HardwareControl::SetSoap2(boolean On)
   SetGroup(2);//to make group2 high and group1 low
   if (On)
   {
-    centipede.digitalWrite(OUT_DATAC, HIGH);
+    if(Leds200 == 0)
+    {
+      SetData(4);
+    }
+    if(Leds200 == 1)
+    {
+      SetData(5);
+    }
+    if(Leds200 == 2)
+    {
+      SetData(7);
+    }
   }
   if (!On)
   {
-    centipede.digitalWrite(OUT_DATAC, LOW);
+    if(Leds200 == 0)
+    {
+      SetData(0);
+    }
+    if(Leds200 == 1)
+    {
+      SetData(1);
+    }
+    if(Leds200 == 2)
+    {
+      SetData(3);
+    }
   }
 }
 
@@ -230,10 +263,12 @@ boolean HardwareControl::GetSoap2()
     if (centipede.digitalRead(IN_IN2))
     {
       soap2 = true;
+      soap2on = true;
     }
     else
     {
       soap2 = false;
+      soap2on = false;
     }
   }
   return soap2;
@@ -389,6 +424,7 @@ void HardwareControl::SetGroup(int group)
     centipede.digitalWrite(OUT_GROUP2, HIGH);
   }
 }
+
 void HardwareControl::SetData(int data)
 {
 

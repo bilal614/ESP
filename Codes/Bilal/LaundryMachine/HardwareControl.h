@@ -27,38 +27,10 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     void SetCoin50(byte led);
     void SetCoin200(byte led);
 
-    /* ITemperature */
-    //inputs
-    int GetTemperature();
-    //outputs
-    void SetHeater(bool sw1tch);
-
-    /* ILock */
-    //inputs
-    boolean GetLockStatus();
-    void SetLockStatus(boolean lock);
-
-    /* IBuzzer */
-    //inputs
-    //outputs
-    void SetBuzzer(int ms);
-
-    /* IMotor */
-    void SetSpeed(int level);
-    void SetDirection(char dir);
-    void CheckLoadingLevel(int level);
-    void StartMotor();
-    void StopMotor();
-
     /* IProgram */
     boolean GetStartButton();
     void SetProgramIndicator(int program);
     boolean GetProgramButton();
-
-    /* IWater */
-    void SetWaterLevel(int level);
-    bool CheckWaterLevel(int level);
-    void SinkWater();
 
     /* ISoap */
     //inputs
@@ -67,6 +39,48 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     //output
     void SetSoap1(boolean On);
     void SetSoap2(boolean On);
+
+    /* ILock */
+    //inputs
+    boolean GetLockStatus();
+    void SetLockStatus(boolean lock);
+
+    /* IMotor */
+    // Inputs
+    // Outputs
+    virtual void TurnLeft();
+    virtual void TurnRight();
+    virtual void StartSpeed1();
+    virtual void StartSpeed2();
+    virtual void StopSpeed1();
+    virtual void StopSpeed2();
+
+     /* IWater */
+    // Inputs
+    virtual boolean GetWater1();
+    virtual boolean GetWater2();
+    // Outputs
+    virtual void OpenSink();
+    virtual void CloseSink();
+    virtual void OpenDrain();
+    virtual void CloseDrain();
+    
+    /* ITemperature */
+    //inputs
+    int GetTemperature();
+    //outputs
+    void SetHeater(bool sw1tch);
+
+    /* IBuzzer */
+    //inputs
+    //outputs
+    void SetBuzzer(int ms);
+
+    
+
+   
+
+
 
   private:
     Centipede centipede;
