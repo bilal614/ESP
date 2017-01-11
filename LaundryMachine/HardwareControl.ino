@@ -67,7 +67,7 @@ boolean HardwareControl::GetCoin10Button()
   if (centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN0))
   {
     delay(200);
-    if (!centipede.digitalRead(IN_IN3))
+    if (!centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN0))
     {
       value = true;
     }
@@ -82,7 +82,7 @@ boolean HardwareControl::GetCoin50Button()
   if (centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN0))
   {
     delay(200);
-    if (!centipede.digitalRead(IN_IN2))
+    if (!centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN0))
     {
       value = true;
     }
@@ -97,7 +97,7 @@ boolean HardwareControl::GetCoin200Button()
   if (centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN0))
   {
     delay(200);
-    if (!centipede.digitalRead(IN_IN1))
+    if (!centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN0))
     {
       value = true;
     }
@@ -135,11 +135,21 @@ void HardwareControl::SetCoin200(byte led)
     led |= byteMask;
   }
   SetData(led);
-  Leds200++;
+ 
+  if(led != 0 && led != 4)
+  {
+    Leds200++;
+  }
   if(Leds200 > 2)
+  {
+    Leds200 = 0; 
+  }
+  if(led == 0 || led == 4)
   {
     Leds200 = 0;
   }
+  Serial.print("led values: ");Serial.println(led);
+  Serial.print("Led200: ");Serial.println(Leds200);
 }
 
 boolean HardwareControl::GetClearButton()
@@ -148,7 +158,11 @@ boolean HardwareControl::GetClearButton()
   SetKeySelect(1);
   if (centipede.digitalRead(IN_IN3) && centipede.digitalRead(IN_IN2) && centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN0))
   {
-    value = true;
+    delay(200);
+    if (!centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1))
+    {  
+      value = true;
+    }
   }
   return value;
 }

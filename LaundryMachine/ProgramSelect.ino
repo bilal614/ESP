@@ -15,15 +15,15 @@ ProgramSelect::ProgramSelect(IProgram * p)
 void ProgramSelect::Poll()
 {
   char progamType = GetProgramType();
-  Serial.print("current program: ");
-  Serial.println(progamType);
+  //Serial.print("current program: ");
+  //Serial.println(progamType);
   if (currentProgram >= 4)
   {
     currentProgram = 0;
   }
   if (mProgram->GetStartButton())
   {
-    Serial.println("Start is pressed");
+    //Serial.println("Start is pressed");
 //    if (mStartHandler != NULL)
 //    {
 //      mStartHandler();

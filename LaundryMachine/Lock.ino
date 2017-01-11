@@ -24,7 +24,7 @@ void Lock::lockMachine()
     if(Lock::checkLock())
     {
       lock = locked;
-      Serial.print("lock switch is: ");Serial.println(lock);
+      //Serial.print("lock switch is: ");Serial.println(lock);
     }
     else
     {
