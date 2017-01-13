@@ -24,7 +24,7 @@ void Motor::Start(int s)
       break;
     default:
       //Print error message and turn motor off
-      Serial.println("The speed entered should be between 1 and 3."); // or cout<<"Message"<<endl;
+      Serial.println("The speed entered should be between 1 and 3."); delay(1000);// or cout<<"Message"<<endl;
       oMotor->StopSpeed1();
       oMotor->StopSpeed2();
       break;

@@ -82,7 +82,7 @@ void Water::SetLevel(int level)
   }
 }
 
-void Water::SetSink(boolean state)
+void Water::SetSink(boolean state) //1 for ON and 0 for OFF
 {
   if (state)
   {
@@ -94,7 +94,7 @@ void Water::SetSink(boolean state)
   }
 }
 
-void Water::SetDrain(boolean state)
+void Water::SetDrain(boolean state) //1 for ON and 0 for OFF
 {
   if (state)
   {
