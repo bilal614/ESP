@@ -13,6 +13,28 @@ ProgramExecutor::ProgramExecutor(IBuzzer * b, IMotor * m, ILock * l, ISoap * s, 
 boolean ProgramExecutor::Start(ProgramSettings * p)
 {
   mProgramSettings = p;
+  char ProgramType = mProgramSettings->GetProgramType();
+  int ProgramCost = mProgramSettings->GetProgramCost();
+  int moneyInWallet = mCoinWallet->GetAmount();
+  if(moneyInWallet >= ProgramCost)
+  {
+    if(ProgramType == 'A')
+    {
+      //execute program A recipe
+    }
+    if(ProgramType == 'B')
+    {
+      //execute program B recipe
+      
+    }
+    if(ProgramType == 'C')
+    {
+      //execute program A recipe
+      
+    }
+    Serial.print("Selected program: ");Serial.println(ProgramType);
+    Serial.println("There is enough money for this wash.");  
+  }
   return (true);
 }
 

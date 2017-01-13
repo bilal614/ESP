@@ -20,7 +20,7 @@ void CoinWallet::Poll()
   AddCoin50();
   AddCoin200();
   WithdrawAll();
-  Serial.print("amount in wallet: "); Serial.println(CoinWallet::GetAmount());
+  //Serial.print("amount in wallet: "); Serial.println(CoinWallet::GetAmount());
 }
 
 int CoinWallet::GetAmount()

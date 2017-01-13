@@ -10,20 +10,20 @@ ProgramSettings::ProgramSettings(char type)
 {
   switch (type)
   {
-    case 'A':
+    case A:
       type = 'A';
       cost = 360;
       break;
-    case 'B':
+    case B:
       type = 'B';
       cost = 480;
       break;
-    case 'C':
+    case C:
       type = 'C';
       cost = 510;
       break;
     default:
-      Serial.print("Incorrect program argument...");
+      Serial.println("Incorrect program argument...");
       // TODO: provide error message
       break;
   }

@@ -12,7 +12,7 @@ boolean Soap::checkCpt1()
   if(soap1Status)
   {
     iSoap->SetSoap1(true);
-    Serial.println("soap cpt 1 is locked");
+    //Serial.println("soap cpt 1 is locked");
   }
   else
   {
@@ -29,7 +29,7 @@ boolean Soap::checkCpt2()
   if(soap2Status)
   {
     iSoap->SetSoap2(true);
-    Serial.println("soap cpt 2 is locked");
+    //Serial.println("soap cpt 2 is locked");
   }
   else
   {
