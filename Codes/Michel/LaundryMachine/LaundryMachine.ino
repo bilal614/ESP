@@ -43,14 +43,7 @@ void setup()
   mControl = new HardwareControl();
   myMotor = new Motor(mControl);
   myWater = new Water(mControl);
-  /*CS.initialize();
-    for (int i = 0; i <= 15; i++)
-    {
-    CS.pinMode(i, OUTPUT);
-    }
-    CS.digitalWrite(OUT_SINK, LOW);
-    CS.digitalWrite(OUT_DRAIN, LOW);*/
-
+  
 }
 int count = 0;
 void loop()
