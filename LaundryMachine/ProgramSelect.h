@@ -10,6 +10,7 @@ public:
   char GetProgramType();
   void InstallStartHandler(void (* handler)());
   void setProgramInterface(IProgram* p);
+  boolean StartIsPressed();
 private:
   IProgram * mProgram;
   void (* mStartHandler) (void);

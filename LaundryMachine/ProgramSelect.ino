@@ -65,3 +65,8 @@ void ProgramSelect::setProgramInterface(IProgram* p)
   mProgram = p;
 }
 
+boolean ProgramSelect::StartIsPressed()
+{
+  return mProgram->GetStartButton();
+}
+

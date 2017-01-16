@@ -10,10 +10,14 @@ TestCoinWallet::TestCoinWallet()
 
 TestCoinWallet::~TestCoinWallet()
 {
-    //dtor
+    delete mCoin;
+    mCoin = NULL;
+    delete mCoinWallet;
+    mCoinWallet = NULL;
 }
 
-TEST_F(TestCoinWallet, test_coin10)
+TEST_F(TestCoinWallet, test_coin10_zero)
 {
-    EXPECT_EQ(10, 10);
+    int balance = mCoinWallet->GetAmount();
+    EXPECT_EQ(balance, 0);
 }
