@@ -10,76 +10,109 @@ int Water::CheckLevel()
 {
   if (!oWater->GetWater1() && !oWater->GetWater2())
   {
-    return Full;
+    return Empty;
   }
   else if (oWater->GetWater1() && !oWater->GetWater2())
   {
-    return Medium_water;
+    return Low_water;
   }
   else if (!oWater->GetWater1() && oWater->GetWater2())
   {
-    return Low_water;
+    return Medium_water;
   }
   else
-    return Empty;
+    return Full;
 }
 
 void Water::SetLevel(int level)
 {
+  int val;
+
   if (level == Empty)                     //Empty state
   {
-    Water::SetSink(1);                  //1 for ON and 0 for OFF
-    Water::SetDrain(0);
+    val = Water::CheckLevel();
 
-    if (Water::CheckLevel() == Empty)
+    if (val == Empty)
     {
       //Stay at fixed level
-      Water::SetSink(1);
-      Water::SetDrain(1);
+      Water::SetSink(0);               //1 for ON and 0 for OFF
+      Water::SetDrain(0);
     }
+    else
+    {
+      Water::SetSink(1);                  //1 for ON and 0 for OFF
+      Water::SetDrain(0);
+    }
+
   }
   else if (level == Low_water)                     //Filled at 33%
   {
-    Water::SetSink(0);                  //1 for ON and 0 for OFF
-    Water::SetDrain(1);
+    val = Water::CheckLevel();
 
-    if (Water::CheckLevel() == Low_water)
+    if (val == Low_water)
     {
       //Stay at fixed level
-      Water::SetSink(1);
+      Water::SetSink(0);
+      Water::SetDrain(0);
+    }
+    else if (val > Low_water)
+    {
+      Water::SetSink(1);                  //1 for ON and 0 for OFF
+      Water::SetDrain(0);
+    }
+    else
+    {
+      Water::SetSink(0);                  //1 for ON and 0 for OFF
       Water::SetDrain(1);
     }
+
   }
   else if (level == Medium_water)             //Filled at 66%
   {
-    Water::SetSink(0);                  //1 for ON and 0 for OFF
-    Water::SetDrain(1);
+    val = Water::CheckLevel();
 
-    if (Water::CheckLevel() == Medium_water)
+    if (val == Medium_water)
     {
       //Stay at fixed level
+      Water::SetSink(0);
+      Water::SetDrain(0);
+    }
+    else if (val > Medium_water)
+    {
       Water::SetSink(1);                  //1 for ON and 0 for OFF
+      Water::SetDrain(0);
+    }
+    else
+    {
+      Water::SetSink(0);                  //1 for ON and 0 for OFF
       Water::SetDrain(1);
     }
   }
   else if (level == Full)                  //Filled at 100%
   {
+    val = Water::CheckLevel();
 
-    Water::SetSink(0);                  //1 for ON and 0 for OFF
-    Water::SetDrain(1);
-
-    if (Water::CheckLevel() == Full)
+    if (val == Full)
     {
       //Stay at fixed level
-      Water::SetSink(1);
+      //Stay at fixed level
+      Water::SetSink(0);
+      Water::SetDrain(0);
+    }
+    else if (val > Full)
+    {
+      //Print error message
+      Serial.println("The value must be between less or egual to 3!");
+      Water::SetSink(0);                  //1 for ON and 0 for OFF
+      Water::SetDrain(0);
+    }
+    else
+    {
+      Water::SetSink(0);                  //1 for ON and 0 for OFF
       Water::SetDrain(1);
     }
   }
-  else                                 // Stay at Fixed Level
-  {
-    Water::SetSink(1);                  //1 for ON and 0 for OFF
-    Water::SetDrain(1);
-  }
+
 }
 
 void Water::SetSink(boolean state) //1 for ON and 0 for OFF

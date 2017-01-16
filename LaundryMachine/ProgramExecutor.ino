@@ -3,11 +3,11 @@
 ProgramExecutor::ProgramExecutor(IBuzzer * b, IMotor * m, ILock * l, ISoap * s, ITemperature * t, IWater * w)
 {
   //mBuzzer.setInterface(b);
-  //mMotor.setInterface(m);
+  mMotor.setInterface(m);
   mLock.setInterface(l);
   mSoap.setInterface(s);
   //mTemperature.setInterface(t);
-  //mWater.setInterface(w);
+  mWater.setInterface(w);
 }
 
 boolean ProgramExecutor::Start(ProgramSettings * p)
@@ -21,6 +21,38 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
     if(ProgramType == 'A')
     {
       //execute program A recipe
+      //Prewash:
+      mWater.SetLevel(2);
+      mSoap.lockCpt1(false);
+      mMotor.rotateLM(60000, 1, 2);
+      mMotor.rotateLM(60000, 0, 2);
+      mWater.SetLevel(0);
+      
+      //Main-wash (note: add temperature later)
+      /*
+       * if(mWater.CheckLevel()>0)
+       * {
+       *  mTemperature->SetTemperature(2);
+       * }
+       */
+       //step 1)
+      mWater.SetLevel(2);
+      mSoap.lockCpt2(false);
+      mMotor.rotateLM(60000, 1, 2);
+      mMotor.rotateLM(60000, 0, 2);
+      mMotor.rotateLM(60000, 1, 2);
+      mMotor.rotateLM(60000, 0, 2);
+      mWater.SetLevel(0);
+      //step 2)
+      mWater.SetLevel(2);
+      mMotor.rotateLM(60000, 1, 2);
+      mMotor.rotateLM(60000, 0, 2);
+      mMotor.rotateLM(60000, 1, 2);
+      mMotor.rotateLM(60000, 0, 2);
+      mWater.SetLevel(0);
+      //step 3)
+      mMotor.Centrifugation();
+      mWater.SetSink(true);
     }
     if(ProgramType == 'B')
     {
@@ -40,17 +72,19 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
 
 boolean ProgramExecutor::StepSwitches()//this function checks if the switches for the soap and door are locked or not and returns true if yes, else false
 {
-  boolean Status = false;
-  if(mLock.checkLock() && mSoap.checkCpt1() && mSoap.checkCpt2())
+  boolean doorLock = mLock.lockMachine();
+  //delay(1000);
+  boolean soap1Lock = mSoap.checkCpt1();
+  //delay(1000);
+  boolean soap2Lock = mSoap.checkCpt2();
+  if(doorLock && soap1Lock && soap2Lock)
   {
-    Status = true;
-    mLock.lockMachine();
-    mSoap.lockCpt1(Status);
-    mSoap.lockCpt2(Status); 
+    return (true);
   }
-  //mCoinWallet->Poll();
-  //mTemperature.Poll();
-  return Status;
+  else
+  {
+    return false;
+  }
 }
 
 boolean ProgramExecutor::IsReady(char prog)

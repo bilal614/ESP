@@ -16,7 +16,7 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
   char ProgramType = mProgramSettings->GetProgramType();
   int ProgramCost = mProgramSettings->GetProgramCost();
   int moneyInWallet = mCoinWallet->GetAmount();
-  if(moneyInWallet >= ProgramCost)
+  if(moneyInWallet >= ProgramCost && StepSwitches())
   {
     if(ProgramType == 'A')
     {
@@ -40,6 +40,7 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
 
 boolean ProgramExecutor::StepSwitches()
 {
+  /*
   mLock.lockMachine();
   //delay(1000);
   mSoap.checkCpt1();
@@ -49,6 +50,20 @@ boolean ProgramExecutor::StepSwitches()
   //mCoinWallet->Poll();
   //mTemperature.Poll();
   return (true);
+  */
+  boolean doorLock = mLock.lockMachine();
+  //delay(1000);
+  boolean soap1Lock = mSoap.checkCpt1();
+  //delay(1000);
+  boolean soap2Lock = mSoap.checkCpt2();
+  if(doorLock && soap1Lock && soap2Lock)
+  {
+    return (true);
+  }
+  else
+  {
+    return false;
+  }
 }
 
 boolean ProgramExecutor::IsReady(char prog)

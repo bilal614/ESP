@@ -15,7 +15,7 @@ class Lock
   public:
     Lock();
     Lock(ILock *);
-    void lockMachine();//is the polling function to check what the lock switch status is and will turn on/off the locked
+    boolean lockMachine();//is the polling function to check what the lock switch status is and will turn on/off the locked
     boolean checkLock();
     void setLock(boolean l);
     ~Lock();

@@ -1,31 +1,103 @@
 #include "Motor.h"
 
+Motor::Motor()
+{
+  Direction = 1;
+  Speed = 0;  
+}
+
 Motor::Motor(IMotor * m)
 {
-  iMotor = m;
+  oMotor = m;
 }
 
 void Motor::Start(int s)
-{}
+{
+  switch (s)
+  {
+    case Low:
+      oMotor->StartSpeed1();
+      oMotor->StopSpeed2();
+      break;
+    case Medium:
+      oMotor->StartSpeed1();
+      oMotor->StopSpeed2();
+      break;
+    case High:
+      oMotor->StartSpeed1();
+      oMotor->StartSpeed2();
+      break;
+    default:
+      //Print error message and turn motor off
+      Serial.println("The speed entered should be between 1 and 3."); delay(1000);// or cout<<"Message"<<endl;
+      oMotor->StopSpeed1();
+      oMotor->StopSpeed2();
+      break;
+  }
+}
 
 void Motor::Stop()
-{}
+{
+  oMotor->StopSpeed1();
+  oMotor->StopSpeed2();
+  if(Speed == High)
+  {
+    delay(5000);
+  }
+  if(Speed == Medium)
+  {
+    delay(2000);
+  }
+  if(Speed == Low)
+  {
+    delay(1000);
+  }
+}
 
-int Motor::GetSpeed()
+void Motor::SetDirection(boolean dir)  // 0 for LEFT and 1 for RIGHT
 {
-  return 0;
+  if (dir)
+  {
+    oMotor->TurnRight();
+  }
+  else
+  {
+    oMotor->TurnLeft();
+  }
 }
-  
-boolean Motor::GetDirection()
-{
-  return false;
-}
-  
-void Motor::SetDirection(boolean dir)
-{}    
 
 Motor::~Motor()
 {
-  //delete iMotor;  
+  //delete oMotor;
 }
+
+void Motor::rotateLM(int duration, boolean dir, int Speed)
+{
+  SetDirection(dir); 
+  Start(Speed);
+  delay(duration);
+  Stop();
+}
+
+void Motor::Centrifugation()//open sink before calling this function
+{
+  int count = 0; 
+  do{
+    SetDirection(1);
+    Start(High);
+    delay(30000);
+    Stop();
+    SetDirection(0);
+    Start(High);
+    delay(30000);
+    Stop();
+    count++;
+  }while(count <2);
+}
+
+void Motor::setInterface(IMotor* m)
+{
+  oMotor = m;  
+}
+
 

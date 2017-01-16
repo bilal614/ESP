@@ -15,6 +15,8 @@
 #include "ProgramSelect.h"
 #include "ProgramSettings.h"
 #include "ProgramExecutor.h"
+#include "Motor.h"
+#include "Water.h"
 
 static HardwareControl * mControl;
 static IBuzzer * mBuzzer;
@@ -29,6 +31,8 @@ static CoinWallet * mCoinWallet;
 static ProgramSelect * mProgramSelect;
 static ProgramSettings * mProgramSettings;
 static ProgramExecutor * mProgramExecutor;
+static Motor * myMotor;
+static Water * myWater;
 
 //only for testing at this moment
 
@@ -41,6 +45,8 @@ void setup()
   mProgramExecutor->setCoinWallet(mCoinWallet);
   mProgramSelect = new ProgramSelect(mControl);
   mProgramSettings = new ProgramSettings();
+  myMotor = new Motor(mControl);
+  myWater = new Water(mControl);
 }
 bool Ready = false;
 int count = 0;
@@ -51,6 +57,7 @@ void loop()
   mProgramSelect->Poll();
   Ready = mProgramExecutor->IsReady(mProgramSelect->GetProgramType());
   mProgramSettings->setProgramAndCost(mProgramSelect->GetProgramType());
+  if(Ready && 
   mProgramExecutor->Start(mProgramSettings);
   //Serial.print("machine is ready for wash: ");Serial.println(Ready); 
 }
