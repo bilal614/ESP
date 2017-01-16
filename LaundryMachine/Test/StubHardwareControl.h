@@ -15,22 +15,73 @@
 class StubHardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor, public IProgram, public ISoap, public ITemperature, public IWater
 {
   public:
-    // Inputs
+     StubHardwareControl();
+    /* ICoin */
+    //inputs
     boolean GetCoin10Button();
+    boolean GetCoin50Button();
+    boolean GetCoin200Button();
+    boolean GetClearButton();
+    //outputs
+    void SetCoin10(unsigned char led);
+    void SetCoin50(unsigned char led);
+    void SetCoin200(unsigned char led);
+
+    /* IProgram */
     boolean GetStartButton();
-    int GetTemperature();
-
-    // Outputs
-    void SetBuzzer(int level);
-    void SetSoap2(int level);
-    void SetDrain(int level);
-    void SetDirection(int dir);
     void SetProgramIndicator(int program);
-    void SetCoin50(int leds);
+    boolean GetProgramButton();
 
-    // public member variable to control the behaviour of the StubHardwareControl
-    // e.g. TestCoinWallet sets Coin10Button, and GetCoin10Button() returns the value of this variable
-    boolean Coin10Button;
+    /* ISoap */
+    //inputs
+    boolean GetSoap1();
+    boolean GetSoap2();
+    //output
+    void SetSoap1(boolean On);
+    void SetSoap2(boolean On);
+
+    /* ILock */
+    //inputs
+    boolean GetLockStatus();
+    void SetLockStatus(boolean lock);
+
+    /* IMotor */
+    // Inputs
+    // Outputs
+    virtual void TurnLeft();
+    virtual void TurnRight();
+    virtual void StartSpeed1();
+    virtual void StartSpeed2();
+    virtual void StopSpeed1();
+    virtual void StopSpeed2();
+
+     /* IWater */
+    // Inputs
+    virtual boolean GetWater1();
+    virtual boolean GetWater2();
+    // Outputs
+    virtual void OpenSink();
+    virtual void CloseSink();
+    virtual void OpenDrain();
+    virtual void CloseDrain();
+
+    /* ITemperature */
+    //inputs
+    int GetTemperature();
+    //outputs
+    void SetHeater(bool sw1tch);
+
+    /* IBuzzer */
+    //inputs
+    //outputs
+    void SetBuzzer(int ms);
+
+
+  private:
+    void SetKeySelect(int value);
+    void SetGroup(int group);
+    void SetData(int data);
+    void Strobe();
 };
 
 #endif // STUBHARDWARECONTROL_H

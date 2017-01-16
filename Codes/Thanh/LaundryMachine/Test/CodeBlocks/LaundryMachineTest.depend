@@ -1,4 +1,12 @@
 # depslib dependency file v1.0
+1484314247 source:e:\git\esp\codes\thanh\laundrymachine\test\deviceundertest.cpp
+	"ArduinoWrapper.h"
+	"CoinWallet.ino"
+
+1371643073 e:\git\esp\codes\thanh\laundrymachine\test\arduinowrapper.h
+	<stdint.h>
+	<string>
+
 1371643073 source:e:\git\esp\codes\thanh\laundrymachine\test\gtest\src\gtest-all.cc
 	"gtest/gtest.h"
 	"src/gtest.cc"
@@ -38,7 +46,7 @@
 	"gtest/internal/gtest-filepath.h"
 	"gtest/internal/gtest-type-util.h"
 
-1371643072 e:\git\esp\codes\thanh\laundrymachine\test\gtest\gtest\internal\gtest-port.h
+1484593524 e:\git\esp\codes\thanh\laundrymachine\test\gtest\gtest\internal\gtest-port.h
 	<ctype.h>
 	<stddef.h>
 	<stdlib.h>
@@ -267,10 +275,6 @@
 	"ArduinoWrapper.h"
 	"StubHardwareControl.h"
 
-1371643073 e:\git\esp\codes\thanh\laundrymachine\test\arduinowrapper.h
-	<stdint.h>
-	<string>
-
 1484318028 e:\git\esp\codes\thanh\laundrymachine\test\stubhardwarecontrol.h
 	"ArduinoWrapper.h"
 	"IBuzzer.h"
@@ -282,15 +286,12 @@
 	"ITemperature.h"
 	"IWater.h"
 
-1484314247 source:e:\git\esp\codes\thanh\laundrymachine\test\deviceundertest.cpp
-	"ArduinoWrapper.h"
-	"CoinWallet.ino"
-
-1484318692 source:e:\git\esp\codes\thanh\laundrymachine\test\testcoinwallet.cpp
+1484598112 source:e:\git\esp\codes\thanh\laundrymachine\test\testcoinwallet.cpp
 	"TestCoinWallet.h"
 	"StubHardwareControl.h"
+	"CoinWallet.h"
 
-1377254924 e:\git\esp\codes\thanh\laundrymachine\test\testcoinwallet.h
+1484596663 e:\git\esp\codes\thanh\laundrymachine\test\testcoinwallet.h
 	"ArduinoWrapper.h"
 	"StubHardwareControl.h"
 	"CoinWallet.h"

@@ -1,6 +1,6 @@
 #include "TestCoinWallet.h"
 #include "StubHardwareControl.h"
-
+#include "CoinWallet.h"
 
 TestCoinWallet::TestCoinWallet()
 {
@@ -10,10 +10,7 @@ TestCoinWallet::TestCoinWallet()
 
 TestCoinWallet::~TestCoinWallet()
 {
-    delete mCoin;
-    mCoin = NULL;
-    delete mCoinWallet;
-    mCoinWallet = NULL;
+
 }
 
 TEST_F(TestCoinWallet, test_coin10_zero)

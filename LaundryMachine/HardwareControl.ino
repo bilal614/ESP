@@ -108,14 +108,14 @@ boolean HardwareControl::GetCoin200Button()
    leds is indicator which LED will be turn on
    eg. Call SetCoin10(B00000111) means 3 coins 10 is added
 */
-void HardwareControl::SetCoin10(byte leds)
+void HardwareControl::SetCoin10(unsigned char leds)
 {
   Strobe();
   SetGroup(0);
   SetData(leds);
 }
 
-void HardwareControl::SetCoin50(byte led)
+void HardwareControl::SetCoin50(unsigned char led)
 {
   Strobe();
   SetGroup(1);
@@ -125,7 +125,7 @@ void HardwareControl::SetCoin50(byte led)
 static byte Leds200 = 0;
 static boolean soap2on = false;
 
-void HardwareControl::SetCoin200(byte led)
+void HardwareControl::SetCoin200(unsigned char led)
 {
   Strobe();
   SetGroup(2);
