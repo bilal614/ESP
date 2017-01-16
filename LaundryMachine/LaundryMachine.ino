@@ -53,13 +53,17 @@ int count = 0;
 void loop()
 {
   mProgramExecutor->StepSwitches();
-  mProgramExecutor->StepCoinWallet(); 
+  mProgramExecutor->StepCoinWallet();
   mProgramSelect->Poll();
   Ready = mProgramExecutor->IsReady(mProgramSelect->GetProgramType());
   mProgramSettings->setProgramAndCost(mProgramSelect->GetProgramType());
-  if(Ready)
-    mProgramExecutor->Start(mProgramSettings);
-  //Serial.print("machine is ready for wash: ");Serial.println(Ready); 
+  if (mProgramSelect->StartIsPressed())//Added by Thanh
+  {
+    //Serial.println("Start is pressed");
+    if (Ready)
+      mProgramExecutor->Start(mProgramSettings);
+    //Serial.print("machine is ready for wash: ");Serial.println(Ready);
+  }
 }
 
 

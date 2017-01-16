@@ -174,7 +174,7 @@ boolean HardwareControl::GetStartButton()
   if (centipede.digitalRead(IN_IN0) && !centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1) )
   {
     delay(200);
-    if (!centipede.digitalRead(IN_IN0))
+    if (!centipede.digitalRead(IN_IN0) && !centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1))
     {
       value = true;
     }
@@ -188,6 +188,8 @@ boolean HardwareControl::GetProgramButton()
   SetKeySelect(1);
   if (centipede.digitalRead(IN_IN0) && centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN2))
   {
+    delay(200);
+  if(!centipede.digitalRead(IN_IN0) && !centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN1) && !centipede.digitalRead(IN_IN2))
     value = true;
   }
   return value;
