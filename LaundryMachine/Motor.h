@@ -16,10 +16,14 @@ class Motor
     int Speed;
 
   public:
+    Motor();
     Motor(IMotor *);
     void Start(int s);
     void Stop();
     void SetDirection(boolean dir);
+    void rotateLM(int duration, boolean dir, int Speed);
+    void Centrifugation();
+    void setInterface(IMotor* m);
     ~Motor();
 };
 

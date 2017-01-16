@@ -16,12 +16,14 @@ class Water
     int DesiredLevel;
 
   public:
+    Water();
     Water(IWater *);
     int CheckLevel();
     void SetLevel(int level);
     void SetSink(boolean state);
     void SetDrain(boolean state);
     ~Water();
+    void setInterface(IWater* w);
 };
 
 #endif

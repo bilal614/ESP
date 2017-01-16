@@ -1,6 +1,10 @@
-
 #include "Water.h"
 
+Water::Water()
+{
+  CurrentLevel = 0;
+  DesiredLevel = 0;
+}
 Water::Water(IWater * w)
 {
   oWater = w;
@@ -142,4 +146,9 @@ void Water::SetDrain(boolean state) //1 for ON and 0 for OFF
 Water::~Water()
 {
   //delete oWater;
+}
+
+void Water::setInterface(IWater* w)
+{
+  oWater = w;  
 }

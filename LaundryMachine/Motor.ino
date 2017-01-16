@@ -1,5 +1,11 @@
 #include "Motor.h"
 
+Motor::Motor()
+{
+  Direction = 1;
+  Speed = 0;  
+}
+
 Motor::Motor(IMotor * m)
 {
   oMotor = m;
@@ -34,6 +40,18 @@ void Motor::Stop()
 {
   oMotor->StopSpeed1();
   oMotor->StopSpeed2();
+  if(Speed == High)
+  {
+    delay(5000);
+  }
+  if(Speed == Medium)
+  {
+    delay(2000);
+  }
+  if(Speed == Low)
+  {
+    delay(1000);
+  }
 }
 
 void Motor::SetDirection(boolean dir)  // 0 for LEFT and 1 for RIGHT
@@ -51,6 +69,35 @@ void Motor::SetDirection(boolean dir)  // 0 for LEFT and 1 for RIGHT
 Motor::~Motor()
 {
   //delete oMotor;
+}
+
+void Motor::rotateLM(int duration, boolean dir, int Speed)
+{
+  SetDirection(dir); 
+  Start(Speed);
+  delay(duration);
+  Stop();
+}
+
+void Motor::Centrifugation()//open sink before calling this function
+{
+  int count = 0; 
+  do{
+    SetDirection(1);
+    Start(High);
+    delay(30000);
+    Stop();
+    SetDirection(0);
+    Start(High);
+    delay(30000);
+    Stop();
+    count++;
+  }while(count <2);
+}
+
+void Motor::setInterface(IMotor* m)
+{
+  oMotor = m;  
 }
 
 

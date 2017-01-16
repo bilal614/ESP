@@ -3,11 +3,11 @@
 
 #include "Buzzer.h"
 #include "Lock.h"
-//#include "Motor.h"
+#include "Motor.h"
 //#include "Program.h"
 #include "Soap.h"
 #include "Temperature.h"
-//#include "Water.h"
+#include "Water.h"
 //#include "CoinWallet.h"
 #include "ProgramSettings.h"
 
@@ -22,11 +22,11 @@ public:
   void setCoinWallet(CoinWallet* c);
 private:
   Buzzer  mBuzzer;
-  //Motor  mMotor;
+  Motor  mMotor;
   Lock  mLock;
   Soap  mSoap;
   Temperature mTemperature;
-  //Water  mWater;
+  Water  mWater;
   CoinWallet * mCoinWallet;
   ProgramSettings* mProgramSettings;
 };

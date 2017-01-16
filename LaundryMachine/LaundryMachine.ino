@@ -57,6 +57,7 @@ void loop()
   mProgramSelect->Poll();
   Ready = mProgramExecutor->IsReady(mProgramSelect->GetProgramType());
   mProgramSettings->setProgramAndCost(mProgramSelect->GetProgramType());
+  if(Ready && 
   mProgramExecutor->Start(mProgramSettings);
   //Serial.print("machine is ready for wash: ");Serial.println(Ready); 
 }
