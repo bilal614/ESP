@@ -93,7 +93,7 @@ void loop()
   /*
        Testing to sink water of the Laundry Machine device.
   */
-  myWater->SetSink(1);
+  //myWater->SetSink(1);
   /*
       Conclusion: It works properly!
   */
@@ -101,7 +101,7 @@ void loop()
   /*
         Testing to drain water in the Laundry Machine device.
   */
-  myWater->SetDrain(0);
+  //myWater->SetDrain(1);
   /*
       Conclusion: It works properly!
   */
@@ -109,7 +109,10 @@ void loop()
   /*
        Testing to start the motor at different speed with the Laundry Machine device.
   */
-  //myWater->SetLevel(1);
+  myWater->SetLevel(Empty);               // Works properly
+  //myWater->SetLevel(Low_water);           // Works properly
+  //myWater->SetLevel(Medium_water);        // Works properly
+  //myWater->SetLevel(Full);                // Works properly
   /*
       Conclusion: Seems It does not works properly!
   */
