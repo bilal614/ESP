@@ -50,6 +50,8 @@ void loop()
   mProgramExecutor->StepCoinWallet(); 
   mProgramSelect->Poll();
   Ready = mProgramExecutor->IsReady(mProgramSelect->GetProgramType());
+  mProgramSettings->setProgramAndCost(mProgramSelect->GetProgramType());
+  mProgramExecutor->Start(mProgramSettings);
   //Serial.print("machine is ready for wash: ");Serial.println(Ready); 
 }
 

@@ -13,20 +13,44 @@ ProgramExecutor::ProgramExecutor(IBuzzer * b, IMotor * m, ILock * l, ISoap * s, 
 boolean ProgramExecutor::Start(ProgramSettings * p)
 {
   mProgramSettings = p;
+  char ProgramType = mProgramSettings->GetProgramType();
+  int ProgramCost = mProgramSettings->GetProgramCost();
+  int moneyInWallet = mCoinWallet->GetAmount();
+  if(moneyInWallet >= ProgramCost && StepSwitches())
+  {
+    if(ProgramType == 'A')
+    {
+      //execute program A recipe
+    }
+    if(ProgramType == 'B')
+    {
+      //execute program B recipe
+      
+    }
+    if(ProgramType == 'C')
+    {
+      //execute program A recipe
+      
+    }
+    Serial.print("Selected program: ");Serial.println(ProgramType);
+    Serial.println("There is enough money for this wash.");  
+  }
   return (true);
 }
 
-boolean ProgramExecutor::StepSwitches()
+boolean ProgramExecutor::StepSwitches()//this function checks if the switches for the soap and door are locked or not and returns true if yes, else false
 {
-  mLock.lockMachine();
-  //delay(1000);
-  mSoap.checkCpt1();
-  //delay(1000);
-  mSoap.checkCpt2();
-  //delay(1000);
+  boolean Status = false;
+  if(mLock.checkLock() && mSoap.checkCpt1() && mSoap.checkCpt2())
+  {
+    Status = true;
+    mLock.lockMachine();
+    mSoap.lockCpt1(Status);
+    mSoap.lockCpt2(Status); 
+  }
   //mCoinWallet->Poll();
   //mTemperature.Poll();
-  return (true);
+  return Status;
 }
 
 boolean ProgramExecutor::IsReady(char prog)
