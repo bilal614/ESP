@@ -130,26 +130,26 @@ void HardwareControl::SetCoin200(byte led)
   Strobe();
   SetGroup(2);
   byte byteMask = 0x04;
-  if(soap2on)
+  if (soap2on)
   {
     led |= byteMask;
   }
   SetData(led);
- 
-  if(led != 0 && led != 4)
+
+  if (led != 0 && led != 4)
   {
     Leds200++;
   }
-  if(Leds200 > 2)
-  {
-    Leds200 = 0; 
-  }
-  if(led == 0 || led == 4)
+  if (Leds200 > 2)
   {
     Leds200 = 0;
   }
-  Serial.print("led values: ");Serial.println(led);
-  Serial.print("Led200: ");Serial.println(Leds200);
+  if (led == 0 || led == 4)
+  {
+    Leds200 = 0;
+  }
+  Serial.print("led values: "); Serial.println(led);
+  Serial.print("Led200: "); Serial.println(Leds200);
 }
 
 boolean HardwareControl::GetClearButton()
@@ -160,7 +160,7 @@ boolean HardwareControl::GetClearButton()
   {
     delay(200);
     if (!centipede.digitalRead(IN_IN3) && !centipede.digitalRead(IN_IN2) && !centipede.digitalRead(IN_IN1))
-    {  
+    {
       value = true;
     }
   }
@@ -220,30 +220,30 @@ void HardwareControl::SetSoap2(boolean On)
   SetGroup(2);//to make group2 high and group1 low
   if (On)
   {
-    if(Leds200 == 0)
+    if (Leds200 == 0)
     {
       SetData(4);
     }
-    if(Leds200 == 1)
+    if (Leds200 == 1)
     {
       SetData(5);
     }
-    if(Leds200 == 2)
+    if (Leds200 == 2)
     {
       SetData(7);
     }
   }
   if (!On)
   {
-    if(Leds200 == 0)
+    if (Leds200 == 0)
     {
       SetData(0);
     }
-    if(Leds200 == 1)
+    if (Leds200 == 1)
     {
       SetData(1);
     }
-    if(Leds200 == 2)
+    if (Leds200 == 2)
     {
       SetData(3);
     }
@@ -319,6 +319,11 @@ void HardwareControl::SetLockStatus(boolean lock)
 
 
 /*IMOTOR AND IWATER**/
+/******
+   BELOW ARE THE WATER CODE
+   Thank you!
+
+******/
 void HardwareControl::OpenSink()
 {
   centipede.digitalWrite(OUT_SINK, HIGH);
@@ -355,6 +360,18 @@ bool HardwareControl::GetWater2()
     return false;
 }
 
+/******
+   END OF THE WATER CODE
+   Thank you!
+******/
+
+/******
+   BELOW ARE THE MOTOR CODE
+   Thank you!
+
+   Note: I used LOW to start the speeds to satisfy the document which used 00 as HIGH SPEED
+******/
+
 void HardwareControl::TurnLeft()
 {
   centipede.digitalWrite(OUT_MOTOR_RL, LOW);
@@ -384,6 +401,11 @@ void HardwareControl::StopSpeed2()
 {
   centipede.digitalWrite(OUT_SPEED2, HIGH);
 }
+
+/******
+   END OF THE MOTOR CODE
+   Thank you!
+******/
 
 /**IBUZZER AND ITEMPERTURE**/
 
