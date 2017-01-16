@@ -11,12 +11,12 @@ const int Empty = 0;
 class Water
 {
   private:
-    IWater* oWater;
+    IWater* iWater;
     int CurrentLevel;
     int DesiredLevel;
 
   public:
-    Water(IWater *);
+    Water(IWater *w);
     int CheckLevel();                    //will check if
     void SetLevel(int level);
     void Poll();                        //will check if

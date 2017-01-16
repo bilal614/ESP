@@ -259,3 +259,7 @@
 	"gtest/gtest-typed-test.h"
 	"gtest/gtest.h"
 
+1371643073 source:e:\git\esp\laundrymachine\test\gtest\src\gtest_main.cc
+	<iostream>
+	"gtest/gtest.h"
+

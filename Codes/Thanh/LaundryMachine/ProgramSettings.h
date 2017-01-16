@@ -4,10 +4,12 @@
 class ProgramSettings
 {
   public:
+    ProgramSettings();
     ProgramSettings(char);
     String ToString();
     char GetProgramType();
     int GetProgramCost();
+    void setProgramAndCost(char prog);
   private:
     char type; /* 'A', 'B' or 'C' */
     int cost;

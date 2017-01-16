@@ -1,14 +1,14 @@
 #ifndef PROGRAMEXECUTOR_H
 #define PROGRAMEXECUTOR_H
 
-#include "Buzzer.h"
-#include "Lock.h"
-//#include "Motor.h"
-//#include "Program.h"
-#include "Soap.h"
-#include "Temperature.h"
-//#include "Water.h"
-//#include "CoinWallet.h"
+#include "IBuzzer.h"
+#include "ILock.h"
+#include "IMotor.h"
+#include "IProgram.h"
+#include "ISoap.h"
+#include "ITemperature.h"
+#include "IWater.h"
+#include "CoinWallet.h"
 #include "ProgramSettings.h"
 
 class ProgramExecutor
@@ -16,9 +16,9 @@ class ProgramExecutor
 public:
   ProgramExecutor(IBuzzer* b, IMotor* m, ILock* l, ISoap* s, ITemperature* t, IWater* w);
   boolean Start(ProgramSettings *);
-  boolean Step();
+  boolean StepSwitches();
   boolean StepCoinWallet();
-  boolean IsReady();
+  boolean IsReady(char prog);
   void setCoinWallet(CoinWallet* c);
 private:
   Buzzer  mBuzzer;
