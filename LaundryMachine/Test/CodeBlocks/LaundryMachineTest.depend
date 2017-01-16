@@ -584,7 +584,7 @@
 	"ITemperature.h"
 	"IWater.h"
 
-1484598419 source:e:\git\esp\laundrymachine\test\testcoinwallet.cpp
+1484602356 source:e:\git\esp\laundrymachine\test\testcoinwallet.cpp
 	"TestCoinWallet.h"
 	"StubHardwareControl.h"
 	"CoinWallet.h"
