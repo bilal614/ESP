@@ -40,17 +40,19 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
 
 boolean ProgramExecutor::StepSwitches()//this function checks if the switches for the soap and door are locked or not and returns true if yes, else false
 {
-  boolean Status = false;
-  if(mLock.checkLock() && mSoap.checkCpt1() && mSoap.checkCpt2())
+  boolean doorLock = mLock.lockMachine();
+  //delay(1000);
+  boolean soap1Lock = mSoap.checkCpt1();
+  //delay(1000);
+  boolean soap2Lock = mSoap.checkCpt2();
+  if(doorLock && soap1Lock && soap2Lock)
   {
-    Status = true;
-    mLock.lockMachine();
-    mSoap.lockCpt1(Status);
-    mSoap.lockCpt2(Status); 
+    return (true);
   }
-  //mCoinWallet->Poll();
-  //mTemperature.Poll();
-  return Status;
+  else
+  {
+    return false;
+  }
 }
 
 boolean ProgramExecutor::IsReady(char prog)
