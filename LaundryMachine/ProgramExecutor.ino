@@ -1,4 +1,4 @@
- #include "ProgramExecutor.h"
+#include "ProgramExecutor.h"
 
 ProgramExecutor::ProgramExecutor(IBuzzer * b, IMotor * m, ILock * l, ISoap * s, ITemperature * t, IWater * w)
 {
@@ -24,8 +24,15 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
       //Prewash:
       mWater.SetLevel(2);
       mSoap.lockCpt1(false);
-      mMotor.rotateLM(60000, 1, 2);
-      mMotor.rotateLM(60000, 0, 2);
+      mMotor.rotateLM( 1, 2);
+      delay(6000);
+      stopDelay(2);
+      //mMotor.Stop();
+      
+      mMotor.rotateLM( 0, 2);
+      delay(6000);
+      stopDelay(2);
+      //mMotor.Stop();
       mWater.SetLevel(0);
       
       //Main-wash (note: add temperature later)
@@ -38,21 +45,39 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
        //step 1)
       mWater.SetLevel(2);
       mSoap.lockCpt2(false);
-      mMotor.rotateLM(60000, 1, 2);
-      mMotor.rotateLM(60000, 0, 2);
-      mMotor.rotateLM(60000, 1, 2);
-      mMotor.rotateLM(60000, 0, 2);
+      mMotor.rotateLM(1, 2);
+      delay(6000);
+      //mMotor.Stop();
+      stopDelay(2);
+      
+      mMotor.rotateLM(0, 2);
+      delay(6000);
+      //mMotor.Stop();
+      stopDelay(2);
+      
+      mMotor.rotateLM(1, 2);
+      delay(6000);
+      //mMotor.Stop();
+      stopDelay(2);
+      
+      mMotor.rotateLM(0, 2);
+      delay(6000);
+      //mMotor.Stop();
+      stopDelay(2);
+      
       mWater.SetLevel(0);
       //step 2)
+      /*
       mWater.SetLevel(2);
-      mMotor.rotateLM(60000, 1, 2);
-      mMotor.rotateLM(60000, 0, 2);
-      mMotor.rotateLM(60000, 1, 2);
-      mMotor.rotateLM(60000, 0, 2);
+      mMotor.rotateLM(6000, 1, 2);
+      mMotor.rotateLM(6000, 0, 2);
+      mMotor.rotateLM(6000, 1, 2);
+      mMotor.rotateLM(6000, 0, 2);
       mWater.SetLevel(0);
       //step 3)
       mMotor.Centrifugation();
       mWater.SetSink(true);
+    */
     }
     if(ProgramType == 'B')
     {
@@ -113,4 +138,21 @@ void ProgramExecutor::setCoinWallet(CoinWallet* c)
 boolean ProgramExecutor::StepCoinWallet()
 {
   mCoinWallet->Poll();
+}
+
+void ProgramExecutor::stopDelay(int Speed)
+{
+  mMotor.Stop();
+  if(Speed == 3)
+  {
+    delay(5000);
+  }
+  if(Speed == 2)
+  {
+    delay(2000);
+  }
+  if(Speed == 1)
+  {
+    delay(1000);
+  }
 }

@@ -20,6 +20,7 @@ public:
   boolean StepCoinWallet();
   boolean IsReady(char prog);
   void setCoinWallet(CoinWallet* c);
+  void stopDelay(int Speed);
 private:
   Buzzer  mBuzzer;
   Motor  mMotor;

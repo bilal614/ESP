@@ -21,7 +21,7 @@ class Motor
     void Start(int s);
     void Stop();
     void SetDirection(boolean dir);
-    void rotateLM(int duration, boolean dir, int Speed);
+    void rotateLM(boolean dir, int Speed);
     void Centrifugation();
     void setInterface(IMotor* m);
     ~Motor();

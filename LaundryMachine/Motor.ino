@@ -40,18 +40,8 @@ void Motor::Stop()
 {
   oMotor->StopSpeed1();
   oMotor->StopSpeed2();
-  if(Speed == High)
-  {
-    delay(5000);
-  }
-  if(Speed == Medium)
-  {
-    delay(2000);
-  }
-  if(Speed == Low)
-  {
-    delay(1000);
-  }
+  
+  Serial.println("stop has occurred");
 }
 
 void Motor::SetDirection(boolean dir)  // 0 for LEFT and 1 for RIGHT
@@ -71,12 +61,15 @@ Motor::~Motor()
   //delete oMotor;
 }
 
-void Motor::rotateLM(int duration, boolean dir, int Speed)
+void Motor::rotateLM(boolean dir, int Speed)
 {
   SetDirection(dir); 
+  Serial.println("direction is set");
   Start(Speed);
-  delay(duration);
-  Stop();
+  Serial.println("speed is set");
+  //delay(duration);
+  //Stop();
+  Serial.println("one step ended");
 }
 
 void Motor::Centrifugation()//open sink before calling this function
@@ -85,11 +78,11 @@ void Motor::Centrifugation()//open sink before calling this function
   do{
     SetDirection(1);
     Start(High);
-    delay(30000);
+    delay(3000);
     Stop();
     SetDirection(0);
     Start(High);
-    delay(30000);
+    delay(3000);
     Stop();
     count++;
   }while(count <2);
