@@ -146,6 +146,21 @@ TEST_F(TestCoinWallet, test_balance_programC)
     int balance = mCoinWallet->GetAmount();
     EXPECT_EQ(balance, 510);
 }
+TEST_F(TestCoinWallet, test_withdraw_all)//Withdraw the specific amount of money
+{
+    //Put in 550
+    mCoinWallet->AddCoin200();
+    mCoinWallet->AddCoin200();
+    mCoinWallet->AddCoin50();
+    mCoinWallet->AddCoin50();
+    mCoinWallet->AddCoin50();
+    int balance = mCoinWallet->GetAmount();
+    EXPECT_EQ(balance, 550);
+    //Assume that the washing program C is taken
+    mCoinWallet->WithdrawAll();
+    balance = mCoinWallet->GetAmount();
+    EXPECT_EQ(balance, 0);
+}
 
 TEST_F(TestCoinWallet, test_withdraw)//Withdraw the specific amount of money
 {
@@ -162,6 +177,5 @@ TEST_F(TestCoinWallet, test_withdraw)//Withdraw the specific amount of money
     ASSERT_TRUE(result);
     balance = mCoinWallet->GetAmount();
     EXPECT_EQ(balance, 40);
-
 }
 

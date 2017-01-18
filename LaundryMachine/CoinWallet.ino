@@ -22,7 +22,7 @@ void CoinWallet::Poll()
   AddCoin50();
   AddCoin200();
   WithdrawAll();
-  Serial.print("amount in wallet: "); Serial.println(CoinWallet::GetAmount());
+  //Serial.print("amount in wallet: "); Serial.println(CoinWallet::GetAmount());
 }
 
 int CoinWallet::GetAmount()
@@ -107,23 +107,24 @@ void CoinWallet::ReturnChange()
 
 char CoinWallet::mappingCoin(char nrofCoin)
 {
+  int result;
   if (nrofCoin == 1)
   {
-    return 0x01; //B00000001
+    result = 0x01; //B00000001
   }
   else if (nrofCoin == 2)
   {
-    return 0x03; //B00000011
+    result = 0x03; //B00000011
   }
   else if (nrofCoin == 3)
   {
-    return 0x07; //B00000111
+    result = 0x07; //B00000111
   }
   else if (nrofCoin == 0)
   {
-    return 0x00; //B00000000
+    result = 0x00; //B00000000
   }
-
+  return result;
 }
 CoinWallet::~CoinWallet()
 {}

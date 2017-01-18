@@ -36,12 +36,16 @@ char ProgramSelect::GetProgramType()
   if (mProgram->GetProgramButton())
   {
     currentProgram ++;
+    if (currentProgram >= 4)
+    {
+      currentProgram = 1;
+    }
   }
+  //Serial.print("current program: ");Serial.println(currentProgram);
   if (currentProgram == 1)
   {
     mProgram->SetProgramIndicator(0x01);
     return ('A');
-
   }
   if (currentProgram == 2)
   {
@@ -63,5 +67,10 @@ void ProgramSelect::InstallStartHandler(void (* handler)())
 void ProgramSelect::setProgramInterface(IProgram* p)
 {
   mProgram = p;
+}
+
+boolean ProgramSelect::StartIsPressed()
+{
+  return mProgram->GetStartButton();
 }
 

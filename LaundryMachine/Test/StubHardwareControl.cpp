@@ -43,7 +43,7 @@ void StubHardwareControl::SetCoin200(unsigned char led)
 
 boolean StubHardwareControl::GetClearButton()
 {
-
+    return true;
 }
 
 boolean StubHardwareControl::GetStartButton()

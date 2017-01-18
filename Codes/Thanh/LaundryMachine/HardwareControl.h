@@ -23,9 +23,9 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     boolean GetCoin200Button();
     boolean GetClearButton();
     //outputs
-    void SetCoin10(unsigned char led);
-    void SetCoin50(unsigned char led);
-    void SetCoin200(unsigned char led);
+    void SetCoin10(byte led);
+    void SetCoin50(byte led);
+    void SetCoin200(byte led);
 
     /* IProgram */
     boolean GetStartButton();
@@ -75,7 +75,6 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     //inputs
     //outputs
     void SetBuzzer(int ms);
-
 
   private:
     Centipede centipede;
