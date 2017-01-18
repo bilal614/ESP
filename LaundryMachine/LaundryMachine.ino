@@ -61,10 +61,9 @@ void loop()
   {
     Serial.println("Start is pressed");
     if (Ready)
-    {  
+    {
       mProgramExecutor->Start(mProgramSettings);
-      Ready  = false;
-      //Serial.print("machine is ready for wash: ");Serial.println(Ready);
+    //Serial.print("machine is ready for wash: ");Serial.println(Ready);
     }
   }
 }

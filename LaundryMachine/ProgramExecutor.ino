@@ -6,7 +6,7 @@ ProgramExecutor::ProgramExecutor(IBuzzer * b, IMotor * m, ILock * l, ISoap * s, 
   mMotor.setInterface(m);
   mLock.setInterface(l);
   mSoap.setInterface(s);
-  mTemperature.setInterface(t);
+  //mTemperature.setInterface(t);
   mWater.setInterface(w);
 }
 
@@ -16,7 +16,6 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
   char ProgramType = mProgramSettings->GetProgramType();
   int ProgramCost = mProgramSettings->GetProgramCost();
   int moneyInWallet = mCoinWallet->GetAmount();
-  mCoinWallet->ReturnChange();
   if(moneyInWallet >= ProgramCost && StepSwitches())
   {
     if(ProgramType == 'A')
@@ -26,49 +25,43 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
       mWater.SetLevel(2);
       mSoap.lockCpt1(false);
       mMotor.rotateLM( 1, 2);
-      //delay(6000);
-      tempDelay(6000);
+      delay(6000);
       stopDelay(2);
       //mMotor.Stop();
       
       mMotor.rotateLM( 0, 2);
-      //delay(6000);
-      tempDelay(6000);
+      delay(6000);
       stopDelay(2);
       //mMotor.Stop();
       mWater.SetLevel(0);
       
       //Main-wash (note: add temperature later)
-      
-     if(mWater.CheckLevel()>0)
-     {
-      mTemperature.SetTemperature(2);
-     }
+      /*
+       * if(mWater.CheckLevel()>0)
+       * {
+       *  mTemperature->SetTemperature(2);
+       * }
+       */
        //step 1)
-      mTemperature.Poll();
       mWater.SetLevel(2);
       mSoap.lockCpt2(false);
       mMotor.rotateLM(1, 2);
-      //delay(6000);
-      tempDelay(6000);
+      delay(6000);
       //mMotor.Stop();
       stopDelay(2);
       
       mMotor.rotateLM(0, 2);
-      //delay(6000);
-      tempDelay(6000);
+      delay(6000);
       //mMotor.Stop();
       stopDelay(2);
       
       mMotor.rotateLM(1, 2);
-      //delay(6000);
-      tempDelay(6000);
+      delay(6000);
       //mMotor.Stop();
       stopDelay(2);
       
       mMotor.rotateLM(0, 2);
-      //delay(6000);
-      tempDelay(6000);
+      delay(6000);
       //mMotor.Stop();
       stopDelay(2);
       
@@ -85,6 +78,7 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
       mMotor.Centrifugation();
       mWater.SetSink(true);
     */
+      //mCoinWallet->Withdraw(360);
     }
     if(ProgramType == 'B')
     {
@@ -162,15 +156,4 @@ void ProgramExecutor::stopDelay(int Speed)
   {
     delay(1000);
   }
-}
-
-
-void ProgramExecutor::tempDelay(int d)
-{
-  int DelayFactor = d/100;
-  for(int i  = 0; i < DelayFactor; i++)
-  {
-    mTemperature.Poll();
-    delay(100);
-  }   
 }
