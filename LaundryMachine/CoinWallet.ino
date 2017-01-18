@@ -95,6 +95,16 @@ void CoinWallet::WithdrawAll()
   }
 }
 
+void CoinWallet::ReturnChange()
+{
+    nrOfCoin10 = 0;
+    nrOfCoin50 = 0;
+    nrOfCoin200 = 0;
+    mCoin->SetCoin10(nrOfCoin10);
+    mCoin->SetCoin50(nrOfCoin50);
+    mCoin->SetCoin200(nrOfCoin200);
+}
+
 char CoinWallet::mappingCoin(char nrofCoin)
 {
   if (nrofCoin == 1)
