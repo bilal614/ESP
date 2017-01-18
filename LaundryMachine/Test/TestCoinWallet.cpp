@@ -137,7 +137,7 @@ TEST_F(TestCoinWallet, test_balance_programB)
 
 TEST_F(TestCoinWallet, test_balance_programC)
 {
-    //Added 2 coins of 200, 2 coins of 50 and  coins of 10 ---> 510
+    //Added 2 coins of 200, 2 coins of 50 and 1 coin of 10 ---> 510
     mCoinWallet->AddCoin10();
     mCoinWallet->AddCoin50();
     mCoinWallet->AddCoin50();
@@ -148,7 +148,7 @@ TEST_F(TestCoinWallet, test_balance_programC)
 }
 TEST_F(TestCoinWallet, test_withdraw_all)//Withdraw the specific amount of money
 {
-    //Put in 550
+    //Added 2 coins of 200, 3 coins of 50
     mCoinWallet->AddCoin200();
     mCoinWallet->AddCoin200();
     mCoinWallet->AddCoin50();

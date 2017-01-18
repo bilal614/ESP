@@ -170,11 +170,6 @@ void StubHardwareControl::SetHeater(bool sw1tch)
 {
 }
 
-
-
-
-
-
 /**HARDWARE CONTROL PRIVATE FUNCTIONS*/
 void StubHardwareControl::SetGroup(int group)
 {
