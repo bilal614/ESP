@@ -18,7 +18,7 @@ void ProgramSelect::Poll()
   //Serial.print("current program: ");
   //Serial.println(progamType);
   //Need to be called there instead of GetProgramType to make sure that the increasing of currentProgram only done when the
-  //Program Button is pressed, previously it turned out an error when it was called in GetProgramType
+  //Program Button is pressed, previously it turned out an error when it was called in GetProgramType;
   if (mProgram->GetProgramButton())
   {
     currentProgram ++;
