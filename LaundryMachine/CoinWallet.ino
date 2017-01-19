@@ -1,4 +1,5 @@
 #include "CoinWallet.h"
+
 CoinWallet::CoinWallet()
 {
   nrOfCoin10 = 0;

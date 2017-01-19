@@ -17,22 +17,8 @@ void ProgramSelect::Poll()
   char progamType = GetProgramType();
   //Serial.print("current program: ");
   //Serial.println(progamType);
-  if (currentProgram >= 4)
-  {
-    currentProgram = 0;
-  }
-  if (mProgram->GetStartButton())
-  {
-    //Serial.println("Start is pressed");
-//    if (mStartHandler != NULL)
-//    {
-//      mStartHandler();
-//    }
-  }
-}
-
-char ProgramSelect::GetProgramType()
-{
+  //Need to be called there instead of GetProgramType to make sure that the increasing of currentProgram only done when the
+  //Program Button is pressed, previously it turned out an error when it was called in GetProgramType
   if (mProgram->GetProgramButton())
   {
     currentProgram ++;
@@ -41,6 +27,22 @@ char ProgramSelect::GetProgramType()
       currentProgram = 1;
     }
   }
+  if (currentProgram >= 4)
+  {
+    currentProgram = 0;
+  }
+  if (mProgram->GetStartButton())
+  {
+    //Serial.println("Start is pressed");
+    //    if (mStartHandler != NULL)
+    //    {
+    //      mStartHandler();
+    //    }
+  }
+}
+
+char ProgramSelect::GetProgramType()
+{
   //Serial.print("current program: ");Serial.println(currentProgram);
   if (currentProgram == 1)
   {
@@ -73,4 +75,7 @@ boolean ProgramSelect::StartIsPressed()
 {
   return mProgram->GetStartButton();
 }
+
+ProgramSelect::~ProgramSelect()
+{}
 

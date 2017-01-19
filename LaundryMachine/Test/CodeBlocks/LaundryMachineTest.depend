@@ -1,7 +1,8 @@
 # depslib dependency file v1.0
-1484314247 source:e:\git\esp\laundrymachine\test\deviceundertest.cpp
+1484821825 source:e:\git\esp\laundrymachine\test\deviceundertest.cpp
 	"ArduinoWrapper.h"
 	"CoinWallet.ino"
+	"ProgramSelect.ino"
 
 1371643073 e:\git\esp\laundrymachine\test\arduinowrapper.h
 	<stdint.h>
@@ -286,7 +287,7 @@
 	"ITemperature.h"
 	"IWater.h"
 
-1484776308 source:e:\git\esp\laundrymachine\test\testcoinwallet.cpp
+1484777116 source:e:\git\esp\laundrymachine\test\testcoinwallet.cpp
 	"TestCoinWallet.h"
 	"StubHardwareControl.h"
 	"CoinWallet.h"
@@ -295,5 +296,16 @@
 	"ArduinoWrapper.h"
 	"StubHardwareControl.h"
 	"CoinWallet.h"
+	"gtest/gtest.h"
+
+1484823159 source:e:\git\esp\laundrymachine\test\testprogramselect.cpp
+	"TestProgramSelect.h"
+	"StubHardwareControl.h"
+	"ProgramSelect.h"
+
+1484821784 e:\git\esp\laundrymachine\test\testprogramselect.h
+	"ArduinoWrapper.h"
+	"StubHardwareControl.h"
+	"ProgramSelect.h"
 	"gtest/gtest.h"
 
