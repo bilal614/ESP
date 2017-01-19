@@ -21,6 +21,8 @@ public:
   boolean IsReady(char prog);
   void setCoinWallet(CoinWallet* c);
   void stopDelay(int Speed);
+  void Centrifugate(char prog);
+  void Prewash(char prog);
   void tempDelay(int d);
 private:
   Buzzer  mBuzzer;

@@ -102,7 +102,7 @@ void loop()
   /*
        Testing to start the motor at different speed with the Laundry Machine device.
   */
-  myWater->SetLevel(Empty);               // Works properly
+  //myWater->SetLevel(Empty);               // Works properly
   //myWater->SetLevel(Low_water);           // Works properly
   //myWater->SetLevel(Medium_water);        // Works properly
   //myWater->SetLevel(Full);                // Works properly
@@ -114,14 +114,26 @@ void loop()
        Testing that we read the correct water level with the Laundry Machine device.
   */
   
-  int val = myWater->CheckLevel();
-  Serial.println("The water level is: "); Serial.println(val);
-  delay(1000);
+  //int val = myWater->CheckLevel();
+  //Serial.println("The water level is: "); Serial.println(val);
+  //delay(1000);
   /*
       Conclusion: It works properly!
   */
 
   /***** END FOR WATER TESTING *****/
+
+  myWater->SetLevel(Medium_water);
+  myMotor->SetDirection(1);
+  delay(2000);
+  myMotor->Start(2);
+  delay(2000);
+  myMotor->Stop();
+  delay(2000);
+  myMotor->SetDirection(0);
+  myMotor->Start(2);
+  myWater->SetLevel(Empty);
+  delay(3000);
 
 }
 

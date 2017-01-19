@@ -99,7 +99,6 @@ void Water::SetLevel(int level)
     if (val == Full)
     {
       //Stay at fixed level
-      //Stay at fixed level
       Water::SetSink(0);
       Water::SetDrain(0);
     }
