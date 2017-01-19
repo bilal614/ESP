@@ -23,7 +23,7 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
       //execute program A recipe
       //Prewash:
       Prewash('A');
-     
+
       //Main-wash (note: add temperature later)
       /*
          if(mWater.CheckLevel()>0)
@@ -85,7 +85,7 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
       */
       //step 1)
 
-      
+
       //step 3)
       Centrifugate('B');
       //mCoinWallet->Withdraw(480);
@@ -106,7 +106,7 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
          }
       */
       //step 1)
-      
+
       //step 3)
       Centrifugate('C');
       //mCoinWallet->Withdraw(510);
@@ -186,29 +186,13 @@ void ProgramExecutor::Centrifugate(char prog)
   if (prog == 'A' || prog == 'B')
   {
     mWater.SetSink(true);
-    mMotor.rotateLM(1, 3);
-    delay(3000);
-    stopDelay(3);
-    mMotor.rotateLM(0, 3);
-    delay(3000);
-    stopDelay(3);
+    DoFullRotating(1, 3, (DelayValue/2));
     mWater.SetSink(false);
   }
   else if (prog == 'C')
   {
     mWater.SetSink(true);
-    mMotor.rotateLM(1, 3);
-    delay(3000);
-    stopDelay(3);
-    mMotor.rotateLM(0, 3);
-    delay(3000);
-    stopDelay(3);
-    mMotor.rotateLM(1, 3);
-    delay(3000);
-    stopDelay(3);
-    mMotor.rotateLM(0, 3);
-    delay(3000);
-    stopDelay(3);
+    DoFullRotating(2, 3, (DelayValue/2));
     mWater.SetSink(false);
   }
   else
@@ -221,14 +205,9 @@ void ProgramExecutor::Prewash(char prog)
 {
   if (prog == 'A') // No heat needed
   {
-    mWater.SetLevel(2);    
+    mWater.SetLevel(2);
     mSoap.lockCpt1(false);
-    mMotor.rotateLM(1, 2);
-    delay(6000);
-    stopDelay(2);
-    mMotor.rotateLM(0, 2);
-    delay(8000);
-    stopDelay(2);
+    DoFullRotating(1, 2, DelayValue);
     mWater.SetLevel(0);
   }
   else if (prog == 'B' || prog == 'C') // Heat needed at 50%
@@ -236,12 +215,7 @@ void ProgramExecutor::Prewash(char prog)
     mWater.SetLevel(2);
     //Add the heating
     mSoap.lockCpt1(false);
-    mMotor.rotateLM(1, 2);
-    delay(3000);
-    stopDelay(2);
-    mMotor.rotateLM(0, 2);
-    delay(3000);
-    stopDelay(2);
+    DoFullRotating(1, 2, DelayValue);
     mWater.SetLevel(0);
   }
   else
@@ -250,31 +224,22 @@ void ProgramExecutor::Prewash(char prog)
   }
 }
 
-void ProgramExecutor::Mainwash_Phase1(char prog) // Still have to do
+void ProgramExecutor::Mainwash_Phase1(char prog)
 {
   if (prog == 'A' || prog == 'B') // Same step 1 of main wash
   {
-    mWater.SetLevel(2);    
-    mSoap.lockCpt1(false);
-    mMotor.rotateLM(1, 2);
-    delay(6000);
-    stopDelay(2);
-    mMotor.rotateLM(0, 2);
-    delay(8000);
-    stopDelay(2);
+    mWater.SetLevel(2);
+    //Add the heating 50%
+    mSoap.lockCpt2(false);
+    DoFullRotating(2, 2, DelayValue);
     mWater.SetLevel(0);
   }
   else if ( prog == 'C')
   {
-    mWater.SetLevel(2);
-    //Add the heating
-    mSoap.lockCpt1(false);
-    mMotor.rotateLM(1, 2);
-    delay(3000);
-    stopDelay(2);
-    mMotor.rotateLM(0, 2);
-    delay(3000);
-    stopDelay(2);
+    mWater.SetLevel(3);
+    //Add the heating 100%
+    mSoap.lockCpt2(false);
+    DoFullRotating(4, 2, DelayValue);
     mWater.SetLevel(0);
   }
   else
@@ -283,35 +248,37 @@ void ProgramExecutor::Mainwash_Phase1(char prog) // Still have to do
   }
 }
 
-void ProgramExecutor::Mainwash_Phase2(char prog)  // Still have to do
+void ProgramExecutor::Mainwash_Phase2(char prog)  // No heat needed
 {
-  if (prog == 'A') // No heat needed
-  {
-    mWater.SetLevel(2);    
-    mSoap.lockCpt1(false);
-    mMotor.rotateLM(1, 2);
-    delay(6000);
-    stopDelay(2);
-    mMotor.rotateLM(0, 2);
-    delay(8000);
-    stopDelay(2);
-    mWater.SetLevel(0);
-  }
-  else if (prog == 'B' || prog == 'C') // Same step 2 of main wash
+  if (prog == 'A' || prog == 'B')  // Same step 2 of main wash 
   {
     mWater.SetLevel(2);
-    //Add the heating
-    mSoap.lockCpt1(false);
-    mMotor.rotateLM(1, 2);
-    delay(3000);
-    stopDelay(2);
-    mMotor.rotateLM(0, 2);
-    delay(3000);
-    stopDelay(2);
+    DoFullRotating(2, 2, DelayValue);
+    mWater.SetLevel(0);
+  }
+  else if (prog == 'B' || prog == 'C') // Same step 2 of main wash 
+  {
+    mWater.SetLevel(2);
+    DoFullRotating(4, 2, DelayValue);
     mWater.SetLevel(0);
   }
   else
   {
     Serial.println("You entered an innapropriate value for Main wash phase 2!");
   }
+}
+
+void  ProgramExecutor::DoFullRotating(int NbrOfTimes, int Speed, int DelayVal) // Repeat complete rotating at a given speed
+{
+  int val = 0;
+  while (val < NbrOfTimes)
+  {
+    mMotor.rotateLM(1, Speed);
+    delay(DelayVal);
+    stopDelay(Speed);
+    mMotor.rotateLM(0, Speed);
+    delay(DelayVal);
+    stopDelay(Speed);
+    val++;
   }
+}
