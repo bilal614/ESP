@@ -23,19 +23,7 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
       //execute program A recipe
       //Prewash:
       Prewash('A');
-      /*mWater.SetLevel(2);
-        mSoap.lockCpt1(false);
-        mMotor.rotateLM( 1, 2);
-        delay(6000);
-        stopDelay(2);
-        //mMotor.Stop();
-
-        mMotor.rotateLM( 0, 2);
-        delay(6000);
-        stopDelay(2);
-        //mMotor.Stop();
-        mWater.SetLevel(Empty);*/
-
+     
       //Main-wash (note: add temperature later)
       /*
          if(mWater.CheckLevel()>0)
@@ -87,9 +75,20 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
       //execute program B recipe
       //Prewash:
       Prewash('B');
+
+      //Main-wash (note: add temperature later)
+      /*
+         if(mWater.CheckLevel()>0)
+         {
+          mTemperature->SetTemperature(2);
+         }
+      */
+      //step 1)
+
+      
       //step 3)
       Centrifugate('B');
-      //mCoinWallet->Withdraw(360);
+      //mCoinWallet->Withdraw(480);
 
       //Unlock
     }
@@ -98,9 +97,19 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
       //execute program C recipe
       //Prewash:
       Prewash('C');
+
+      //Main-wash (note: add temperature later)
+      /*
+         if(mWater.CheckLevel()>0)
+         {
+          mTemperature->SetTemperature(2);
+         }
+      */
+      //step 1)
+      
       //step 3)
       Centrifugate('C');
-      //mCoinWallet->Withdraw(360);
+      //mCoinWallet->Withdraw(510);
       //Unlock
 
     }
@@ -212,11 +221,7 @@ void ProgramExecutor::Prewash(char prog)
 {
   if (prog == 'A') // No heat needed
   {
-    mWater.SetDrain(1);
-    delay(8000);
-    delay(10000);
-    mWater.SetDrain(0);
-    
+    mWater.SetLevel(2);    
     mSoap.lockCpt1(false);
     mMotor.rotateLM(1, 2);
     delay(6000);
@@ -244,3 +249,69 @@ void ProgramExecutor::Prewash(char prog)
     Serial.println("You entered an innapropriate value for Prewash!");
   }
 }
+
+void ProgramExecutor::Mainwash_Phase1(char prog) // Still have to do
+{
+  if (prog == 'A' || prog == 'B') // Same step 1 of main wash
+  {
+    mWater.SetLevel(2);    
+    mSoap.lockCpt1(false);
+    mMotor.rotateLM(1, 2);
+    delay(6000);
+    stopDelay(2);
+    mMotor.rotateLM(0, 2);
+    delay(8000);
+    stopDelay(2);
+    mWater.SetLevel(0);
+  }
+  else if ( prog == 'C')
+  {
+    mWater.SetLevel(2);
+    //Add the heating
+    mSoap.lockCpt1(false);
+    mMotor.rotateLM(1, 2);
+    delay(3000);
+    stopDelay(2);
+    mMotor.rotateLM(0, 2);
+    delay(3000);
+    stopDelay(2);
+    mWater.SetLevel(0);
+  }
+  else
+  {
+    Serial.println("You entered an innapropriate value for Main wash phase 1!");
+  }
+}
+
+void ProgramExecutor::Mainwash_Phase2(char prog)  // Still have to do
+{
+  if (prog == 'A') // No heat needed
+  {
+    mWater.SetLevel(2);    
+    mSoap.lockCpt1(false);
+    mMotor.rotateLM(1, 2);
+    delay(6000);
+    stopDelay(2);
+    mMotor.rotateLM(0, 2);
+    delay(8000);
+    stopDelay(2);
+    mWater.SetLevel(0);
+  }
+  else if (prog == 'B' || prog == 'C') // Same step 2 of main wash
+  {
+    mWater.SetLevel(2);
+    //Add the heating
+    mSoap.lockCpt1(false);
+    mMotor.rotateLM(1, 2);
+    delay(3000);
+    stopDelay(2);
+    mMotor.rotateLM(0, 2);
+    delay(3000);
+    stopDelay(2);
+    mWater.SetLevel(0);
+  }
+  else
+  {
+    Serial.println("You entered an innapropriate value for Main wash phase 2!");
+  }
+  }

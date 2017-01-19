@@ -43,6 +43,24 @@ void setup()
   mControl = new HardwareControl();
   myMotor = new Motor(mControl);
   myWater = new Water(mControl);
+
+  /*myWater->SetDrain(1);
+  delay(8000);
+  delay(5000);
+  myWater->SetDrain(0);*/
+  myWater->SetLevel(Low_water);
+  myMotor->SetDirection(1);
+  delay(2000);
+  myWater->SetLevel(Medium_water);
+  myMotor->Start(2);
+  delay(2000);
+  myMotor->Stop();
+  /*delay(2000);
+  myMotor->SetDirection(0);
+  myMotor->Start(2);*/
+  myWater->SetLevel(Empty);
+  delay(3000);
+  myWater->SetLevel(Full);
   
 }
 int count = 0;
@@ -122,18 +140,6 @@ void loop()
   */
 
   /***** END FOR WATER TESTING *****/
-
-  myWater->SetLevel(Medium_water);
-  myMotor->SetDirection(1);
-  delay(2000);
-  myMotor->Start(2);
-  delay(2000);
-  myMotor->Stop();
-  delay(2000);
-  myMotor->SetDirection(0);
-  myMotor->Start(2);
-  myWater->SetLevel(Empty);
-  delay(3000);
 
 }
 
