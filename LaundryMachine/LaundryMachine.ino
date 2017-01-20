@@ -53,10 +53,11 @@ int count = 0;
 boolean startPress = false;
 void loop()
 {
-  mProgramExecutor->StepSwitches();
+  boolean Locked = mProgramExecutor->StepSwitches();
   mProgramExecutor->StepCoinWallet();
   mProgramSelect->Poll();
   Ready = mProgramExecutor->IsReady(mProgramSelect->GetProgramType());
+  Ready = Ready & Locked;
   mProgramSettings->setProgramAndCost(mProgramSelect->GetProgramType());
   startPress = mProgramSelect->StartIsPressed();
   if (startPress)
