@@ -22,7 +22,10 @@ void CoinWallet::Poll()
   AddCoin10();
   AddCoin50();
   AddCoin200();
-  WithdrawAll();
+  if ( mCoin->GetClearButton())
+  {
+      WithdrawAll();
+  }
   //Serial.print("amount in wallet: "); Serial.println(CoinWallet::GetAmount());
 }
 
@@ -84,26 +87,23 @@ void CoinWallet::AddCoin200()
 
 void CoinWallet::WithdrawAll()
 {
-  if ( mCoin->GetClearButton())
-  {
-    nrOfCoin10 = 0;
-    nrOfCoin50 = 0;
-    nrOfCoin200 = 0;
-    mCoin->SetCoin10(nrOfCoin10);
-    mCoin->SetCoin50(nrOfCoin50);
-    mCoin->SetCoin200(nrOfCoin200);
-    balance = 0;
-  }
+  nrOfCoin10 = 0;
+  nrOfCoin50 = 0;
+  nrOfCoin200 = 0;
+  mCoin->SetCoin10(nrOfCoin10);
+  mCoin->SetCoin50(nrOfCoin50);
+  mCoin->SetCoin200(nrOfCoin200);
+  balance = 0;
 }
 
 void CoinWallet::ReturnChange()
 {
-    nrOfCoin10 = 0;
-    nrOfCoin50 = 0;
-    nrOfCoin200 = 0;
-    mCoin->SetCoin10(nrOfCoin10);
-    mCoin->SetCoin50(nrOfCoin50);
-    mCoin->SetCoin200(nrOfCoin200);
+  nrOfCoin10 = 0;
+  nrOfCoin50 = 0;
+  nrOfCoin200 = 0;
+  mCoin->SetCoin10(nrOfCoin10);
+  mCoin->SetCoin50(nrOfCoin50);
+  mCoin->SetCoin200(nrOfCoin200);
 }
 
 char CoinWallet::mappingCoin(char nrofCoin)
