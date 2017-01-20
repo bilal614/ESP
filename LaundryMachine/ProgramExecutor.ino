@@ -18,11 +18,11 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
   int moneyInWallet = mCoinWallet->GetAmount();
   if (moneyInWallet >= ProgramCost && StepSwitches())
   {
+    //mCoinWallet->Withdraw(ProgramCost);
+    mCoinWallet->ReturnChange();
     if (ProgramType == 'A')
     {
       //Prewash:
-      mCoinWallet->Withdraw(ProgramCost);
-      mCoinWallet->WithdrawAll();
       Prewash('A');
 
       //Main-wash (note: add temperature later)
@@ -46,8 +46,6 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
     if (ProgramType == 'B')
     {
       //Prewash:
-      mCoinWallet->Withdraw(ProgramCost);
-      mCoinWallet->WithdrawAll();
       Prewash('B');
 
       //Main-wash (note: add temperature later)
@@ -72,8 +70,6 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
     if (ProgramType == 'C')
     {
       //Prewash:
-      mCoinWallet->Withdraw(ProgramCost);
-      mCoinWallet->WithdrawAll();
       Prewash('C');
 
       //Main-wash (note: add temperature later)
