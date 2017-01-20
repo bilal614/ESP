@@ -50,7 +50,7 @@ void setup()
 }
 bool Ready = false;
 int count = 0;
-boolean startPressed = false;
+boolean startPress = false;
 void loop()
 {
   mProgramExecutor->StepSwitches();
@@ -58,16 +58,15 @@ void loop()
   mProgramSelect->Poll();
   Ready = mProgramExecutor->IsReady(mProgramSelect->GetProgramType());
   mProgramSettings->setProgramAndCost(mProgramSelect->GetProgramType());
-  startPressed = mProgramSelect->StartIsPressed();
-  if (startPressed)//Added by Thanh
+  startPress = mProgramSelect->StartIsPressed();
+  if (startPress)
   {
-    //Serial.println("Start is pressed");
+    Serial.println("Start is pressed");
     if (Ready)
-    {  
+    {
       mProgramExecutor->Start(mProgramSettings);
-      Ready  = false;
-      startPressed = false;
-      //Serial.print("machine is ready for wash: ");Serial.println(Ready);
+      startPress = false;
+    //Serial.print("machine is ready for wash: ");Serial.println(Ready);
     }
   }
 }

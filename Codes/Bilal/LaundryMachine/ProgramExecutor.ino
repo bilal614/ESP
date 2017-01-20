@@ -1,4 +1,6 @@
 #include "ProgramExecutor.h"
+#define longDelay 6000
+#define shortDelay 3000
 
 ProgramExecutor::ProgramExecutor(IBuzzer * b, IMotor * m, ILock * l, ISoap * s, ITemperature * t, IWater * w)
 {
@@ -26,37 +28,31 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
       mWater.SetLevel(2);
       mSoap.lockCpt1(false);
       mMotor.rotateLM( 1, 2);
-      //delay(6000);
-      tempDelay(6000);
+      tempDelay(longDelay);
       stopDelay(2);
-      //mMotor.Stop();
-      
       mMotor.rotateLM( 0, 2);
-      //delay(6000);
-      tempDelay(6000);
+      tempDelay(longDelay);
       stopDelay(2);
-      //mMotor.Stop();
       mWater.SetLevel(0);
       
       //Main-wash (note: add temperature later)
       
-     if(mWater.CheckLevel()>0)
-     {
-      mTemperature.SetTemperature(2);
-     }
+      if(mWater.CheckLevel()>0)
+      {
+        mTemperature.SetTemperature(2);
+      }
        //step 1)
       mTemperature.Poll();
       mWater.SetLevel(2);
       mSoap.lockCpt2(false);
       mMotor.rotateLM(1, 2);
-      //delay(6000);
-      tempDelay(6000);
+      tempDelay(longDelay);
       //mMotor.Stop();
       stopDelay(2);
       
       mMotor.rotateLM(0, 2);
       //delay(6000);
-      tempDelay(6000);
+      tempDelay(longDelay);
       //mMotor.Stop();
       stopDelay(2);
       
