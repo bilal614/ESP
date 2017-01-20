@@ -20,8 +20,9 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
   {
     if (ProgramType == 'A')
     {
-      //execute program A recipe
       //Prewash:
+      mCoinWallet->Withdraw(ProgramCost);
+      mCoinWallet->WithdrawAll();
       Prewash('A');
 
       //Main-wash (note: add temperature later)
@@ -32,51 +33,25 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
          }
       */
       //step 1)
-      /*mWater.SetLevel(2);
-        mSoap.lockCpt2(false);
-        mMotor.rotateLM(1, 2);
-        delay(6000);
-        //mMotor.Stop();
-        stopDelay(2);
+      Mainwash_Phase1('A');
 
-        mMotor.rotateLM(0, 2);
-        delay(6000);
-        //mMotor.Stop();
-        stopDelay(2);
-
-        mMotor.rotateLM(1, 2);
-        delay(6000);
-        //mMotor.Stop();
-        stopDelay(2);
-
-        mMotor.rotateLM(0, 2);
-        delay(6000);
-        //mMotor.Stop();
-        stopDelay(2);
-
-        mWater.SetLevel(0);*/
       //step 2)
-      /*
-        mWater.SetLevel(2);
-        mMotor.rotateLM(6000, 1, 2);
-        mMotor.rotateLM(6000, 0, 2);
-        mMotor.rotateLM(6000, 1, 2);
-        mMotor.rotateLM(6000, 0, 2);
-        mWater.SetLevel(0);
-        //step 3)
-        Centrifugate('A');
-      */
-      //mCoinWallet->Withdraw(360);
+      Mainwash_Phase2('A');
+
+      //step 3)
+      Centrifugate('A');
 
       //Unlock
     }
     if (ProgramType == 'B')
     {
-      //execute program B recipe
       //Prewash:
+      mCoinWallet->Withdraw(ProgramCost);
+      mCoinWallet->WithdrawAll();
       Prewash('B');
 
       //Main-wash (note: add temperature later)
+
       /*
          if(mWater.CheckLevel()>0)
          {
@@ -84,18 +59,21 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
          }
       */
       //step 1)
+      Mainwash_Phase1('B');
 
+      //step 2)
+      Mainwash_Phase2('B');
 
       //step 3)
       Centrifugate('B');
-      //mCoinWallet->Withdraw(480);
 
       //Unlock
     }
     if (ProgramType == 'C')
     {
-      //execute program C recipe
       //Prewash:
+      mCoinWallet->Withdraw(ProgramCost);
+      mCoinWallet->WithdrawAll();
       Prewash('C');
 
       //Main-wash (note: add temperature later)
@@ -106,10 +84,14 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
          }
       */
       //step 1)
+      Mainwash_Phase1('C');
+
+      //step 2)
+      Mainwash_Phase2('C');
 
       //step 3)
       Centrifugate('C');
-      //mCoinWallet->Withdraw(510);
+
       //Unlock
 
     }
@@ -186,13 +168,13 @@ void ProgramExecutor::Centrifugate(char prog)
   if (prog == 'A' || prog == 'B')
   {
     mWater.SetSink(true);
-    DoFullRotating(1, 3, (DelayValue/2));
+    DoFullRotating(1, 3, (DelayValue / 2));
     mWater.SetSink(false);
   }
   else if (prog == 'C')
   {
     mWater.SetSink(true);
-    DoFullRotating(2, 3, (DelayValue/2));
+    DoFullRotating(2, 3, (DelayValue / 2));
     mWater.SetSink(false);
   }
   else
@@ -250,13 +232,13 @@ void ProgramExecutor::Mainwash_Phase1(char prog)
 
 void ProgramExecutor::Mainwash_Phase2(char prog)  // No heat needed
 {
-  if (prog == 'A' || prog == 'B')  // Same step 2 of main wash 
+  if (prog == 'A' || prog == 'B')  // Same step 2 of main wash
   {
     mWater.SetLevel(2);
     DoFullRotating(2, 2, DelayValue);
     mWater.SetLevel(0);
   }
-  else if (prog == 'B' || prog == 'C') // Same step 2 of main wash 
+  else if (prog == 'B' || prog == 'C') // Same step 2 of main wash
   {
     mWater.SetLevel(2);
     DoFullRotating(4, 2, DelayValue);
