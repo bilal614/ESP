@@ -17,7 +17,10 @@ void ProgramSelect::Poll()
   char progamType = GetProgramType();
   //Serial.print("current program: ");
   //Serial.println(progamType);
-  
+  if (currentProgram >= 4)
+  {
+    currentProgram = 0;
+  }
   if (mProgram->GetStartButton())
   {
     //Serial.println("Start is pressed");
@@ -64,5 +67,10 @@ void ProgramSelect::InstallStartHandler(void (* handler)())
 void ProgramSelect::setProgramInterface(IProgram* p)
 {
   mProgram = p;
+}
+
+boolean ProgramSelect::StartIsPressed()
+{
+  return mProgram->GetStartButton();
 }
 

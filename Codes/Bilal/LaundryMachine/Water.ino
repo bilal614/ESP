@@ -1,39 +1,154 @@
 #include "Water.h"
 
+Water::Water()
+{
+  CurrentLevel = 0;
+  DesiredLevel = 0;
+}
 Water::Water(IWater * w)
 {
-  iWater = w;
+  oWater = w;
 }
 
 int Water::CheckLevel()
 {
-  return 0;
+  if (!oWater->GetWater1() && !oWater->GetWater2())
+  {
+    return Empty;
+  }
+  else if (oWater->GetWater1() && !oWater->GetWater2())
+  {
+    return Low_water;
+  }
+  else if (!oWater->GetWater1() && oWater->GetWater2())
+  {
+    return Medium_water;
+  }
+  else
+    return Full;
 }
 
 void Water::SetLevel(int level)
-{}
-
-void Water::Poll()
-{}
-
-void Water::SetSink(boolean state)
-{}
-
-void Water::SetDrain(boolean state)
-{}
-
-boolean Water::CheckSink()
 {
-  return false;
+  int val;
+
+  if (level == Empty)                     //Empty state
+  {
+    val = Water::CheckLevel();
+
+    if (val == Empty)
+    {
+      //Stay at fixed level
+      Water::SetSink(0);               //1 for ON and 0 for OFF
+      Water::SetDrain(0);
+    }
+    else
+    {
+      Water::SetSink(1);                  //1 for ON and 0 for OFF
+      Water::SetDrain(0);
+    }
+
+  }
+  else if (level == Low_water)                     //Filled at 33%
+  {
+    val = Water::CheckLevel();
+
+    if (val == Low_water)
+    {
+      //Stay at fixed level
+      Water::SetSink(0);
+      Water::SetDrain(0);
+    }
+    else if (val > Low_water)
+    {
+      Water::SetSink(1);                  //1 for ON and 0 for OFF
+      Water::SetDrain(0);
+    }
+    else
+    {
+      Water::SetSink(0);                  //1 for ON and 0 for OFF
+      Water::SetDrain(1);
+    }
+
+  }
+  else if (level == Medium_water)             //Filled at 66%
+  {
+    val = Water::CheckLevel();
+
+    if (val == Medium_water)
+    {
+      //Stay at fixed level
+      Water::SetSink(0);
+      Water::SetDrain(0);
+    }
+    else if (val > Medium_water)
+    {
+      Water::SetSink(1);                  //1 for ON and 0 for OFF
+      Water::SetDrain(0);
+    }
+    else
+    {
+      Water::SetSink(0);                  //1 for ON and 0 for OFF
+      Water::SetDrain(1);
+    }
+  }
+  else if (level == Full)                  //Filled at 100%
+  {
+    val = Water::CheckLevel();
+
+    if (val == Full)
+    {
+      //Stay at fixed level
+      //Stay at fixed level
+      Water::SetSink(0);
+      Water::SetDrain(0);
+    }
+    else if (val > Full)
+    {
+      //Print error message
+      Serial.println("The value must be between less or egual to 3!");
+      Water::SetSink(0);                  //1 for ON and 0 for OFF
+      Water::SetDrain(0);
+    }
+    else
+    {
+      Water::SetSink(0);                  //1 for ON and 0 for OFF
+      Water::SetDrain(1);
+    }
+  }
+
 }
 
-boolean Water::CheckDrain()
+void Water::SetSink(boolean state) //1 for ON and 0 for OFF
 {
-  return false;
+  if (state)
+  {
+    oWater->OpenSink();
+  }
+  else
+  {
+    oWater->CloseSink(); ;
+  }
+}
+
+void Water::SetDrain(boolean state) //1 for ON and 0 for OFF
+{
+  if (state)
+  {
+    oWater->OpenDrain();
+  }
+  else
+  {
+    oWater->CloseDrain();
+  }
 }
 
 Water::~Water()
 {
-  //delete iWater;  
+  //delete oWater;
 }
 
+void Water::setInterface(IWater* w)
+{
+  oWater = w;  
+}

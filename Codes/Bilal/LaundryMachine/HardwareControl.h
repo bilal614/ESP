@@ -76,12 +76,6 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     //outputs
     void SetBuzzer(int ms);
 
-    
-
-   
-
-
-
   private:
     Centipede centipede;
     void SetKeySelect(int value);

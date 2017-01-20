@@ -1,6 +1,6 @@
 #include "TestCoinWallet.h"
 #include "StubHardwareControl.h"
-
+#include "CoinWallet.h"
 
 TestCoinWallet::TestCoinWallet()
 {
@@ -10,12 +10,27 @@ TestCoinWallet::TestCoinWallet()
 
 TestCoinWallet::~TestCoinWallet()
 {
-    //dtor
+
 }
 
-TEST_F(TestCoinWallet, test_coin10)
+TEST_F(TestCoinWallet, test_coin10_zero)
 {
-    mCoin->Coin10Button = true;
-    mCoinWallet->Poll();
-    EXPECT_EQ(10, mCoinWallet->Balance());
+    int balance = mCoinWallet->GetAmount();
+    EXPECT_EQ(balance, 0);
 }
+
+TEST_F(TestCoinWallet, test_coin10_one)
+{
+    mCoinWallet->AddCoin10();
+    int balance = mCoinWallet->GetAmount();
+    EXPECT_EQ(balance, 10);
+}
+
+TEST_F(TestCoinWallet, test_coin10_two)
+{
+    mCoinWallet->AddCoin10();
+    mCoinWallet->AddCoin10();
+    int balance = mCoinWallet->GetAmount();
+    EXPECT_EQ(balance, 20);
+}
+

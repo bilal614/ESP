@@ -15,6 +15,7 @@ class CoinWallet
     int GetAmount();
     void Poll();
     void WithdrawAll();
+    void ReturnChange();
     ~CoinWallet();
   private:
     ICoin * mCoin;

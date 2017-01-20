@@ -15,9 +15,9 @@ class ICoin
     //could be make sounds when the capacity is full
     //leds is indicator which LED will be turn on
     // eg. Call SetCoin10(B00000111) means 3 coins 10 is added
-    virtual void SetCoin10(byte led) = 0;
-    virtual void SetCoin50(byte led) = 0;
-    virtual void SetCoin200(byte led) = 0;
+    virtual void SetCoin10(unsigned char led) = 0;
+    virtual void SetCoin50(unsigned char led) = 0;
+    virtual void SetCoin200(unsigned char led) = 0;
 
 
 };

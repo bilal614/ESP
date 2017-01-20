@@ -38,7 +38,7 @@ boolean CoinWallet::Withdraw(int amount)
   else
   {
     balance -= amount;
-    return ;
+    return true;
   }
 }
 
@@ -90,23 +90,33 @@ void CoinWallet::WithdrawAll()
   }
 }
 
+void CoinWallet::ReturnChange()
+{
+    nrOfCoin10 = 0;
+    nrOfCoin50 = 0;
+    nrOfCoin200 = 0;
+    mCoin->SetCoin10(nrOfCoin10);
+    mCoin->SetCoin50(nrOfCoin50);
+    mCoin->SetCoin200(nrOfCoin200);
+}
+
 char CoinWallet::mappingCoin(char nrofCoin)
 {
   if (nrofCoin == 1)
   {
-    return B00000001;
+    return 0x01; //B00000001
   }
   else if (nrofCoin == 2)
   {
-    return B00000011;
+    return 0x03; //B00000011
   }
   else if (nrofCoin == 3)
   {
-    return B00000111;
+    return 0x07; //B00000111
   }
   else if (nrofCoin == 0)
   {
-    return B00000000;
+    return 0x00; //B00000000
   }
 
 }
