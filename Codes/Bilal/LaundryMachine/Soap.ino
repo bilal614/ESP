@@ -75,4 +75,9 @@ void Soap::setInterface(ISoap* s)
     iSoap = s;   
 }
 
+void Soap::soap2LEDoff()
+{
+  iSoap->turnSoap2LEDOff();  
+}
+
 

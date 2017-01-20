@@ -64,28 +64,7 @@ Motor::~Motor()
 void Motor::rotateLM(boolean dir, int Speed)
 {
   SetDirection(dir); 
-  Serial.println("direction is set");
   Start(Speed);
-  Serial.println("speed is set");
-  //delay(duration);
-  //Stop();
-  Serial.println("one step ended");
-}
-
-void Motor::Centrifugation()//open sink before calling this function
-{
-  int count = 0; 
-  do{
-    SetDirection(1);
-    Start(High);
-    delay(3000);
-    Stop();
-    SetDirection(0);
-    Start(High);
-    delay(3000);
-    Stop();
-    count++;
-  }while(count <2);
 }
 
 void Motor::setInterface(IMotor* m)

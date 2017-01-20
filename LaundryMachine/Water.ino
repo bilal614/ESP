@@ -89,7 +89,7 @@ void Water::SetLevel(int level)
         //Stay at fixed level
         Water::SetSink(0);
         Water::SetDrain(0);
-        Serial.println("water has been filled");
+        //Serial.println("water has been filled");
         state = false;
       }
       else if (val > Medium_water)
@@ -101,7 +101,7 @@ void Water::SetLevel(int level)
       {
         Water::SetSink(0);                  //1 for ON and 0 for OFF
         Water::SetDrain(1);
-        Serial.println("water is being filled");
+        //Serial.println("water is being filled");
       }
     }
   }
@@ -116,13 +116,13 @@ void Water::SetLevel(int level)
         //Stay at fixed level
         Water::SetSink(0);
         Water::SetDrain(0);
-        Serial.println("water has been filled");
+        //Serial.println("water has been filled");
         state = false;
       }
       else if (val > Full)
       {
         //Print error message
-        Serial.println("The value must be between less or egual to 3!");
+        //Serial.println("The value must be between less or egual to 3!");
         Water::SetSink(0);                  //1 for ON and 0 for OFF
         Water::SetDrain(0);
       }
@@ -130,7 +130,7 @@ void Water::SetLevel(int level)
       {
         Water::SetSink(0);                  //1 for ON and 0 for OFF
         Water::SetDrain(1);
-        Serial.println("water is being filled");
+        //Serial.println("water is being filled");
       }
     }
   }

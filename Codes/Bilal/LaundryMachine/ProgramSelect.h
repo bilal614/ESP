@@ -1,11 +1,14 @@
 #ifndef PROGRAMSELECT_H
 #define PROGRAMSELECT_H
 
+#include "IProgram.h"
+
 class ProgramSelect
 {
 public:
   ProgramSelect();
   ProgramSelect(IProgram *);
+  ~ProgramSelect();
   void Poll();
   char GetProgramType();
   void InstallStartHandler(void (* handler)());

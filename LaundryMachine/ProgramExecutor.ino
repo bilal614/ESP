@@ -204,6 +204,7 @@ void ProgramExecutor::Mainwash_Phase1(char prog)
     mSoap.lockCpt2(false);
     DoFullRotating(2, 2, DelayValue);
     mTemperature.SetTemperature(0);
+    mTemperature.Poll();
     mWater.SetLevel(0);
   }
   else if ( prog == 'C')
@@ -217,6 +218,7 @@ void ProgramExecutor::Mainwash_Phase1(char prog)
     mSoap.lockCpt2(false);
     DoFullRotating(4, 2, DelayValue);
     mTemperature.SetTemperature(0);
+    mTemperature.Poll();
     mWater.SetLevel(0);
   }
   else
@@ -229,13 +231,16 @@ void ProgramExecutor::Mainwash_Phase2(char prog)  // No heat needed
 {
   if (prog == 'A' || prog == 'B')  // Same step 2 of main wash
   {
+    mTemperature.SetTemperature(0);
+    mTemperature.Poll();
     mWater.SetLevel(2);
     DoFullRotating(2, 2, DelayValue);
-    mTemperature.SetTemperature(0);
     mWater.SetLevel(0);
   }
-  else if (prog == 'B' || prog == 'C') // Same step 2 of main wash
+  else if (prog == 'C') // Same step 2 of main wash
   {
+    mTemperature.SetTemperature(0);
+    mTemperature.Poll();
     mWater.SetLevel(2);
     DoFullRotating(4, 2, DelayValue);
     mTemperature.SetTemperature(0);
