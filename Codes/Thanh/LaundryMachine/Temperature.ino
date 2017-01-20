@@ -1,11 +1,12 @@
 Temperature::Temperature()
 {
-  
+  desiredTemperature = 0;
 }
 
 Temperature::Temperature(ITemperature* itemp)
 {
-  temp = itemp;
+  Temp = itemp;
+  desiredTemperature = 0;
 }
 
 int Temperature::GetDesired()
@@ -25,19 +26,19 @@ void Temperature::SetTemperature(int value)
 
 void Temperature::Poll()
 {
-  currentTemperature = temp->GetTemperature();
-  if (desiredTemperature == 3) temp->SetHeater(true);
-  else if (desiredTemperature == 0) temp->SetHeater(false);
+  currentTemperature = Temp->GetTemperature();
+  if (desiredTemperature == 3) Temp->SetHeater(true);
+  else if (desiredTemperature == 0) Temp->SetHeater(false);
   else
   {
-    if (desiredTemperature > currentTemperature) temp->SetHeater(true);
-    else if (desiredTemperature < currentTemperature) temp->SetHeater(false);
+    if (desiredTemperature > currentTemperature) Temp->SetHeater(true);
+    else if (desiredTemperature < currentTemperature) Temp->SetHeater(false);
     else
     {
-      temp->SetHeater(true);
-      delay(100);
-      temp->SetHeater(false);
-      delay(90);
+      Temp->SetHeater(true);
+      //delay(100);
+      Temp->SetHeater(false);
+      //delay(100);
     }
   }
 }
@@ -48,5 +49,5 @@ Temperature::~Temperature()
 
 void Temperature::setInterface(ITemperature* t)
 {
-  temp = t;  
+  Temp = t;  
 }

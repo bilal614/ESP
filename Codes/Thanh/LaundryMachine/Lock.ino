@@ -19,16 +19,18 @@ boolean Lock::checkLock()
   return LockStatus;
 }
 
-void Lock::lockMachine()
+boolean Lock::lockMachine()
 {
     if(Lock::checkLock())
     {
       lock = locked;
+      return true;
       //Serial.print("lock switch is: ");Serial.println(lock);
     }
     else
     {
       lock = unlocked;
+      return false;
     }
 }
 

@@ -6,7 +6,7 @@
 class Temperature
 {
   private:
-  ITemperature* temp;
+  ITemperature* Temp;
   int currentTemperature;
   int desiredTemperature;
   
@@ -18,7 +18,7 @@ class Temperature
   void SetTemperature(int value);
   void Poll();
   ~Temperature();
-  void setInterface(ITemperature* t); 
+  void setInterface(ITemperature* t);
 };
 
 #endif

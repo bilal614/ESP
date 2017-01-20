@@ -1,14 +1,14 @@
 #ifndef PROGRAMEXECUTOR_H
 #define PROGRAMEXECUTOR_H
 
-#include "IBuzzer.h"
-#include "ILock.h"
-#include "IMotor.h"
-#include "IProgram.h"
-#include "ISoap.h"
-#include "ITemperature.h"
-#include "IWater.h"
-#include "CoinWallet.h"
+#include "Buzzer.h"
+#include "Lock.h"
+#include "Motor.h"
+//#include "Program.h"
+#include "Soap.h"
+#include "Temperature.h"
+#include "Water.h"
+//#include "CoinWallet.h"
 #include "ProgramSettings.h"
 
 class ProgramExecutor
@@ -20,13 +20,15 @@ public:
   boolean StepCoinWallet();
   boolean IsReady(char prog);
   void setCoinWallet(CoinWallet* c);
+  void stopDelay(int Speed);
+  void tempDelay(int d);
 private:
   Buzzer  mBuzzer;
-  //Motor  mMotor;
+  Motor  mMotor;
   Lock  mLock;
   Soap  mSoap;
   Temperature mTemperature;
-  //Water  mWater;
+  Water  mWater;
   CoinWallet * mCoinWallet;
   ProgramSettings* mProgramSettings;
 };

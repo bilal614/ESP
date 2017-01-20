@@ -57,14 +57,13 @@ void loop()
   mProgramSelect->Poll();
   Ready = mProgramExecutor->IsReady(mProgramSelect->GetProgramType());
   mProgramSettings->setProgramAndCost(mProgramSelect->GetProgramType());
-  if (mProgramSelect->StartIsPressed())//Added by Thanh
+  if (mProgramSelect->StartIsPressed())
   {
-    //Serial.println("Start is pressed");
+    Serial.println("Start is pressed");
     if (Ready)
-    {  
+    {
       mProgramExecutor->Start(mProgramSettings);
-      Ready  = false;
-      //Serial.print("machine is ready for wash: ");Serial.println(Ready);
+    //Serial.print("machine is ready for wash: ");Serial.println(Ready);
     }
   }
 }

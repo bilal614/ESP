@@ -4,6 +4,7 @@ CoinWallet::CoinWallet()
   nrOfCoin10 = 0;
   nrOfCoin50 = 0;
   nrOfCoin200 = 0;
+  balance = 0;
 }
 
 CoinWallet::CoinWallet(ICoin * c)
@@ -12,6 +13,7 @@ CoinWallet::CoinWallet(ICoin * c)
   nrOfCoin10 = 0;
   nrOfCoin50 = 0;
   nrOfCoin200 = 0;
+  balance = 0;
 }
 
 void CoinWallet::Poll()
@@ -20,12 +22,11 @@ void CoinWallet::Poll()
   AddCoin50();
   AddCoin200();
   WithdrawAll();
-  //Serial.print("amount in wallet: "); Serial.println(CoinWallet::GetAmount());
+  Serial.print("amount in wallet: "); Serial.println(CoinWallet::GetAmount());
 }
 
 int CoinWallet::GetAmount()
 {
-  balance = 10 * nrOfCoin10 + 50 * nrOfCoin50 + 200 * nrOfCoin200;
   return balance;
 }
 
@@ -51,6 +52,7 @@ void CoinWallet:: AddCoin10()
       nrOfCoin10++;
       int coinIndicator10 = mappingCoin(nrOfCoin10);
       mCoin->SetCoin10(coinIndicator10);
+      balance += 10;
     }
   }
 
@@ -63,6 +65,7 @@ void CoinWallet::AddCoin50()
     nrOfCoin50++;
     int coinIndicator50 = mappingCoin(nrOfCoin50);
     mCoin->SetCoin50(coinIndicator50);
+    balance += 50;
 
   }
 }
@@ -74,6 +77,7 @@ void CoinWallet::AddCoin200()
     nrOfCoin200++;
     int coinIndicator200 = mappingCoin(nrOfCoin200);
     mCoin->SetCoin200(coinIndicator200);
+    balance += 200;
   }
 }
 
@@ -87,26 +91,37 @@ void CoinWallet::WithdrawAll()
     mCoin->SetCoin10(nrOfCoin10);
     mCoin->SetCoin50(nrOfCoin50);
     mCoin->SetCoin200(nrOfCoin200);
+    balance = 0;
   }
+}
+
+void CoinWallet::ReturnChange()
+{
+    nrOfCoin10 = 0;
+    nrOfCoin50 = 0;
+    nrOfCoin200 = 0;
+    mCoin->SetCoin10(nrOfCoin10);
+    mCoin->SetCoin50(nrOfCoin50);
+    mCoin->SetCoin200(nrOfCoin200);
 }
 
 char CoinWallet::mappingCoin(char nrofCoin)
 {
   if (nrofCoin == 1)
   {
-    return 0x01;
+    return 0x01; //B00000001
   }
   else if (nrofCoin == 2)
   {
-    return 0x03;
+    return 0x03; //B00000011
   }
   else if (nrofCoin == 3)
   {
-    return 0x05;
+    return 0x07; //B00000111
   }
   else if (nrofCoin == 0)
   {
-    return 0x00;
+    return 0x00; //B00000000
   }
 
 }
