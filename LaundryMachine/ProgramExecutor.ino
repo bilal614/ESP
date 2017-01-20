@@ -34,7 +34,7 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
       Serial.println("finished main-wash phase 2 program A");
       //step 3)
       Centrifugate('A');
-
+      Serial.println("finished centrifugation program A");
       //Unlock
     }
     if (ProgramType == 'B')

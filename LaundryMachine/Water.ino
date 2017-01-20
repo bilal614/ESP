@@ -32,51 +32,49 @@ void Water::SetLevel(int level)
 {
   int val;
   boolean state = true;
-
   if (level == Empty)                     //Empty state
   {
     while(state)
     {
-    val = Water::CheckLevel();
-
-    if (val == Empty)
-    {
-      //Stay at fixed level
-      Water::SetSink(0);               //1 for ON and 0 for OFF
-      Water::SetDrain(0);
-      state = false;
+      val = Water::CheckLevel();
+  
+      if (val == Empty)
+      {
+        //Stay at fixed level
+        Water::SetSink(0);               //1 for ON and 0 for OFF
+        Water::SetDrain(0);
+        state = false;
+      }
+      else
+      {
+        Water::SetSink(1);                  //1 for ON and 0 for OFF
+        Water::SetDrain(0);
+      }
     }
-    else
-    {
-      Water::SetSink(1);                  //1 for ON and 0 for OFF
-      Water::SetDrain(0);
-    }
-    }
-
   }
   else if (level == Low_water)                     //Filled at 33%
   {
     while(state)
     {
-    val = Water::CheckLevel();
-
-    if (val == Low_water)
-    {
-      //Stay at fixed level
-      Water::SetSink(0);
-      Water::SetDrain(0);
-      state = false;
-    }
-    else if (val > Low_water)
-    {
-      Water::SetSink(1);                  //1 for ON and 0 for OFF
-      Water::SetDrain(0);
-    }
-    else
-    {
-      Water::SetSink(0);                  //1 for ON and 0 for OFF
-      Water::SetDrain(1);
-    }
+      val = Water::CheckLevel();
+  
+      if (val == Low_water)
+      {
+        //Stay at fixed level
+        Water::SetSink(0);
+        Water::SetDrain(0);
+        state = false;
+      }
+      else if (val > Low_water)
+      {
+        Water::SetSink(1);                  //1 for ON and 0 for OFF
+        Water::SetDrain(0);
+      }
+      else
+      {
+        Water::SetSink(0);                  //1 for ON and 0 for OFF
+        Water::SetDrain(1);
+      }
     }
 
   }
@@ -84,55 +82,58 @@ void Water::SetLevel(int level)
   {
     while(state)
     {
-    val = Water::CheckLevel();
-
-    if (val == Medium_water)
-    {
-      //Stay at fixed level
-      Water::SetSink(0);
-      Water::SetDrain(0);
-      state = false;
-    }
-    else if (val > Medium_water)
-    {
-      Water::SetSink(1);                  //1 for ON and 0 for OFF
-      Water::SetDrain(0);
-    }
-    else
-    {
-      Water::SetSink(0);                  //1 for ON and 0 for OFF
-      Water::SetDrain(1);
-    }
+      val = Water::CheckLevel();
+      
+      if (val == Medium_water)
+      {
+        //Stay at fixed level
+        Water::SetSink(0);
+        Water::SetDrain(0);
+        Serial.println("water has been filled");
+        state = false;
+      }
+      else if (val > Medium_water)
+      {
+        Water::SetSink(1);                  //1 for ON and 0 for OFF
+        Water::SetDrain(0);
+      }
+      else
+      {
+        Water::SetSink(0);                  //1 for ON and 0 for OFF
+        Water::SetDrain(1);
+        Serial.println("water is being filled");
+      }
     }
   }
   else if (level == Full)                  //Filled at 100%
   {
      while(state)
     {
-    val = Water::CheckLevel();
-
-    if (val == Full)
-    {
-      //Stay at fixed level
-      Water::SetSink(0);
-      Water::SetDrain(0);
-      state = false;
-    }
-    else if (val > Full)
-    {
-      //Print error message
-      Serial.println("The value must be between less or egual to 3!");
-      Water::SetSink(0);                  //1 for ON and 0 for OFF
-      Water::SetDrain(0);
-    }
-    else
-    {
-      Water::SetSink(0);                  //1 for ON and 0 for OFF
-      Water::SetDrain(1);
-    }
+      val = Water::CheckLevel();
+  
+      if (val == Full)
+      {
+        //Stay at fixed level
+        Water::SetSink(0);
+        Water::SetDrain(0);
+        Serial.println("water has been filled");
+        state = false;
+      }
+      else if (val > Full)
+      {
+        //Print error message
+        Serial.println("The value must be between less or egual to 3!");
+        Water::SetSink(0);                  //1 for ON and 0 for OFF
+        Water::SetDrain(0);
+      }
+      else
+      {
+        Water::SetSink(0);                  //1 for ON and 0 for OFF
+        Water::SetDrain(1);
+        Serial.println("water is being filled");
+      }
     }
   }
-
 }
 
 void Water::SetSink(boolean state) //1 for ON and 0 for OFF
