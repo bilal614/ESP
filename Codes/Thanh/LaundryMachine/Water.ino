@@ -31,9 +31,12 @@ int Water::CheckLevel()
 void Water::SetLevel(int level)
 {
   int val;
+  boolean state = true;
 
   if (level == Empty)                     //Empty state
   {
+    while(state)
+    {
     val = Water::CheckLevel();
 
     if (val == Empty)
@@ -41,16 +44,20 @@ void Water::SetLevel(int level)
       //Stay at fixed level
       Water::SetSink(0);               //1 for ON and 0 for OFF
       Water::SetDrain(0);
+      state = false;
     }
     else
     {
       Water::SetSink(1);                  //1 for ON and 0 for OFF
       Water::SetDrain(0);
     }
+    }
 
   }
   else if (level == Low_water)                     //Filled at 33%
   {
+    while(state)
+    {
     val = Water::CheckLevel();
 
     if (val == Low_water)
@@ -58,6 +65,7 @@ void Water::SetLevel(int level)
       //Stay at fixed level
       Water::SetSink(0);
       Water::SetDrain(0);
+      state = false;
     }
     else if (val > Low_water)
     {
@@ -69,10 +77,13 @@ void Water::SetLevel(int level)
       Water::SetSink(0);                  //1 for ON and 0 for OFF
       Water::SetDrain(1);
     }
+    }
 
   }
   else if (level == Medium_water)             //Filled at 66%
   {
+    while(state)
+    {
     val = Water::CheckLevel();
 
     if (val == Medium_water)
@@ -80,6 +91,7 @@ void Water::SetLevel(int level)
       //Stay at fixed level
       Water::SetSink(0);
       Water::SetDrain(0);
+      state = false;
     }
     else if (val > Medium_water)
     {
@@ -91,17 +103,20 @@ void Water::SetLevel(int level)
       Water::SetSink(0);                  //1 for ON and 0 for OFF
       Water::SetDrain(1);
     }
+    }
   }
   else if (level == Full)                  //Filled at 100%
   {
+     while(state)
+    {
     val = Water::CheckLevel();
 
     if (val == Full)
     {
       //Stay at fixed level
-      //Stay at fixed level
       Water::SetSink(0);
       Water::SetDrain(0);
+      state = false;
     }
     else if (val > Full)
     {
@@ -114,6 +129,7 @@ void Water::SetLevel(int level)
     {
       Water::SetSink(0);                  //1 for ON and 0 for OFF
       Water::SetDrain(1);
+    }
     }
   }
 

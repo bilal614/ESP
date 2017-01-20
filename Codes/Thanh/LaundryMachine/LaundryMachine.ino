@@ -52,7 +52,7 @@ bool Ready = false;
 int count = 0;
 void loop()
 {
-  /*mProgramExecutor->StepSwitches();
+  mProgramExecutor->StepSwitches();
   mProgramExecutor->StepCoinWallet();
   mProgramSelect->Poll();
   Ready = mProgramExecutor->IsReady(mProgramSelect->GetProgramType());
@@ -65,14 +65,7 @@ void loop()
       mProgramExecutor->Start(mProgramSettings);
     //Serial.print("machine is ready for wash: ");Serial.println(Ready);
     }
-  }*/
-   mCoinWallet->Poll();
-  if (mProgramSelect->StartIsPressed())
-  {
-    Serial.println("Start is pressed");
-    mCoinWallet->Withdraw(50);
   }
-  mCoinWallet->GetAmount();
 }
 
 
