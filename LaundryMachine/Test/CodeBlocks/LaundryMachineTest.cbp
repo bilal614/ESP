@@ -28,6 +28,8 @@
 		<Unit filename="../StubHardwareControl.h" />
 		<Unit filename="../TestCoinWallet.cpp" />
 		<Unit filename="../TestCoinWallet.h" />
+		<Unit filename="../TestProgramSelect.cpp" />
+		<Unit filename="../TestProgramSelect.h" />
 		<Unit filename="../gtest/src/gtest-all.cc" />
 		<Unit filename="../gtest/src/gtest_main.cc" />
 		<Extensions>
