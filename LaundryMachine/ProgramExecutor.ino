@@ -6,7 +6,7 @@ ProgramExecutor::ProgramExecutor(IBuzzer * b, IMotor * m, ILock * l, ISoap * s, 
   mMotor.setInterface(m);
   mLock.setInterface(l);
   mSoap.setInterface(s);
-  //mTemperature.setInterface(t);
+  mTemperature.setInterface(t);
   mWater.setInterface(w);
 }
 
@@ -19,7 +19,8 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
   mCoinWallet->ReturnChange();
   if (moneyInWallet >= ProgramCost && StepSwitches())
   {
-    /*if (ProgramType == 'A')
+    //mCoinWallet->Withdraw(ProgramCost);
+    if (ProgramType == 'A')
     {
 
      /*if(mWater.CheckLevel()>0)
@@ -38,10 +39,10 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
       //mMotor.Stop();
       stopDelay(2);*/
 
-      /*
+      
       //Prewash:
-      //Prewash('A');
-
+      Prewash('A');
+      Serial.println("finished pre-wash program A");
       //Main-wash (note: add temperature later)
 
       //step 1)
@@ -50,14 +51,16 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
         mTemperature.SetTemperature(2);
       }
       Mainwash_Phase1('A');
-
+      Serial.println("finished main-wash phase 1 program A");
       //step 2)
       Mainwash_Phase2('A');
-
+      Serial.println("finished main-wash phase 2 program A");
       //step 3)
       Centrifugate('A');
 
-      //Unlock*/
+      Serial.println("finished centrifugation program A");
+      //Unlock
+
     }
     if (ProgramType == 'B')
     {
@@ -65,7 +68,6 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
       Prewash('B');
 
       //Main-wash (note: add temperature later)
-
       //step 1)
       if (mWater.CheckLevel() > 0)
       {
@@ -162,15 +164,18 @@ void ProgramExecutor::stopDelay(int Speed)
   mMotor.Stop();
   if (Speed == 3)
   {
+    //tempDelay(5000);
     delay(5000);
   }
   if (Speed == 2)
   {
-    delay(2000);
+    //tempDelay(2000);
+    delay(5000);
   }
   if (Speed == 1)
   {
-    delay(1000);
+    //tempDelay(1000);
+    delay(5000);
   }
 }
 
@@ -206,9 +211,14 @@ void ProgramExecutor::Prewash(char prog)
   else if (prog == 'B' || prog == 'C') // Heat needed at 50%
   {
     mWater.SetLevel(2);
+    if(mWater.CheckLevel()>0)
+    {
+      mTemperature.SetTemperature(2);
+    }
     //Add the heating
     mSoap.lockCpt1(false);
     DoFullRotating(1, 2, DelayValue);
+    mTemperature.SetTemperature(0);
     mWater.SetLevel(0);
   }
   else
@@ -222,17 +232,29 @@ void ProgramExecutor::Mainwash_Phase1(char prog)
   if (prog == 'A' || prog == 'B') // Same step 1 of main wash
   {
     mWater.SetLevel(2);
+    if(mWater.CheckLevel()>0)
+    {
+      mTemperature.SetTemperature(2);
+    }
     //Add the heating 50%
     mSoap.lockCpt2(false);
     DoFullRotating(2, 2, DelayValue);
+    mTemperature.SetTemperature(0);
+    mTemperature.Poll();
     mWater.SetLevel(0);
   }
   else if ( prog == 'C')
   {
     mWater.SetLevel(3);
+    if(mWater.CheckLevel()>0)
+    {
+      mTemperature.SetTemperature(3);
+    }
     //Add the heating 100%
     mSoap.lockCpt2(false);
     DoFullRotating(4, 2, DelayValue);
+    mTemperature.SetTemperature(0);
+    mTemperature.Poll();
     mWater.SetLevel(0);
   }
   else
@@ -245,14 +267,19 @@ void ProgramExecutor::Mainwash_Phase2(char prog)  // No heat needed
 {
   if (prog == 'A' || prog == 'B')  // Same step 2 of main wash
   {
+    mTemperature.SetTemperature(0);
+    mTemperature.Poll();
     mWater.SetLevel(2);
     DoFullRotating(2, 2, DelayValue);
     mWater.SetLevel(0);
   }
-  else if (prog == 'B' || prog == 'C') // Same step 2 of main wash
+  else if (prog == 'C') // Same step 2 of main wash
   {
+    mTemperature.SetTemperature(0);
+    mTemperature.Poll();
     mWater.SetLevel(2);
     DoFullRotating(4, 2, DelayValue);
+    mTemperature.SetTemperature(0);
     mWater.SetLevel(0);
   }
   else
@@ -267,10 +294,12 @@ void  ProgramExecutor::DoFullRotating(int NbrOfTimes, int Speed, int DelayVal) /
   while (val < NbrOfTimes)
   {
     mMotor.rotateLM(1, Speed);
-    delay(DelayVal);
+    tempDelay(DelayVal);
+    //delay(DelayVal);
     stopDelay(Speed);
     mMotor.rotateLM(0, Speed);
-    delay(DelayVal);
+    tempDelay(DelayVal);
+    //delay(DelayVal);
     stopDelay(Speed);
     val++;
   }
@@ -278,8 +307,8 @@ void  ProgramExecutor::DoFullRotating(int NbrOfTimes, int Speed, int DelayVal) /
 
 void ProgramExecutor::tempDelay(int d)
 {
-  int DelayFactor = d / 100;
-  for (int i  = 0; i < DelayFactor; i++)
+  int DelayFactor = d/100;
+  for(int i  = 0; i < DelayFactor; i++)
   {
     mTemperature.Poll();
     delay(100);

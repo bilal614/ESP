@@ -39,6 +39,7 @@ class HardwareControl: public IBuzzer, public ICoin, public ILock, public IMotor
     //output
     void SetSoap1(boolean On);
     void SetSoap2(boolean On);
+    void turnSoap2LEDOff();
 
     /* ILock */
     //inputs

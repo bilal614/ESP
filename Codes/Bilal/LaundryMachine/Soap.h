@@ -17,6 +17,7 @@ class Soap
     boolean checkCpt2();//will check if soap switch 2 is turned on and will turn on soap 2 LED accordingly
     void lockCpt1(boolean set);
     void lockCpt2(boolean set);
+    void soap2LEDoff();
     ~Soap();
     void setInterface(ISoap* s);
 };

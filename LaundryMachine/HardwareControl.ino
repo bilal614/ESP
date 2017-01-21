@@ -218,6 +218,7 @@ void HardwareControl::SetSoap1(boolean On)
 
 void HardwareControl::SetSoap2(boolean On)
 {
+  Serial.print("LEDs 200: ");Serial.println(Leds200);
   Strobe();
   SetGroup(2);//to make group2 high and group1 low
   if (On)
@@ -240,6 +241,7 @@ void HardwareControl::SetSoap2(boolean On)
     if (Leds200 == 0)
     {
       SetData(0);
+      Serial.println("lock 2 LED should turn off");
     }
     if (Leds200 == 1)
     {
@@ -299,10 +301,12 @@ boolean HardwareControl::GetLockStatus()
     if (centipede.digitalRead(IN_IN3))
     {
       lockStatus = true;
+      //SetLockStatus(lockStatus);
     }
     else
     {
       lockStatus = false;
+      //SetLockStatus(lockStatus);
     }
   }
 }

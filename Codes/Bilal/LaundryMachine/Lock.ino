@@ -16,8 +16,10 @@ Lock::~Lock()
 boolean Lock::checkLock()
 {
   boolean LockStatus = iLock->GetLockStatus();
+  iLock->SetLockStatus(LockStatus);
   return LockStatus;
 }
+
 
 boolean Lock::lockMachine()
 {

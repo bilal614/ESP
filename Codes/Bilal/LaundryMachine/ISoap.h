@@ -10,6 +10,7 @@ public:
   // Outputs
   virtual void SetSoap1(boolean On) = 0;
   virtual void SetSoap2(boolean On) = 0;
+  virtual void turnSoap2LEDOff() = 0;
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "CoinWallet.h"
+
 CoinWallet::CoinWallet()
 {
   nrOfCoin10 = 0;
@@ -22,7 +23,7 @@ void CoinWallet::Poll()
   AddCoin50();
   AddCoin200();
   WithdrawAll();
-  Serial.print("amount in wallet: "); Serial.println(CoinWallet::GetAmount());
+  //Serial.print("amount in wallet: "); Serial.println(CoinWallet::GetAmount());
 }
 
 int CoinWallet::GetAmount()
@@ -97,33 +98,34 @@ void CoinWallet::WithdrawAll()
 
 void CoinWallet::ReturnChange()
 {
-    nrOfCoin10 = 0;
-    nrOfCoin50 = 0;
-    nrOfCoin200 = 0;
-    mCoin->SetCoin10(nrOfCoin10);
-    mCoin->SetCoin50(nrOfCoin50);
-    mCoin->SetCoin200(nrOfCoin200);
+  nrOfCoin10 = 0;
+  nrOfCoin50 = 0;
+  nrOfCoin200 = 0;
+  mCoin->SetCoin10(nrOfCoin10);
+  mCoin->SetCoin50(nrOfCoin50);
+  mCoin->SetCoin200(nrOfCoin200);
 }
 
 char CoinWallet::mappingCoin(char nrofCoin)
 {
+  int result;
   if (nrofCoin == 1)
   {
-    return 0x01; //B00000001
+    result = 0x01; //B00000001
   }
   else if (nrofCoin == 2)
   {
-    return 0x03; //B00000011
+    result = 0x03; //B00000011
   }
   else if (nrofCoin == 3)
   {
-    return 0x07; //B00000111
+    result = 0x07; //B00000111
   }
   else if (nrofCoin == 0)
   {
-    return 0x00; //B00000000
+    result = 0x00; //B00000000
   }
-
+  return result;
 }
 CoinWallet::~CoinWallet()
 {}
