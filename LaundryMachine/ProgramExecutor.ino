@@ -16,23 +16,39 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
   char ProgramType = mProgramSettings->GetProgramType();
   int ProgramCost = mProgramSettings->GetProgramCost();
   int moneyInWallet = mCoinWallet->GetAmount();
+  mCoinWallet->ReturnChange();
   if (moneyInWallet >= ProgramCost && StepSwitches())
   {
-    //mCoinWallet->Withdraw(ProgramCost);
-    mCoinWallet->ReturnChange();
-    if (ProgramType == 'A')
+    /*if (ProgramType == 'A')
     {
+
+     /*if(mWater.CheckLevel()>0)
+     {
+      mTemperature.SetTemperature(2);
+     }*/
+       //step 1)
+       
+     /* mTemperature.SetTemperature(2);
+      mTemperature.Poll();
+      mWater.SetLevel(2);
+      mSoap.lockCpt2(false);
+      mMotor.rotateLM(1, 2);
+      //delay(6000);
+      tempDelay(6000);
+      //mMotor.Stop();
+      stopDelay(2);*/
+
+      /*
       //Prewash:
-      Prewash('A');
+      //Prewash('A');
 
       //Main-wash (note: add temperature later)
-      /*
-         if(mWater.CheckLevel()>0)
-         {
-          mTemperature->SetTemperature(2);
-         }
-      */
+
       //step 1)
+      if (mWater.CheckLevel() > 0)
+      {
+        mTemperature.SetTemperature(2);
+      }
       Mainwash_Phase1('A');
 
       //step 2)
@@ -41,7 +57,7 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
       //step 3)
       Centrifugate('A');
 
-      //Unlock
+      //Unlock*/
     }
     if (ProgramType == 'B')
     {
@@ -50,13 +66,12 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
 
       //Main-wash (note: add temperature later)
 
-      /*
-         if(mWater.CheckLevel()>0)
-         {
-          mTemperature->SetTemperature(2);
-         }
-      */
       //step 1)
+      if (mWater.CheckLevel() > 0)
+      {
+        mTemperature.SetTemperature(2);
+      }
+
       Mainwash_Phase1('B');
 
       //step 2)
@@ -73,13 +88,13 @@ boolean ProgramExecutor::Start(ProgramSettings * p)
       Prewash('C');
 
       //Main-wash (note: add temperature later)
-      /*
-         if(mWater.CheckLevel()>0)
-         {
-          mTemperature->SetTemperature(2);
-         }
-      */
+
       //step 1)
+      if (mWater.CheckLevel() > 0)
+      {
+        mTemperature.SetTemperature(2);
+      }
+
       Mainwash_Phase1('C');
 
       //step 2)
@@ -258,5 +273,15 @@ void  ProgramExecutor::DoFullRotating(int NbrOfTimes, int Speed, int DelayVal) /
     delay(DelayVal);
     stopDelay(Speed);
     val++;
+  }
+}
+
+void ProgramExecutor::tempDelay(int d)
+{
+  int DelayFactor = d / 100;
+  for (int i  = 0; i < DelayFactor; i++)
+  {
+    mTemperature.Poll();
+    delay(100);
   }
 }
