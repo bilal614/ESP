@@ -12,9 +12,9 @@ class Water
 {
   private:
     IWater* oWater;
-    int CurrentLevel;
-    int DesiredLevel;
-
+	int DesiredLevel;
+	int CurrentLevel;
+    
   public:
     Water();
     Water(IWater *);
