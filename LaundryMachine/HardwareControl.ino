@@ -438,10 +438,6 @@ void HardwareControl::SetHeater(bool sw1tch)
 }
 
 
-
-
-
-
 /**HARDWARE CONTROL PRIVATE FUNCTIONS*/
 void HardwareControl::SetGroup(int group)
 {
